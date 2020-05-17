@@ -1,16 +1,15 @@
 import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { Popup, Icon, Button, Dropdown } from 'semantic-ui-react'
 import classnames from 'classnames'
 import config from '../../cms.config'
-import Media from '../../components/admin/Media'
+import useMedia from '../../hooks/useMedia'
 
 const Admin = () => {
   const [activeMenu, setActiveMenu] = useState('blog')
   const [display, setDisplay] = useState('list')
-  const [showMedia, setShowMedia] = useState(false)
+  const { open: OpenMedia, Component: Media } = useMedia()
 
   const { content } = config
 
@@ -18,13 +17,8 @@ const Admin = () => {
     <Head>
       <title>Content Manager</title>
     </Head>
-    {showMedia && (
-      <Media
-        open={showMedia}
-        closeModal={() => setShowMedia(false)}
-      />
-    )}
-    <header className="bg-white" style={{ boxShadow: 'rgba(68, 74, 87, 0.05) 0px 2px 6px 0px, rgba(68, 74, 87, 0.1) 0px 1px 3px 0px' }}>
+    <Media />
+    <header className="absolute w-full bg-white shadow">
       <div className="container px-5 flex justify-between mx-auto text-lg">
         <div className="flex items-center">
           <h2 className="m-0">Dashboard</h2>
@@ -50,8 +44,8 @@ const Admin = () => {
         </div>
       </div>
     </header>
-    <div className="bg-gray-200">
-      <div className="py-6 container px-5 mx-auto min-h-screen grid grid-cols-5 gap-6">
+    <div className="bg-gray-200 min-h-screen pt-16">
+      <div className="py-6 container px-5 mx-auto grid grid-cols-5 gap-6">
         <div className="col-span-1">
           <div className="mb-6 bg-white shadow rounded divide-y divide-gray-300">
             <div className="p-4 flex items-center">
@@ -72,7 +66,7 @@ const Admin = () => {
             ))}
           </div>
           <div className="mb-6 bg-white shadow rounded divide-y divide-gray-300">
-            <div onClick={() => setShowMedia(true)} className={"p-4 flex items-center cursor-pointer menu-item"}>
+            <div onClick={OpenMedia} className={"p-4 flex items-center cursor-pointer menu-item"}>
               <Icon name="images" size="large" color="blue" />
               <h3 className={"m-0 ml-2"}>Media</h3>
             </div>
@@ -82,9 +76,11 @@ const Admin = () => {
           <div className="flex justify-between items-center mb-6">
             <h2 className="m-0">{content.find(({ name }) => name === activeMenu)?.['label']}</h2>
             <div>
-              <Button basic icon color="blue">
-                <Icon name="plus" /> New {content.find(({ name }) => name === activeMenu)['label']}
-              </Button>
+              <Link href="/admin/[...path]" as={`/admin/${content.find(({ name }) => name === activeMenu)['name']}`}>
+                <Button as="a" basic icon color="blue">
+                  <Icon name="plus" /> New {content.find(({ name }) => name === activeMenu)['label']}
+                </Button>
+              </Link>
               <Dropdown
                 direction="left"
                 className="mx-3"
@@ -106,16 +102,17 @@ const Admin = () => {
           </div>
           <div className="grid grid-cols-3 gap-4">
             {[...new Array(8)].map((_, index) => (
-              <div
-                key={index}
-                className={classnames([
-                  display === 'list' ? 'col-span-3 content-list--list' : 'col-span-1 content-list--grid',
-                  'bg-white p-4 menu-item cursor-pointer shadow-sm'
-                ])}
-              >
-                <h3 className="mb-1">Hallo {index}</h3>
-                <span className="text-gray-500">17 Januari 2020, Ali Syahidin</span>
-              </div>
+              <Link key={index} href="/admin/[...path]" as="/admin/blog/hello-world">
+                <a
+                  className={classnames([
+                    display === 'list' ? 'col-span-3 content-list--list' : 'col-span-1 content-list--grid',
+                    'bg-white p-4 menu-item shadow'
+                  ])}
+                >
+                  <h3 className="mb-1 text-black">Hallo {index}</h3>
+                  <span className="text-gray-500">17 Januari 2020, Ali Syahidin</span>
+                </a>
+              </Link>
             ))}
           </div>
         </div>
