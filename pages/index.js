@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import { Button } from 'semantic-ui-react'
 
 export default function Home() {
   return (
@@ -16,6 +17,8 @@ export default function Home() {
         <p className="description">
           Get started by editing <code>pages/index.js</code>
         </p>
+
+        <Button primary>Holla!</Button>
 
         <div className="grid">
           <a href="https://nextjs.org/docs" className="card">
