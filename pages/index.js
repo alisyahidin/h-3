@@ -1,9 +1,10 @@
 import Head from 'next/head'
 import { Button } from 'semantic-ui-react'
+import Link from 'next/link'
 
 export default function Home() {
   return (
-    <div className="container">
+    <div className="container-next">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
@@ -18,7 +19,9 @@ export default function Home() {
           Get started by editing <code>pages/index.js</code>
         </p>
 
-        <Button primary>Holla!</Button>
+        <Link href="/admin/login">
+          <Button primary>Login</Button>
+        </Link>
 
         <div className="grid">
           <a href="https://nextjs.org/docs" className="card">
@@ -63,7 +66,7 @@ export default function Home() {
       </footer>
 
       <style jsx>{`
-        .container {
+        .container-next {
           min-height: 100vh;
           padding: 0 0.5rem;
           display: flex;
