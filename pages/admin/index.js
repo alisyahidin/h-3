@@ -3,15 +3,15 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { Popup, Icon, Button, Dropdown } from 'semantic-ui-react'
 import classnames from 'classnames'
+import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync } from 'fs'
 import config from '../../cms.config'
 import useMedia from '../../hooks/useMedia'
+import matter from 'gray-matter'
 
-const Admin = () => {
+const Admin = ({ content }) => {
   const [activeMenu, setActiveMenu] = useState('blog')
   const [display, setDisplay] = useState('list')
   const { open: OpenMedia, Component: Media } = useMedia()
-
-  const { content } = config
 
   return (<>
     <Head>
@@ -101,7 +101,7 @@ const Admin = () => {
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {[...new Array(8)].map((_, index) => (
+            {content.find(({ name }) => name === activeMenu)['data'].map(({ title }, index) => (
               <Link key={index} href="/admin/[...path]" as="/admin/blog/hello-world">
                 <a
                   className={classnames([
@@ -109,8 +109,7 @@ const Admin = () => {
                     'bg-white p-4 menu-item shadow'
                   ])}
                 >
-                  <h3 className="mb-1 text-black">Hallo {index}</h3>
-                  <span className="text-gray-500">17 Januari 2020, Ali Syahidin</span>
+                  <h3 className="mb-1 text-black">{title}</h3>
                 </a>
               </Link>
             ))}
@@ -119,6 +118,41 @@ const Admin = () => {
       </div>
     </div>
   </>)
+}
+
+export const getServerSideProps = () => {
+  const { content: contentConfig } = config
+  const content = []
+
+  contentConfig.map((attribute, index) => {
+    attribute.data = []
+
+    if (attribute.hasOwnProperty('folder')) {
+      !existsSync(attribute.folder) && mkdirSync(attribute.folder)
+      readdirSync(attribute.folder).forEach(filename => {
+        const file = readFileSync(`${attribute.folder}/${filename}`)
+        const { data } = matter(file)
+        data.date = data.date.toString()
+
+        attribute.data.push(data)
+      })
+    }
+    if (attribute.hasOwnProperty('files')) {
+      attribute.files.forEach(attr => {
+        const { file, label: title, name } = attr
+        !existsSync(file) && writeFileSync(file, '')
+        attribute.data.push({ name, title })
+      })
+    }
+
+    content[index] = {
+      name: attribute.name,
+      label: attribute.label,
+      data: attribute.data,
+    }
+  })
+
+  return { props: { content } }
 }
 
 export default Admin

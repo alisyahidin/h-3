@@ -5,7 +5,7 @@ module.exports = {
       label: 'Blog',
       folder: 'content/blog',
       fields: [
-        { name: 'title', label: 'Title', type: 'string' }
+        { name: 'title', label: 'Title', widget: 'string' }
       ]
     },
     {
@@ -13,15 +13,21 @@ module.exports = {
       label: 'Our Teams',
       folder: 'content/team',
       fields: [
-        { name: 'title', label: 'Title', type: 'string' }
+        { name: 'title', label: 'Title', widget: 'string' }
       ]
     },
     {
-      name: 'category',
-      label: 'Categories',
-      folder: 'content/category',
-      fields: [
-        { name: 'title', label: 'Title', type: 'string' }
+      name: 'page',
+      label: 'Pages',
+      files: [
+        {
+          name: 'about',
+          label: 'About Page',
+          file: 'content/page.json',
+          fields: [
+            { name: 'title', label: 'Title', widget: 'string' }
+          ]
+        }
       ]
     },
   ]
