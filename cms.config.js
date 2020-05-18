@@ -23,7 +23,7 @@ module.exports = {
         {
           name: 'about',
           label: 'About Page',
-          file: 'content/page.json',
+          file: 'content/about.json',
           fields: [
             { name: 'title', label: 'Title', widget: 'string' }
           ]

@@ -13,6 +13,8 @@ const Admin = ({ content }) => {
   const [display, setDisplay] = useState('list')
   const { open: OpenMedia, Component: Media } = useMedia()
 
+  const currentDataContent = content.find(({ name }) => name === activeMenu)
+
   return (<>
     <Head>
       <title>Content Manager</title>
@@ -74,13 +76,15 @@ const Admin = ({ content }) => {
         </div>
         <div className="col-span-4">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="m-0">{content.find(({ name }) => name === activeMenu)?.['label']}</h2>
+            <h2 className="m-0">{currentDataContent.label}</h2>
             <div>
-              <Link href="/admin/[...path]" as={`/admin/${content.find(({ name }) => name === activeMenu)['name']}`}>
-                <Button as="a" basic icon color="blue">
-                  <Icon name="plus" /> New {content.find(({ name }) => name === activeMenu)['label']}
-                </Button>
-              </Link>
+              {!currentDataContent.isFile && (
+                <Link href="/admin/[...path]" as={`/admin/${currentDataContent.name}`}>
+                  <Button as="a" basic icon color="blue">
+                    <Icon name="plus" /> New {currentDataContent.label}
+                  </Button>
+                </Link>
+              )}
               <Dropdown
                 direction="left"
                 className="mx-3"
@@ -101,8 +105,8 @@ const Admin = ({ content }) => {
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {content.find(({ name }) => name === activeMenu)['data'].map(({ title }, index) => (
-              <Link key={index} href="/admin/[...path]" as="/admin/blog/hello-world">
+            {currentDataContent.data.map(({ title, name }, index) => (
+              <Link key={index} href="/admin/[...path]" as={`/admin/${activeMenu}/${name}`}>
                 <a
                   className={classnames([
                     display === 'list' ? 'col-span-3 content-list--list' : 'col-span-1 content-list--grid',
@@ -133,14 +137,18 @@ export const getServerSideProps = () => {
         const file = readFileSync(`${attribute.folder}/${filename}`)
         const { data } = matter(file)
         data.date = data.date.toString()
+        data.name = data.title.toLowerCase().replace(' ', '-')
 
         attribute.data.push(data)
       })
     }
     if (attribute.hasOwnProperty('files')) {
-      attribute.files.forEach(attr => {
-        const { file, label: title, name } = attr
-        !existsSync(file) && writeFileSync(file, '')
+      attribute.files.forEach(contentFile => {
+        const { file, label: title, name, fields } = contentFile
+        const initialContent = {}
+        fields.forEach(obj => initialContent[obj.name] = '')
+
+        !existsSync(file) && writeFileSync(file, JSON.stringify(initialContent))
         attribute.data.push({ name, title })
       })
     }
@@ -149,6 +157,7 @@ export const getServerSideProps = () => {
       name: attribute.name,
       label: attribute.label,
       data: attribute.data,
+      isFile: attribute.hasOwnProperty('files'),
     }
   })
 

@@ -1,15 +1,18 @@
+import { useState } from 'react'
 import Head from 'next/head'
 import Error from 'next/error'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { Popup, Icon, Button, Dropdown } from 'semantic-ui-react'
-import { readFileSync, existsSync } from 'fs'
-import { join } from 'path'
+import { Popup, Icon, Button } from 'semantic-ui-react'
+import { readFileSync } from 'fs'
 import classnames from 'classnames'
+import matter from 'gray-matter'
 import config from '../../cms.config'
+import Widget from '../../components/widgets'
 
-const Path = ({ isNew, content, attributes }) => {
-  if (!isNew && content === null) return <Error statusCode={404} />
+const Path = ({ available, data, fields, entity, isFile }) => {
+  if (!available) return <Error statusCode={404} />
+  const [split, setSplit] = useState(false)
 
   const router = useRouter()
   const back = () => {
@@ -24,18 +27,18 @@ const Path = ({ isNew, content, attributes }) => {
       <div className="flex items-center px-5 border-r-2">
         <Icon name="arrow left" />
         <div onClick={back} className="cursor-pointer ml-2">
-          <span className="block">Writing in {attributes.label} content</span>
+          <span className="block">Writing in {entity.label} content</span>
           <span className="block text-red-600 font-bold">UNSAVED CHANGES</span>
         </div>
       </div>
       <div
         className={classnames([
-          isNew ? 'justify-end' : 'justify-between',
+          isFile ? 'justify-end' : 'justify-between',
           "flex items-center content-end px-5 border-r-2"
         ])}
         style={{ flex: '10 1 0%' }}
       >
-        {!isNew && <Button basic negative>Delete</Button>}
+        {!isFile && <Button basic negative>Delete</Button>}
         <Button className="" primary>Publish</Button>
       </div>
       <div className="flex items-center cursor-pointer px-5">
@@ -60,28 +63,63 @@ const Path = ({ isNew, content, attributes }) => {
     </header>
     <div className="relative pt-24" style={{ height: '200vh' }}>
       <div className="fixed right-0">
-        <Button circular icon="eye" size="huge" basic primary />
+        <Button onClick={() => setSplit(!split)} circular icon="eye" size="huge" basic primary={split} />
+      </div>
+      <div className="flex">
+        <div className="flex-1 py-12">
+          <div className="max-w-3xl mx-auto">
+            {fields.map(({ name, label, widget }, index) => (
+              <Widget key={index} name={name} label={label} type={widget} value={data?.[name]} />
+            ))}
+          </div>
+        </div>
+        {split && (
+          <div className="flex-1">
+            <p>Preview</p>
+          </div>
+        )}
       </div>
     </div>
   </>)
 }
 
 export const getServerSideProps = ({ params }) => {
-  const props = { isNew: false, content: null, attributes: null }
+  const props = { entity: {}, available: false, data: null, fields: [], isFile: false }
   if (params.path.length > 2) return { props }
 
-  const [folder, item] = params.path
-  if (existsSync(`content/${folder}`)) {
-    props.isNew = typeof item === 'undefined'
-    props.content = !props.isNew
-      ? existsSync(`content/${folder}/${item}.md`)
-        ? readFileSync(join(`content/${folder}`, `${item}.md`)).toString()
-        : null
-      : null
-    props.attributes = config.content.find(({ name }) => name === folder)
+  const [collection, slug] = params.path
+  const content = config.content.find(({ name }) => name === collection)
+  if (typeof content === 'undefined') return { props }
+  props.entity['name'] = content.name
+  props.entity['label'] = content.label
+
+  if (content.hasOwnProperty('folder')) {
+    if (typeof slug === 'undefined') {
+      props.data = null
+    } else {
+      const file = readFileSync(`${content.folder}/${slug}.md`, 'utf8').toString()
+      const { data } = matter(file)
+      props.data = data
+    }
+    props.fields = content.fields
+    props.available = true
+
+    return { props }
   }
 
-  return { props }
+  if (content.hasOwnProperty('files')) {
+    const contentFile = content.files.find(({ name }) => name === slug)
+    if (typeof contentFile === 'undefined') return { props }
+
+    const file = readFileSync(contentFile.file, 'utf8')
+    const data = JSON.parse(file)
+    props.data = data
+    props.isFile = true
+    props.fields = contentFile.fields
+    props.available = true
+
+    return { props }
+  }
 }
 
 export default Path
