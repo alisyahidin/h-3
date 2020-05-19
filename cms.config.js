@@ -1,5 +1,5 @@
 module.exports = {
-  content: [
+  collections: [
     {
       name: 'blog',
       label: 'Blog',

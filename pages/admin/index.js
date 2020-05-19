@@ -2,18 +2,18 @@ import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { Popup, Icon, Button, Dropdown } from 'semantic-ui-react'
-import classnames from 'classnames'
+import clsx from 'clsx'
 import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync } from 'fs'
 import config from '../../cms.config'
 import useMedia from '../../hooks/useMedia'
 import matter from 'gray-matter'
 
-const Admin = ({ content }) => {
+const Admin = ({ collections }) => {
   const [activeMenu, setActiveMenu] = useState('blog')
   const [display, setDisplay] = useState('list')
   const { open: OpenMedia, Component: Media } = useMedia()
 
-  const currentDataContent = content.find(({ name }) => name === activeMenu)
+  const collection = collections.find(({ name }) => name === activeMenu)
 
   return (<>
     <Head>
@@ -54,10 +54,10 @@ const Admin = ({ content }) => {
               <Icon name="newspaper outline" size="large" color="blue" />
               <h3 className="m-0 ml-2">Content</h3>
             </div>
-            {content.map((item, index) => (
+            {collections.map((item, index) => (
               <div
                 key={index}
-                className={classnames([
+                className={clsx([
                   'menu-item py-3 px-4 cursor-pointer',
                   activeMenu === item.name && 'active'
                 ])}
@@ -76,12 +76,12 @@ const Admin = ({ content }) => {
         </div>
         <div className="col-span-4">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="m-0">{currentDataContent.label}</h2>
+            <h2 className="m-0">{collection.label}</h2>
             <div>
-              {!currentDataContent.isFile && (
-                <Link href="/admin/[...path]" as={`/admin/${currentDataContent.name}`}>
+              {!collection.isFile && (
+                <Link href="/admin/[...path]" as={`/admin/${collection.name}`}>
                   <Button as="a" basic icon color="blue">
-                    <Icon name="plus" /> New {currentDataContent.label}
+                    <Icon name="plus" /> New {collection.label}
                   </Button>
                 </Link>
               )}
@@ -105,10 +105,10 @@ const Admin = ({ content }) => {
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {currentDataContent.data.map(({ title, name }, index) => (
+            {collection.data.map(({ title, name }, index) => (
               <Link key={index} href="/admin/[...path]" as={`/admin/${activeMenu}/${name}`}>
                 <a
-                  className={classnames([
+                  className={clsx([
                     display === 'list' ? 'col-span-3 content-list--list' : 'col-span-1 content-list--grid',
                     'bg-white p-4 menu-item shadow'
                   ])}
@@ -125,10 +125,9 @@ const Admin = ({ content }) => {
 }
 
 export const getServerSideProps = () => {
-  const { content: contentConfig } = config
-  const content = []
+  const { collections } = config
 
-  contentConfig.map((attribute, index) => {
+  collections.map((attribute, index) => {
     attribute.data = []
 
     if (attribute.hasOwnProperty('folder')) {
@@ -137,31 +136,25 @@ export const getServerSideProps = () => {
         const file = readFileSync(`${attribute.folder}/${filename}`)
         const { data } = matter(file)
         data.date = data.date.toString()
-        data.name = data.title.toLowerCase().replace(' ', '-')
+        data.name = data.title.toLowerCase().replace(/\s/g, '-')
 
         attribute.data.push(data)
       })
     }
     if (attribute.hasOwnProperty('files')) {
-      attribute.files.forEach(contentFile => {
-        const { file, label: title, name, fields } = contentFile
-        const initialContent = {}
-        fields.forEach(obj => initialContent[obj.name] = '')
+      attribute.files.forEach(collectionFile => {
+        const { file, label: title, name, fields } = collectionFile
+        const initialFile = {}
+        fields.forEach(obj => initialFile[obj.name] = '')
 
-        !existsSync(file) && writeFileSync(file, JSON.stringify(initialContent))
+        !existsSync(file) && writeFileSync(file, JSON.stringify(initialFile))
         attribute.data.push({ name, title })
       })
     }
-
-    content[index] = {
-      name: attribute.name,
-      label: attribute.label,
-      data: attribute.data,
-      isFile: attribute.hasOwnProperty('files'),
-    }
+    attribute.isFile = attribute.hasOwnProperty('files')
   })
 
-  return { props: { content } }
+  return { props: { collections } }
 }
 
 export default Admin

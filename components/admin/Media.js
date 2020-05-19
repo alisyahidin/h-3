@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Input, Button, Image, Modal } from 'semantic-ui-react'
-import classnames from 'classnames'
+import clsx from 'clsx'
 
 const Media = ({ open, closeModal }) => {
   const [selected, setSelected] = useState(null)
@@ -33,7 +33,7 @@ const Media = ({ open, closeModal }) => {
             <div
               key={index}
               onClick={() => setSelected(selected => selected === index ? null : index)}
-              className={classnames([
+              className={clsx([
                 selected === index && 'border-blue-500',
                 'media-file col-span-1 cursor-pointer border-2 rounded'
               ])}
