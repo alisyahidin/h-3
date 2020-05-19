@@ -7,6 +7,7 @@ import { Popup, Icon, Button } from 'semantic-ui-react'
 import { readFileSync } from 'fs'
 import clsx from 'clsx'
 import matter from 'gray-matter'
+import yaml from 'yaml'
 import config from '../../cms.config'
 import Widget from '../../components/widgets'
 import axios from '../../lib/axios'
@@ -26,7 +27,7 @@ const Path = ({ available, data: propsData, fields, entity, isFile }) => {
   }
 
   const publish = () => {
-    entity.slug = data.title.toLowerCase().replace(/\s/g, '-')
+    if (!isFile) entity.slug = data.title.toLowerCase().replace(/\s/g, '-')
 
     axios.post('/api/collection/save', { entity, data }, { headers: { 'Content-Type': 'application/json' } })
       .then(console.log)
@@ -109,11 +110,12 @@ export const getServerSideProps = ({ params }) => {
 
   if (collection.hasOwnProperty('folder')) {
     if (typeof slug === 'undefined') {
-      props.data = null
+      props.data = { body: '' }
     } else {
       const file = readFileSync(`${collection.folder}/${slug}.md`, 'utf8').toString()
-      const { data } = matter(file)
+      const { data, content } = matter(file)
       data.date = data.date.toString()
+      data.body = content
       props.data = data
     }
     props.fields = collection.fields
@@ -127,11 +129,12 @@ export const getServerSideProps = ({ params }) => {
     if (typeof collectionFile === 'undefined') return { props }
 
     const file = readFileSync(collectionFile.file, 'utf8')
-    const data = JSON.parse(file)
+    const data = yaml.parse(file)
     props.data = data
     props.isFile = true
     props.fields = collectionFile.fields
     props.available = true
+    props.entity.slug = slug
 
     return { props }
   }

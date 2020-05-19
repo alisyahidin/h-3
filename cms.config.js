@@ -23,7 +23,7 @@ module.exports = {
         {
           name: 'about',
           label: 'About Page',
-          file: 'content/about.json',
+          file: 'content/about.yaml',
           fields: [
             { name: 'title', label: 'Title', widget: 'string' }
           ]

@@ -7,6 +7,7 @@ import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync } from 
 import config from '../../cms.config'
 import useMedia from '../../hooks/useMedia'
 import matter from 'gray-matter'
+import yaml from 'yaml'
 
 const Admin = ({ collections }) => {
   const [activeMenu, setActiveMenu] = useState('blog')
@@ -127,7 +128,7 @@ const Admin = ({ collections }) => {
 export const getServerSideProps = () => {
   const { collections } = config
 
-  collections.map((attribute, index) => {
+  collections.map(attribute => {
     attribute.data = []
 
     if (attribute.hasOwnProperty('folder')) {
@@ -144,10 +145,11 @@ export const getServerSideProps = () => {
     if (attribute.hasOwnProperty('files')) {
       attribute.files.forEach(collectionFile => {
         const { file, label: title, name, fields } = collectionFile
-        const initialFile = {}
-        fields.forEach(obj => initialFile[obj.name] = '')
-
-        !existsSync(file) && writeFileSync(file, JSON.stringify(initialFile))
+        if (!existsSync(file)) {
+          const initialFile = {}
+          fields.forEach(obj => initialFile[obj.name] = '')
+          writeFileSync(file, yaml.stringify(initialFile))
+        }
         attribute.data.push({ name, title })
       })
     }
