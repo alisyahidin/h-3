@@ -27,7 +27,7 @@ const Path = ({ available, entry, isFile, collection }) => {
   }
 
   const publish = () => {
-    if (!data.slug) data.slug = data[collection.identifier_field].toLowerCase().replace(/\s/g, '-')
+    if (!data.slug && !isFile) data.slug = data[collection.identifier_field].toLowerCase().replace(/\s/g, '-')
     axios.post('/api/collection/save', { entry, data }, { headers: { 'Content-Type': 'application/json' } })
       .then(() => router.push('/admin'))
       .catch(console.log)
@@ -105,15 +105,16 @@ export const getServerSideProps = ({ params }) => {
   const collection = getCollection().find(({ name }) => name === collectionName)
   if (typeof collection === 'undefined') return { props }
 
-  !existsSync(collection.folder) && mkdirSync(collection.folder)
-
+  props.isFile = collection.hasOwnProperty('files')
   if (collection.hasOwnProperty('folder')) {
+    !existsSync(collection.folder) && mkdirSync(collection.folder)
     if (typeof slug === 'undefined') {
       props.entry = {
         name: collection.name,
         label: collection.label,
         file: null,
         slug: null,
+        fields: collection.fields,
         data: {
 
         }
@@ -135,16 +136,15 @@ export const getServerSideProps = ({ params }) => {
         label: collection.label,
         file: `${collection.folder}/${slug}.md`,
         slug: null,
+        fields: collection.fields,
         data: {
           ...data,
           body: content
         }
       }
     }
-    props.entry.fields = collection.fields
     props.collection = collection
     props.available = true
-    props.isFile = collection.hasOwnProperty('files')
 
     return { props }
   }
@@ -161,8 +161,10 @@ export const getServerSideProps = ({ params }) => {
       label: collection.label,
       file: collectionFile.file,
       slug: collectionFile.name,
+      fields: collectionFile.fields,
       data
     }
+    props.available = true
     props.collection = collection
 
     return { props }
