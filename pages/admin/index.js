@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync } from 'fs'
 import matter from 'gray-matter'
 import yaml from 'yaml'
-import config from '../../cms.config'
+import getCollection from '../../lib/getCollection'
 import useMedia from '../../hooks/useMedia'
 
 const Admin = ({ collections }) => {
@@ -79,7 +79,7 @@ const Admin = ({ collections }) => {
           <div className="flex justify-between items-center mb-6">
             <h2 className="m-0">{collection.label}</h2>
             <div>
-              {!collection.isFile && (
+              {collection.create && (
                 <Link href="/admin/[...path]" as={`/admin/${collection.name}`}>
                   <Button as="a" basic icon color="blue">
                     <Icon name="plus" /> New {collection.label}
@@ -126,11 +126,7 @@ const Admin = ({ collections }) => {
 }
 
 export const getServerSideProps = () => {
-  const { collections } = config
-
-  collections.map(collection => {
-    collection.data = []
-
+  getCollection().map(collection => {
     if (collection.hasOwnProperty('folder')) {
       !existsSync(collection.folder) && mkdirSync(collection.folder)
       collection.entries = readdirSync(collection.folder).map(filename => {
@@ -166,7 +162,7 @@ export const getServerSideProps = () => {
     collection.isFile = collection.hasOwnProperty('files')
   })
 
-  return { props: { collections } }
+  return { props: { collections: getCollection() } }
 }
 
 export default Admin

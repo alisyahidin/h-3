@@ -8,9 +8,9 @@ import { readFileSync } from 'fs'
 import clsx from 'clsx'
 import matter from 'gray-matter'
 import yaml from 'yaml'
-import config from '../../cms.config'
 import Widget from '../../components/widgets'
 import axios from '../../lib/axios'
+import getCollection from '../../lib/getCollection'
 
 const Path = ({ available, entry, isFile, collection }) => {
   if (!available) return <Error statusCode={404} />
@@ -103,7 +103,7 @@ export const getServerSideProps = ({ params }) => {
   if (params.path.length > 2) return { props }
 
   const [collectionName, slug] = params.path
-  const collection = config.collections.find(({ name }) => name === collectionName)
+  const collection = getCollection().find(({ name }) => name === collectionName)
   if (typeof collection === 'undefined') return { props }
 
   props.available = true

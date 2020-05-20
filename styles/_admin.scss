@@ -10,7 +10,7 @@
 
 .content-list {
   &--grid {
-    @apply h-16;
+    @apply min-h-0;
   }
   &--list {
     min-height: 0rem;
