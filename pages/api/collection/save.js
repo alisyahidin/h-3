@@ -1,11 +1,11 @@
 const matter = require('gray-matter')
 const yaml = require('yaml')
 const fs = require('fs')
-const { collections } = require('../../../cms.config')
+const collections = require('../../../lib/getCollection')
 
-const invalidCollection = (res, entityName) => {
+const invalidCollection = (res, entryName) => {
   res.statusCode = 400
-  res.json({ message: `There is no ${entityName} collections!` })
+  res.json({ message: `There is no ${entryName} collections!` })
   return
 }
 
@@ -23,18 +23,20 @@ const error = res => {
 
 export default (req, res) => {
   if (req.method === 'POST') {
-    const { entity, data } = req.body
-    const collection = collections.find(({ name }) => name === entity.name)
+    const { entry, data } = req.body
+    const collection = collections.default().find(({ name }) => name === entry.name)
     if (typeof collection === 'undefined') {
-      invalidCollection(res, entity.name)
+      invalidCollection(res, entry.name)
     }
+
     try {
       if (collection.hasOwnProperty('folder')) {
         const { body, ...meta } = data
-        fs.writeFileSync(`${collection.folder}/${entity.slug}.md`, matter.stringify(body, meta))
+        fs.existsSync(entry.file) && fs.unlinkSync(entry.file)
+        fs.writeFileSync(`${collection.folder}/${meta.slug}.md`, matter.stringify(body ?? '', meta))
       }
       if (collection.hasOwnProperty('files')) {
-        const collectionFile = collection.files.find(({ name }) => name === entity.slug)
+        const collectionFile = collection.files.find(({ name }) => name === entry.slug)
         fs.writeFileSync(`${collectionFile.file}`, yaml.stringify(data))
       }
       success(res)

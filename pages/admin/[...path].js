@@ -4,7 +4,7 @@ import Error from 'next/error'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Popup, Icon, Button } from 'semantic-ui-react'
-import { readFileSync } from 'fs'
+import { readFileSync, mkdirSync, existsSync } from 'fs'
 import clsx from 'clsx'
 import matter from 'gray-matter'
 import yaml from 'yaml'
@@ -27,10 +27,9 @@ const Path = ({ available, entry, isFile, collection }) => {
   }
 
   const publish = () => {
-    if (!isFile) entry.slug = data.title.toLowerCase().replace(/\s/g, '-')
-
+    if (!data.slug) data.slug = data[collection.identifier_field].toLowerCase().replace(/\s/g, '-')
     axios.post('/api/collection/save', { entry, data }, { headers: { 'Content-Type': 'application/json' } })
-      .then(console.log)
+      .then(() => router.push('/admin'))
       .catch(console.log)
   }
 
@@ -84,7 +83,7 @@ const Path = ({ available, entry, isFile, collection }) => {
         <div className="flex-1 py-6">
           <div className="max-w-3xl mx-auto">
             {entry.fields.map(({ name, label, widget }, index) => (
-              <Widget key={index} onChange={handleChange} name={name} label={label} type={widget} value={entry.data?.[name]} />
+              <Widget key={index} onChange={handleChange} name={name} label={label} type={widget} value={data?.[name] ?? ''} />
             ))}
           </div>
         </div>
@@ -106,20 +105,22 @@ export const getServerSideProps = ({ params }) => {
   const collection = getCollection().find(({ name }) => name === collectionName)
   if (typeof collection === 'undefined') return { props }
 
-  props.available = true
-  props.isFile = collection.hasOwnProperty('files')
+  !existsSync(collection.folder) && mkdirSync(collection.folder)
+
   if (collection.hasOwnProperty('folder')) {
     if (typeof slug === 'undefined') {
       props.entry = {
-        name: null,
-        label: null,
+        name: collection.name,
+        label: collection.label,
         file: null,
+        slug: null,
         data: {
-          metaData: null,
-          body: null
+
         }
       }
     } else {
+      if (!existsSync(`${collection.folder}/${slug}.md`)) return { props }
+
       const file = readFileSync(`${collection.folder}/${slug}.md`, 'utf8').toString()
       const { data, content } = matter(file)
 
@@ -130,9 +131,10 @@ export const getServerSideProps = ({ params }) => {
         })
 
       props.entry = {
-        name: slug,
-        label: data.title,
+        name: collection.name,
+        label: collection.label,
         file: `${collection.folder}/${slug}.md`,
+        slug: null,
         data: {
           ...data,
           body: content
@@ -141,6 +143,8 @@ export const getServerSideProps = ({ params }) => {
     }
     props.entry.fields = collection.fields
     props.collection = collection
+    props.available = true
+    props.isFile = collection.hasOwnProperty('files')
 
     return { props }
   }
@@ -153,7 +157,10 @@ export const getServerSideProps = ({ params }) => {
     const data = yaml.parse(file)
 
     props.entry = {
-      ...collectionFile,
+      name: collection.name,
+      label: collection.label,
+      file: collectionFile.file,
+      slug: collectionFile.name,
       data
     }
     props.collection = collection
