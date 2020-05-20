@@ -4,10 +4,10 @@ import Link from 'next/link'
 import { Popup, Icon, Button, Dropdown } from 'semantic-ui-react'
 import clsx from 'clsx'
 import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync } from 'fs'
-import config from '../../cms.config'
-import useMedia from '../../hooks/useMedia'
 import matter from 'gray-matter'
 import yaml from 'yaml'
+import config from '../../cms.config'
+import useMedia from '../../hooks/useMedia'
 
 const Admin = ({ collections }) => {
   const [activeMenu, setActiveMenu] = useState('blog')
@@ -106,7 +106,7 @@ const Admin = ({ collections }) => {
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {collection.data.map(({ title, name }, index) => (
+            {collection.entries.map(({ name, label }, index) => (
               <Link key={index} href="/admin/[...path]" as={`/admin/${activeMenu}/${name}`}>
                 <a
                   className={clsx([
@@ -114,7 +114,7 @@ const Admin = ({ collections }) => {
                     'bg-white p-4 menu-item shadow'
                   ])}
                 >
-                  <h3 className="mb-1 text-black">{title}</h3>
+                  <h3 className="mb-1 text-black">{label}</h3>
                 </a>
               </Link>
             ))}
@@ -128,32 +128,42 @@ const Admin = ({ collections }) => {
 export const getServerSideProps = () => {
   const { collections } = config
 
-  collections.map(attribute => {
-    attribute.data = []
+  collections.map(collection => {
+    collection.data = []
 
-    if (attribute.hasOwnProperty('folder')) {
-      !existsSync(attribute.folder) && mkdirSync(attribute.folder)
-      readdirSync(attribute.folder).forEach(filename => {
-        const file = readFileSync(`${attribute.folder}/${filename}`)
+    if (collection.hasOwnProperty('folder')) {
+      !existsSync(collection.folder) && mkdirSync(collection.folder)
+      collection.entries = readdirSync(collection.folder).map(filename => {
+        const file = readFileSync(`${collection.folder}/${filename}`)
         const { data } = matter(file)
-        data.date = data.date.toString()
-        data.name = data.title.toLowerCase().replace(/\s/g, '-')
 
-        attribute.data.push(data)
+        // collection.fields
+        //   .filter(({ widget }) => widget === 'date')
+        //   .map(field => {
+        //     return data[field.name] = data[field.name].toString()
+        //   })
+
+        return {
+          name: filename.replace('.md', ''),
+          label: data.title
+        }
       })
     }
-    if (attribute.hasOwnProperty('files')) {
-      attribute.files.forEach(collectionFile => {
-        const { file, label: title, name, fields } = collectionFile
+    if (collection.hasOwnProperty('files')) {
+      collection.entries = collection.files.map(collectionFile => {
+        const { file, label, name, fields } = collectionFile
         if (!existsSync(file)) {
           const initialFile = {}
           fields.forEach(obj => initialFile[obj.name] = '')
           writeFileSync(file, yaml.stringify(initialFile))
         }
-        attribute.data.push({ name, title })
+        return {
+          name,
+          label
+        }
       })
     }
-    attribute.isFile = attribute.hasOwnProperty('files')
+    collection.isFile = collection.hasOwnProperty('files')
   })
 
   return { props: { collections } }

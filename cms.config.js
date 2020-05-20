@@ -5,7 +5,10 @@ module.exports = {
       label: 'Blog',
       folder: 'content/blog',
       fields: [
-        { name: 'title', label: 'Title', widget: 'string' }
+        { name: 'title', label: 'Title', widget: 'string' },
+        { name: 'date', label: 'Published Date', widget: 'date' },
+        { name: 'description', label: 'Description', widget: 'string' },
+        { name: 'body', label: 'Main Content', widget: 'markdown' },
       ]
     },
     {

@@ -1,11 +1,20 @@
 import String from './String'
 
-const widget = {
-  string: String
+const getWidgetComponent = type => {
+  switch (type) {
+    case 'string':
+      return String
+    case 'date':
+      return String
+    case 'markdown':
+      return String
+    default:
+      throw new Error(`Invalid widget name for ${type}`)
+  }
 }
 
 const Widget = ({ type, name, label, onChange, value }) => {
-  const WidgetComponent = widget[type]
+  const WidgetComponent = getWidgetComponent(type)
   const handleChange = value => {
     onChange(name, value)
   }

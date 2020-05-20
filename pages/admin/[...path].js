@@ -12,7 +12,7 @@ import config from '../../cms.config'
 import Widget from '../../components/widgets'
 import axios from '../../lib/axios'
 
-const Path = ({ available, data: propsData, fields, entity, isFile }) => {
+const Path = ({ available, entry, isFile, collection }) => {
   if (!available) return <Error statusCode={404} />
 
   const router = useRouter()
@@ -21,15 +21,15 @@ const Path = ({ available, data: propsData, fields, entity, isFile }) => {
   }
 
   const [split, setSplit] = useState(false)
-  const [data, setData] = useState(propsData)
+  const [data, setData] = useState(entry.data)
   const handleChange = (key, value) => {
     setData(prevData => ({ ...prevData, [key]: value }))
   }
 
   const publish = () => {
-    if (!isFile) entity.slug = data.title.toLowerCase().replace(/\s/g, '-')
+    if (!isFile) entry.slug = data.title.toLowerCase().replace(/\s/g, '-')
 
-    axios.post('/api/collection/save', { entity, data }, { headers: { 'Content-Type': 'application/json' } })
+    axios.post('/api/collection/save', { entry, data }, { headers: { 'Content-Type': 'application/json' } })
       .then(console.log)
       .catch(console.log)
   }
@@ -42,7 +42,7 @@ const Path = ({ available, data: propsData, fields, entity, isFile }) => {
       <div className="flex items-center px-5 border-r-2">
         <Icon name="arrow left" />
         <div onClick={back} className="cursor-pointer ml-2">
-          <span className="block">Writing in {entity.label} collection</span>
+          <span className="block">Writing in {collection.label} collection</span>
           <span className="block text-red-600 font-bold">UNSAVED CHANGES</span>
         </div>
       </div>
@@ -83,8 +83,8 @@ const Path = ({ available, data: propsData, fields, entity, isFile }) => {
       <div className="flex">
         <div className="flex-1 py-6">
           <div className="max-w-3xl mx-auto">
-            {fields.map(({ name, label, widget }, index) => (
-              <Widget key={index} onChange={handleChange} name={name} label={label} type={widget} value={data?.[name]} />
+            {entry.fields.map(({ name, label, widget }, index) => (
+              <Widget key={index} onChange={handleChange} name={name} label={label} type={widget} value={entry.data?.[name]} />
             ))}
           </div>
         </div>
@@ -99,27 +99,48 @@ const Path = ({ available, data: propsData, fields, entity, isFile }) => {
 }
 
 export const getServerSideProps = ({ params }) => {
-  const props = { entity: {}, available: false, data: null, fields: [], isFile: false }
+  const props = { available: false, isFile: false, entry: null, collection: null }
   if (params.path.length > 2) return { props }
 
   const [collectionName, slug] = params.path
   const collection = config.collections.find(({ name }) => name === collectionName)
   if (typeof collection === 'undefined') return { props }
-  props.entity['name'] = collection.name
-  props.entity['label'] = collection.label
 
+  props.available = true
+  props.isFile = collection.hasOwnProperty('files')
   if (collection.hasOwnProperty('folder')) {
     if (typeof slug === 'undefined') {
-      props.data = { body: '' }
+      props.entry = {
+        name: null,
+        label: null,
+        file: null,
+        data: {
+          metaData: null,
+          body: null
+        }
+      }
     } else {
       const file = readFileSync(`${collection.folder}/${slug}.md`, 'utf8').toString()
       const { data, content } = matter(file)
-      data.date = data.date.toString()
-      data.body = content
-      props.data = data
+
+      collection.fields
+        .filter(({ widget }) => widget === 'date')
+        .map(field => {
+          return data[field.name] = data[field.name].toString()
+        })
+
+      props.entry = {
+        name: slug,
+        label: data.title,
+        file: `${collection.folder}/${slug}.md`,
+        data: {
+          ...data,
+          body: content
+        }
+      }
     }
-    props.fields = collection.fields
-    props.available = true
+    props.entry.fields = collection.fields
+    props.collection = collection
 
     return { props }
   }
@@ -130,11 +151,12 @@ export const getServerSideProps = ({ params }) => {
 
     const file = readFileSync(collectionFile.file, 'utf8')
     const data = yaml.parse(file)
-    props.data = data
-    props.isFile = true
-    props.fields = collectionFile.fields
-    props.available = true
-    props.entity.slug = slug
+
+    props.entry = {
+      ...collectionFile,
+      data
+    }
+    props.collection = collection
 
     return { props }
   }
