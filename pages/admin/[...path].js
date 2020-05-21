@@ -56,6 +56,10 @@ const Path = ({ available, entry, isFile, collection }) => {
         <Button onClick={publish} primary>Publish</Button>
       </div>
       <div className="flex items-center cursor-pointer px-5">
+        <a className="mr-5" href={process.env.NEXT_PUBLIC_SITE_URI} target="_blank">
+          <span className="mr-1">View Site</span>
+          <Icon name="external square" />
+        </a>
         <Popup
           on='click'
           position="bottom right"

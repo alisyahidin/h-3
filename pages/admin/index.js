@@ -23,9 +23,10 @@ const Admin = ({ collections }) => {
     <Media />
     <header className="absolute w-full bg-white shadow">
       <div className="container px-5 flex justify-between mx-auto text-lg">
-        <div className="flex items-center">
-          <h2 className="m-0">Dashboard</h2>
-        </div>
+        <a className="flex items-center" href={process.env.NEXT_PUBLIC_SITE_URI} target="_blank">
+          <img src="/favicon.ico" alt="Logo" />
+          <h1 className="m-0 text-black">{process.env.NEXT_PUBLIC_SITE_NAME}</h1>
+        </a>
         <div className="flex items-center cursor-pointer py-3">
           <Popup
             on='click'
