@@ -23,7 +23,7 @@ const Admin = ({ collections }) => {
     <Media />
     <header className="absolute w-full bg-white shadow">
       <div className="container px-5 flex justify-between mx-auto text-lg">
-        <a className="flex items-center" href={process.env.NEXT_PUBLIC_SITE_URI} target="_blank">
+        <a className="flex items-center" href={process.env.NEXT_PUBLIC_SITE_URI} target="_blank" rel="noopener">
           <img src="/favicon.ico" alt="Logo" />
           <h1 className="m-0 text-black">{process.env.NEXT_PUBLIC_SITE_NAME}</h1>
         </a>

@@ -27,8 +27,9 @@ const Path = ({ available, entry, isFile, collection }) => {
   }
 
   const publish = () => {
+    const [collectionName, slug] = router.query.path
     if (!data.slug && !isFile) data.slug = data[collection.identifier_field].toLowerCase().replace(/\s/g, '-')
-    axios.post('/api/collection/save', { entry, data }, { headers: { 'Content-Type': 'application/json' } })
+    axios.post(`/api/collection/save/${collectionName}${typeof slug === 'undefined' ? '' : '/' + slug}`, { data }, { headers: { 'Content-Type': 'application/json' } })
       .then(() => router.push('/admin'))
       .catch(console.log)
   }
@@ -56,7 +57,7 @@ const Path = ({ available, entry, isFile, collection }) => {
         <Button onClick={publish} primary>Publish</Button>
       </div>
       <div className="flex items-center cursor-pointer px-5">
-        <a className="mr-5" href={process.env.NEXT_PUBLIC_SITE_URI} target="_blank">
+        <a className="mr-5" href={process.env.NEXT_PUBLIC_SITE_URI} target="_blank" rel="noopener">
           <span className="mr-1">View Site</span>
           <Icon name="external square" />
         </a>
@@ -65,7 +66,7 @@ const Path = ({ available, entry, isFile, collection }) => {
           position="bottom right"
           trigger={<Icon name="user circle" size="big" />}
           content={<>
-            <Link href="/admin  ">
+            <Link href="/admin">
               <a className="block text-black py-2 px-2">
                 <Icon name="user" /> Profile
                 </a>
