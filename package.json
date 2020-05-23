@@ -1,5 +1,5 @@
 {
-  "name": "app-test",
+  "name": "app",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -8,10 +8,15 @@
     "start": "next start"
   },
   "dependencies": {
+    "@hapi/iron": "^6.0.0",
     "axios": "^0.19.2",
     "clsx": "^1.1.0",
+    "cookie": "^0.4.1",
     "gray-matter": "^4.0.2",
     "next": "9.4.1",
+    "next-connect": "^0.6.6",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "semantic-ui-css": "^2.4.1",

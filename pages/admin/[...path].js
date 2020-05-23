@@ -10,7 +10,7 @@ import matter from 'gray-matter'
 import yaml from 'yaml'
 import Widget from '../../components/widgets'
 import axios from '../../lib/axios'
-import getCollection from '../../lib/getCollection'
+import getCollection from '../../utils/getCollection'
 
 const Path = ({ available, entry, isFile, collection }) => {
   if (!available) return <Error statusCode={404} />

@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync } from 'fs'
 import matter from 'gray-matter'
 import yaml from 'yaml'
-import getCollection from '../../lib/getCollection'
+import getCollection from '../../utils/getCollection'
 import useMedia from '../../hooks/useMedia'
 
 const Admin = ({ collections }) => {
