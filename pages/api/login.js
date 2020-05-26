@@ -1,7 +1,9 @@
-import handler from '../../middleware/connect'
+import connect from 'next-connect'
+import session from '../../lib/session'
 import { find } from '../../utils/getUser'
 
-export default handler
+export default connect()
+  .use(session)
   .post(async (req, res) => {
     let statusCode, message
     const user = find(req.body.username)

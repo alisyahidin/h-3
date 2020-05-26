@@ -1,7 +1,9 @@
-import handler from '../../middleware/connect'
+import connect from 'next-connect'
+import session from '../../lib/session'
 
-export default handler()
+export default connect()
+  .use(session)
   .get((req, res) => {
     res.statusCode = 200
-    res.send({ user: req.session.user })
+    res.send({ loggedin: req.session.loggedin })
   })

@@ -1,6 +1,8 @@
-import handler from '../../middleware/connect'
+import connect from 'next-connect'
+import session from '../../lib/session'
 
-export default handler
+export default connect()
+  .use(session)
   .post(async (req, res) => {
     req.session.destroy()
     res.statusCode = 200
