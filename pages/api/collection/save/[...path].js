@@ -29,7 +29,7 @@ const error = res => {
 
 export default (req, res) => {
   if (req.method === 'POST') {
-    const { data } = req.body
+    const { data: dataBody } = req.body
     const [collectionName, slug] = req.query.path
     const collection = collections.default().find(({ name }) => name === collectionName)
     if (typeof collection === 'undefined') {
@@ -40,7 +40,7 @@ export default (req, res) => {
       if (collection.hasOwnProperty('folder')) {
         if (slug && !fs.existsSync(`${collection.folder}/${slug}.md`)) return notFound(res)
 
-        const { body, ...data } = data
+        const { body, ...data } = dataBody
         fs.existsSync(`${collection.folder}/${slug}.md`) && fs.unlinkSync(`${collection.folder}/${slug}.md`)
         fs.writeFileSync(`${collection.folder}/${data.slug}.md`, matter.stringify(body ?? '', data))
       }

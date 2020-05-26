@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Router from 'next/router'
@@ -14,22 +14,22 @@ export const getServerSideProps = async ({ req, res }) => {
     })
     res.end()
   }
-  return {
-    props: {
-      isLoggedIn: req.session.get('loggedin')
-    }
-  }
+
+  return { props: {} }
 }
 
-const Login = ({ isLoggedIn }) => {
-  useEffect(() => {
-    if (Boolean(isLoggedIn)) Router.replace('/admin')
-  }, [])
+const Login = () => {
+  const [body, setBody] = useState({ username: '', password: '' })
 
   const handleSubmit = () => {
-    axios.post('/api/login', { username: 'asdf', password: '123456' })
+    axios.post('/api/login', body)
       .then(() => Router.replace('/admin'))
       .catch(console.log)
+  }
+
+  const handleChange = e => {
+    const { name, value } = e.currentTarget
+    setBody(prevBody => ({ ...prevBody, [name]: value }))
   }
 
   return (<>
@@ -45,11 +45,11 @@ const Login = ({ isLoggedIn }) => {
           <Form onSubmit={handleSubmit}>
             <Form.Field>
               <label>Email</label>
-              <input type="email" required placeholder='example@email.com' />
+              <input onChange={handleChange} name="username" type="email" required placeholder='example@email.com' />
             </Form.Field>
             <Form.Field>
               <label>Password</label>
-              <input type="password" required placeholder='password' />
+              <input onChange={handleChange} name="password" type="password" required placeholder='password' />
             </Form.Field>
             <div className="flex justify-between">
               <Link href="/admin/login"><a>Forgot Password</a></Link>

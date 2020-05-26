@@ -33,9 +33,7 @@ export const getServerSideProps = async ({ req, res, params }) => {
         file: null,
         slug: null,
         fields: collection.fields,
-        data: {
-
-        }
+        data: {}
       }
     } else {
       if (!existsSync(`${collection.folder}/${slug}.md`)) return { props }
@@ -103,10 +101,10 @@ const Path = ({ isLoggedIn, available, entry, isFile, collection }) => {
   }
 
   const publish = () => {
-    const [collectionName, slug] = router.query.path
+    const [collectionName, slug] = Router.query.path
     if (!data.slug && !isFile) data.slug = data[collection.identifier_field].toLowerCase().replace(/\s/g, '-')
     axios.post(`/api/collection/save/${collectionName}${typeof slug === 'undefined' ? '' : '/' + slug}`, { data }, { headers: { 'Content-Type': 'application/json' } })
-      .then(() => router.push('/admin'))
+      .then(() => Router.push('/admin'))
       .catch(console.log)
   }
 

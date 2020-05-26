@@ -54,7 +54,7 @@ export const getServerSideProps = async ({ req, res }) => {
   return {
     props: {
       collections: getCollection(),
-      isLoggedIn: req.session.get('loggedin')
+      isLoggedIn: req.session.get('loggedin') ?? null
     }
   }
 }
