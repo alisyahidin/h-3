@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import Error from 'next/error'
 import { Popup, Icon, Button, Dropdown } from 'semantic-ui-react'
 import clsx from 'clsx'
 import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync } from 'fs'
@@ -8,8 +9,59 @@ import matter from 'gray-matter'
 import yaml from 'yaml'
 import getCollection from '../../utils/getCollection'
 import useMedia from '../../hooks/useMedia'
+import { applySession } from '../../lib/session'
+import UserSetting from '../../components/admin/UserSetting'
 
-const Admin = ({ collections }) => {
+export const getServerSideProps = async ({ req, res }) => {
+  await applySession(req, res)
+
+  getCollection().map(collection => {
+    if (collection.hasOwnProperty('folder')) {
+      !existsSync(collection.folder) && mkdirSync(collection.folder)
+      collection.entries = readdirSync(collection.folder).map(filename => {
+        const file = readFileSync(`${collection.folder}/${filename}`)
+        const { data } = matter(file)
+
+        // collection.fields
+        //   .filter(({ widget }) => widget === 'date')
+        //   .map(field => {
+        //     return data[field.name] = data[field.name].toString()
+        //   })
+
+        return {
+          name: filename.replace('.md', ''),
+          label: data.title
+        }
+      })
+    }
+    if (collection.hasOwnProperty('files')) {
+      collection.entries = collection.files.map(collectionFile => {
+        const { file, label, name, fields } = collectionFile
+        if (!existsSync(file)) {
+          const initialFile = {}
+          fields.forEach(obj => initialFile[obj.name] = '')
+          writeFileSync(file, yaml.stringify(initialFile))
+        }
+        return {
+          name,
+          label
+        }
+      })
+    }
+    collection.isFile = collection.hasOwnProperty('files')
+  })
+
+  return {
+    props: {
+      collections: getCollection(),
+      isLoggedIn: req.session.get('loggedin')
+    }
+  }
+}
+
+const Admin = ({ collections, isLoggedIn }) => {
+  if (!isLoggedIn) return <Error statusCode={404} />
+
   const [activeMenu, setActiveMenu] = useState('blog')
   const [display, setDisplay] = useState('list')
   const { open: OpenMedia, Component: Media } = useMedia()
@@ -32,18 +84,7 @@ const Admin = ({ collections }) => {
             on='click'
             position="bottom right"
             trigger={<Icon name="user circle" size="big" />}
-            content={<>
-              <Link href="/admin  ">
-                <a className="block text-black py-2 px-2">
-                  <Icon name="user" /> Profile
-                </a>
-              </Link>
-              <Link href="/admin/login">
-                <a className="block text-black py-2 px-2">
-                  <Icon name="sign out" /> Logout
-                </a>
-              </Link>
-            </>}
+            content={<UserSetting />}
           />
         </div>
       </div>
@@ -124,46 +165,6 @@ const Admin = ({ collections }) => {
       </div>
     </div>
   </>)
-}
-
-export const getServerSideProps = () => {
-  getCollection().map(collection => {
-    if (collection.hasOwnProperty('folder')) {
-      !existsSync(collection.folder) && mkdirSync(collection.folder)
-      collection.entries = readdirSync(collection.folder).map(filename => {
-        const file = readFileSync(`${collection.folder}/${filename}`)
-        const { data } = matter(file)
-
-        // collection.fields
-        //   .filter(({ widget }) => widget === 'date')
-        //   .map(field => {
-        //     return data[field.name] = data[field.name].toString()
-        //   })
-
-        return {
-          name: filename.replace('.md', ''),
-          label: data.title
-        }
-      })
-    }
-    if (collection.hasOwnProperty('files')) {
-      collection.entries = collection.files.map(collectionFile => {
-        const { file, label, name, fields } = collectionFile
-        if (!existsSync(file)) {
-          const initialFile = {}
-          fields.forEach(obj => initialFile[obj.name] = '')
-          writeFileSync(file, yaml.stringify(initialFile))
-        }
-        return {
-          name,
-          label
-        }
-      })
-    }
-    collection.isFile = collection.hasOwnProperty('files')
-  })
-
-  return { props: { collections: getCollection() } }
 }
 
 export default Admin

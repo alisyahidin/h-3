@@ -1,12 +1,35 @@
+import { useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import Router from 'next/router'
 import { Card, Button, Form } from 'semantic-ui-react'
+import { applySession } from '../../lib/session'
+import axios from '../../lib/axios'
 
-const Login = () => {
-  const router = useRouter()
+export const getServerSideProps = async ({ req, res }) => {
+  await applySession(req, res)
+  if (req.session.get('loggedin')) {
+    res.writeHead(301, {
+      Location: '/admin'
+    })
+    res.end()
+  }
+  return {
+    props: {
+      isLoggedIn: req.session.get('loggedin')
+    }
+  }
+}
+
+const Login = ({ isLoggedIn }) => {
+  useEffect(() => {
+    if (Boolean(isLoggedIn)) Router.replace('/admin')
+  }, [])
+
   const handleSubmit = () => {
-    router.push('/admin')
+    axios.post('/api/login', { username: 'asdf', password: '123456' })
+      .then(() => Router.replace('/admin'))
+      .catch(console.log)
   }
 
   return (<>
