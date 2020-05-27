@@ -1,4 +1,6 @@
 import Head from 'next/head'
+import Menu from '../components/Menu'
+import Logo from '../components/Logo'
 
 export default function Home() {
   return (<>
@@ -6,6 +8,8 @@ export default function Home() {
       <title>Hakuhodo</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
+    <Logo />
+    <Menu />
     <div className="bg-white">
       <div className="container min-h-screen mx-auto flex flex-col items-center">
         <div className="flex-1 flex items-center">
@@ -16,5 +20,6 @@ export default function Home() {
         </div>
       </div>
     </div>
+    <div style={{ height: '200vh'}}></div>
   </>)
 }
