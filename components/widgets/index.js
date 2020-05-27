@@ -1,4 +1,6 @@
+import Label from './_components/Label'
 import String from './String'
+import Image from './Image'
 
 const getWidgetComponent = type => {
   switch (type) {
@@ -8,6 +10,8 @@ const getWidgetComponent = type => {
       return String
     case 'markdown':
       return String
+    case 'image':
+      return Image
     default:
       throw new Error(`Invalid widget name for ${type}`)
   }
@@ -20,15 +24,9 @@ const Widget = ({ type, name, label, onChange, value }) => {
   }
 
   return (
-    <div className="widget mt-5">
-      <label
-        htmlFor={`${type}-${name}`}
-        className="inline-block bg-gray-300 text-gray-600 px-3 uppercase font-bold text-sm"
-      >
-        {label}
-      </label>
+    <Label label={label} htmlFor={`${type}-${name}`}>
       <WidgetComponent onChange={handleChange} id={`${type}-${name}`} name={name} value={value} />
-    </div>
+    </Label>
   )
 }
 

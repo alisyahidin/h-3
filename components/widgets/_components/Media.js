@@ -2,11 +2,15 @@ import { useState } from 'react'
 import { Input, Button, Image, Modal } from 'semantic-ui-react'
 import clsx from 'clsx'
 
-const Media = ({ open, closeModal }) => {
+const Media = ({ open, closeModal, onSelected = null }) => {
   const [selected, setSelected] = useState(null)
   const close = () => {
     setSelected(null)
     closeModal()
+  }
+  const selectImage = () => {
+    onSelected('/images/sample.jpg')
+    close()
   }
 
   return (
@@ -25,7 +29,7 @@ const Media = ({ open, closeModal }) => {
           <Input icon='search' placeholder='Search...' />
           <div>
             <Button icon="trash alternate outline" disabled={selected === null} size="small" negative content="Delete Selected" />
-            <Button icon="check" disabled={selected === null} size="small" positive content="Choose Selected" />
+            {onSelected !== null && <Button onClick={selectImage} icon="check" disabled={selected === null} size="small" positive content="Choose Selected" />}
           </div>
         </div>
         <div className="grid grid-cols-4 scrolling gap-6 mt-6 content">

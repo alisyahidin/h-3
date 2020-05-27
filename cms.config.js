@@ -16,8 +16,11 @@ module.exports = {
       name: 'team',
       label: 'Our Teams',
       folder: 'content/team',
+      identifier_field: 'name',
       fields: [
-        { name: 'title', label: 'Title', widget: 'string' }
+        { name: 'name', label: 'Name', widget: 'string' },
+        { name: 'position', label: 'Position', widget: 'string' },
+        { name: 'photo', label: 'Photo', widget: 'image' },
       ]
     },
     {

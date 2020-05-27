@@ -21,7 +21,7 @@ export const getServerSideProps = async ({ req, res }) => {
   await applySession(req, res)
   if (!Boolean(req.session.get('loggedin'))) return { props }
 
-  const collections = [ ...getCollection() ]
+  const collections = [...getCollection()]
   collections.map(collection => {
     if (collection.hasOwnProperty('folder')) {
       !existsSync(collection.folder) && mkdirSync(collection.folder)
@@ -37,7 +37,7 @@ export const getServerSideProps = async ({ req, res }) => {
 
         return {
           name: filename.replace('.md', ''),
-          label: data.title
+          label: data[collection.identifier_field]
         }
       })
     }
