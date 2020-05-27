@@ -1,7 +1,7 @@
 const OurPeople = () => {
   return (
-    <div>
-      <h1>Our People</h1>
+    <div className="pt-24 md:pt-0">
+      <h1 className="text-center">Our People</h1>
     </div>
   )
 }

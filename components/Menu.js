@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 // import { createPortal } from 'react-dom'
 import Link from 'next/link'
+import Router from 'next/router'
 import { gsap } from 'gsap'
 import clsx from 'clsx'
 
@@ -59,7 +60,7 @@ const Menu = () => {
     <div ref={menuElement} style={{ left: '100%', zIndex: 5 }} className="fixed h-screen w-screen flex bg-white py-24">
       <div className="hidden md:flex h-100 flex-1 items-center justify-center border-gray-400 border-r-2">
         <div className="px-10">
-          <img src="logo-text.png" alt="H-3"/>
+          <img src="logo-text.png" alt="H-3" />
           <p className="lg:text-2xl text-xl uppercase menu-title">
             <b>H:THREE</b> Is a multinational <br />
             communication firm who belives in equal <br />
@@ -72,7 +73,10 @@ const Menu = () => {
           {menu.map((item, index) => (
             <li key={index} className="mb-3">
               <Link href={item.href}>
-                <a onClick={() => setActive(false)} className="menu-link lg:text-3xl text-2xl cursor-pointer">
+                <a
+                  onClick={() => setActive(false)}
+                  className={clsx(['menu-link lg:text-3xl text-2xl cursor-pointer', Router.pathname === item.href && 'menu-link--active'])}
+                >
                   {item.title[0]}
                   <p className="lg:text-5xl text-4xl ml-6 inline-block">{item.title[1]}</p>
                 </a>

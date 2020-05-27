@@ -24,6 +24,9 @@ h3 {
     &:hover {
       @apply text-red;
     }
+    &--active {
+      @apply text-red;
+    }
   }
   &-title {
     color: #828282;
