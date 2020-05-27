@@ -13,7 +13,19 @@ h3 {
 @tailwind components;
 @tailwind utilities;
 
-@import 'admin';
-@import 'widget';
-@import 'homepage';
-@import 'hamburger/hamburger';
+@import "admin";
+@import "widget";
+@import "homepage";
+@import "hamburger/hamburger";
+
+.menu {
+  &-link {
+    color: #828282;
+    &:hover {
+      @apply text-red;
+    }
+  }
+  &-title {
+    color: #828282;
+  }
+}
