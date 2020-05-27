@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 // import { createPortal } from 'react-dom'
 import Link from 'next/link'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import { gsap } from 'gsap'
 import clsx from 'clsx'
 
@@ -37,6 +37,7 @@ const menu = [
 const Menu = () => {
   const [active, setActive] = useState(false)
   const menuElement = useRef(null)
+  const router = useRouter()
 
   useEffect(() => {
     active
@@ -75,7 +76,7 @@ const Menu = () => {
               <Link href={item.href}>
                 <a
                   onClick={() => setActive(false)}
-                  className={clsx(['menu-link lg:text-3xl text-2xl cursor-pointer', Router.pathname === item.href && 'menu-link--active'])}
+                  className={clsx(['menu-link lg:text-3xl text-2xl cursor-pointer', router.pathname === item.href && 'menu-link--active'])}
                 >
                   {item.title[0]}
                   <p className="lg:text-5xl text-4xl ml-6 inline-block">{item.title[1]}</p>

@@ -13,9 +13,16 @@ import { applySession } from '../../lib/session'
 import UserSetting from '../../components/admin/UserSetting'
 
 export const getServerSideProps = async ({ req, res }) => {
-  await applySession(req, res)
+  const props = {
+    collections: [],
+    isLoggedIn: false
+  }
 
-  getCollection().map(collection => {
+  await applySession(req, res)
+  if (!Boolean(req.session.get('loggedin'))) return { props }
+
+  const collections = [ ...getCollection() ]
+  collections.map(collection => {
     if (collection.hasOwnProperty('folder')) {
       !existsSync(collection.folder) && mkdirSync(collection.folder)
       collection.entries = readdirSync(collection.folder).map(filename => {
@@ -51,12 +58,9 @@ export const getServerSideProps = async ({ req, res }) => {
     collection.isFile = collection.hasOwnProperty('files')
   })
 
-  return {
-    props: {
-      collections: getCollection(),
-      isLoggedIn: req.session.get('loggedin') ?? null
-    }
-  }
+  props.collections = collections
+  props.isLoggedIn = true
+  return { props }
 }
 
 const Admin = ({ collections, isLoggedIn }) => {
