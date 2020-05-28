@@ -21,6 +21,14 @@ module.exports = {
         { name: 'name', label: 'Name', widget: 'string' },
         { name: 'position', label: 'Position', widget: 'string' },
         { name: 'photo', label: 'Photo', widget: 'image' },
+        {
+          name: 'achievement',
+          label: 'Achievements',
+          widget: 'list',
+          fields: [
+            { name: 'name', label: 'Name', widget: 'string' }
+          ]
+        },
       ]
     },
     {

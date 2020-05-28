@@ -150,8 +150,8 @@ const Path = ({ isLoggedIn, available, entry, isFile, collection }) => {
       <div className="flex">
         <div className="flex-1 py-6">
           <div className="max-w-3xl mx-auto">
-            {entry.fields.map(({ name, label, widget }, index) => (
-              <Widget key={index} onChange={handleChange} name={name} label={label} type={widget} value={data?.[name] ?? ''} />
+            {entry.fields.map((fieldWidget, index) => (
+              <Widget key={index} onChange={handleChange} value={data?.[fieldWidget.name] ?? ''} {...fieldWidget} />
             ))}
           </div>
         </div>
