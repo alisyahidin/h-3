@@ -1,15 +1,16 @@
 import Label from './_components/Label'
-import String from './String'
+import StringWidget from './String'
 import Image from './Image'
+import Date from './Date'
 
 const getWidgetComponent = type => {
   switch (type) {
     case 'string':
-      return String
+      return StringWidget
     case 'date':
-      return String
+      return Date
     case 'markdown':
-      return String
+      return StringWidget
     case 'image':
       return Image
     default:

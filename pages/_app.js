@@ -1,5 +1,6 @@
 import '../styles/index.scss'
 import 'semantic-ui-css/semantic.min.css'
+import "react-datepicker/dist/react-datepicker.css"
 
 import { useRouter } from 'next/router'
 import Menu from '../components/Menu'

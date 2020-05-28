@@ -1,7 +1,7 @@
 ---
 title: Title sadasd
 slug: slug-titel
-date: 'Wed May 20 2020 21:28:28 GMT+0700 (Western Indonesia Time)'
+date: '2020-04-29T14:28:28.000Z'
 description: adsfasjdfhsakj h
 ---
 ASDSADdslkdjaslkj dlaksjdlsad
