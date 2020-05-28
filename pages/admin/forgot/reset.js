@@ -3,8 +3,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Router from 'next/router'
 import { Card, Button, Form } from 'semantic-ui-react'
-import { applySession } from '../../../lib/session'
-import axios from '../../../lib/axios'
+import { applySession } from 'lib/session'
+import axios from 'lib/axios'
 
 export const getServerSideProps = async ({ req, res }) => {
   await applySession(req, res)

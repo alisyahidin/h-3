@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Router from 'next/router'
 import { Icon } from 'semantic-ui-react'
-import axios from '../../lib/axios'
+import axios from 'lib/axios'
 
 const UserSetting = () => {
   const logout = e => {

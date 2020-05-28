@@ -7,11 +7,11 @@ import { readFileSync, mkdirSync, existsSync } from 'fs'
 import clsx from 'clsx'
 import matter from 'gray-matter'
 import yaml from 'yaml'
-import Widget from '../../components/widgets'
-import axios from '../../lib/axios'
-import getCollection from '../../utils/getCollection'
-import { applySession } from '../../lib/session'
-import UserSetting from '../../components/admin/UserSetting'
+import Widget from 'components/widgets'
+import axios from 'lib/axios'
+import getCollection from 'utils/getCollection'
+import { applySession } from 'lib/session'
+import UserSetting from 'components/admin/UserSetting'
 
 export const getServerSideProps = async ({ req, res, params }) => {
   await applySession(req, res)

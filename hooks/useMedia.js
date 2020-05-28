@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Media from '../components/widgets/_components/Media'
+import Media from 'components/widgets/_components/Media'
 
 const useMedia = () => {
   const [show, setShow] = useState(false)

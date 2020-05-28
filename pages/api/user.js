@@ -1,5 +1,5 @@
 import connect from 'next-connect'
-import session from '../../lib/session'
+import session from 'lib/session'
 
 export default connect()
   .use(session)

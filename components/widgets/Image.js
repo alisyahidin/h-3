@@ -1,4 +1,4 @@
-import useMedia from '../../hooks/useMedia'
+import useMedia from 'hooks/useMedia'
 
 const Image = ({ name, value, onChange }) => {
   const { open, Component: Media } = useMedia()

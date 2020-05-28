@@ -1,6 +1,6 @@
 import connect from 'next-connect'
-import session from '../../lib/session'
-import { find } from '../../utils/getUser'
+import session from 'lib/session'
+import { find } from 'utils/getUser'
 
 export default connect()
   .use(session)

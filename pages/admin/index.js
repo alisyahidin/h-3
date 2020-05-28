@@ -7,10 +7,10 @@ import clsx from 'clsx'
 import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync } from 'fs'
 import matter from 'gray-matter'
 import yaml from 'yaml'
-import getCollection from '../../utils/getCollection'
-import useMedia from '../../hooks/useMedia'
-import { applySession } from '../../lib/session'
-import UserSetting from '../../components/admin/UserSetting'
+import getCollection from 'utils/getCollection'
+import useMedia from 'hooks/useMedia'
+import { applySession } from 'lib/session'
+import UserSetting from 'components/admin/UserSetting'
 
 export const getServerSideProps = async ({ req, res }) => {
   const props = {

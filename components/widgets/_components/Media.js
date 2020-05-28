@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { Input, Button, Image, Modal } from 'semantic-ui-react'
 import clsx from 'clsx'
-import axios from '../../../lib/axios'
+import axios from 'lib/axios'
 
 const Media = ({ open, closeModal, onSelected = null }) => {
   const [images, setImages] = useState([])
@@ -19,7 +19,7 @@ const Media = ({ open, closeModal, onSelected = null }) => {
 
     axios.post('/api/images', formData)
       .then(() => fetchImages())
-      .catch(console.log)
+      .catch(() => fetchImages())
   }
 
   useEffect(() => {

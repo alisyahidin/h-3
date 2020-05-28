@@ -1,7 +1,7 @@
 const matter = require('gray-matter')
 const yaml = require('yaml')
 const fs = require('fs')
-const collections = require('../../../../utils/getCollection')
+const collections = require('utils/getCollection')
 
 const invalidCollection = (res, entryName) => {
   res.statusCode = 404

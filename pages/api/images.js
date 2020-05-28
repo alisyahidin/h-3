@@ -1,7 +1,7 @@
-import { readdirSync } from 'fs'
+import { readdirSync, writeFileSync } from 'fs'
 import multer from 'multer'
 import connect from 'next-connect'
-import session from '../../lib/session'
+import session from 'lib/session'
 
 export const config = { api: { bodyParser: false } }
 
@@ -35,6 +35,6 @@ export default connect()
         return res.send({ message: 'Failed upload file' })
       }
       res.statusCode = 201
-      return res.send({ message: 'Succesfully upload file' })
+      res.send({ message: 'Succesfully upload file' })
     })
   })

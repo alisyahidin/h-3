@@ -1,4 +1,4 @@
-import config from '../cms.config'
+import config from 'cms.config'
 
 export default function getCollection() {
   return config.collections.map(collection => {
