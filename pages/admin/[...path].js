@@ -97,7 +97,7 @@ const Path = ({ isLoggedIn, available, entry, isFile, collection }) => {
   const [split, setSplit] = useState(false)
   const [data, setData] = useState(entry.data)
   const handleChange = (key, value) => {
-    setData(prevData => ({ ...prevData, [key]: value }))
+    setData(prevData => ({ ...prevData, [key]: value.trim() }))
   }
 
   const publish = () => {

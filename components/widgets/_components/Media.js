@@ -1,13 +1,36 @@
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Input, Button, Image, Modal } from 'semantic-ui-react'
 import clsx from 'clsx'
+import axios from '../../../lib/axios'
 
 const Media = ({ open, closeModal, onSelected = null }) => {
+  const [images, setImages] = useState([])
   const [selected, setSelected] = useState(null)
+
+  const fetchImages = useCallback(() => {
+    axios.get('/api/images')
+      .then(({ data }) => setImages(data))
+      .catch(console.log)
+  }, [])
+
+  const uploadImage = e => {
+    const formData = new FormData()
+    formData.append('image', e.target.files[0], e.target.files[0].name)
+
+    axios.post('/api/images', formData)
+      .then(() => fetchImages())
+      .catch(console.log)
+  }
+
+  useEffect(() => {
+    fetchImages()
+  }, [fetchImages])
+
   const close = () => {
     setSelected(null)
     closeModal()
   }
+
   const selectImage = () => {
     onSelected('/images/sample.jpg')
     close()
@@ -20,7 +43,10 @@ const Media = ({ open, closeModal, onSelected = null }) => {
           Media Assets
           <div>
             <Button className="mr-6" disabled={selected === null} size="small">Download</Button>
-            <Button size="small">Upload</Button>
+            <label className="ui small button">
+              <span>Upload</span>
+              <input onChange={uploadImage} className="hidden" name="image" type="file" accept=".jpg,.jpeg,.svg,.png" />
+            </label>
           </div>
         </div>
       </Modal.Header>
@@ -33,7 +59,7 @@ const Media = ({ open, closeModal, onSelected = null }) => {
           </div>
         </div>
         <div className="grid grid-cols-4 scrolling gap-6 mt-6 content">
-          {[...new Array(16)].map((_, index) => (
+          {images.map(({ name, url }, index) => (
             <div
               key={index}
               onClick={() => setSelected(selected => selected === index ? null : index)}
@@ -43,9 +69,9 @@ const Media = ({ open, closeModal, onSelected = null }) => {
               ])}
             >
               <div className="media-file__preview">
-                <Image src="/images/sample.jpg" />
+                <Image src={url} alt={name} />
               </div>
-              <p className="p-4 text-lg text-center text-gray-600 border-t">sample.jpg</p>
+              <p className="p-4 text-lg text-center text-gray-600 border-t">{name}</p>
             </div>
           ))}
         </div>
