@@ -32,7 +32,7 @@ const Media = ({ open, closeModal, onSelected = null }) => {
   }
 
   const selectImage = () => {
-    onSelected('/images/sample.jpg')
+    onSelected(selected)
     close()
   }
 
@@ -62,7 +62,7 @@ const Media = ({ open, closeModal, onSelected = null }) => {
           {images.map(({ name, url }, index) => (
             <div
               key={index}
-              onClick={() => setSelected(selected => selected === index ? null : index)}
+              onClick={() => setSelected(selected => selected === url ? null : url)}
               className={clsx([
                 selected === index && 'border-blue-500',
                 'media-file col-span-1 cursor-pointer border-2 rounded'

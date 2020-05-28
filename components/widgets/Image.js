@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react'
 import useMedia from '../../hooks/useMedia'
 
 const Image = ({ name, value, onChange }) => {
