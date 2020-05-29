@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Error from 'next/error'
@@ -11,11 +11,15 @@ import getCollection from 'utils/getCollection'
 import useMedia from 'hooks/useMedia'
 import { applySession } from 'lib/session'
 import UserSetting from 'components/admin/UserSetting'
+import axios from 'lib/axios'
+import useSWR from 'swr'
 
 export const getServerSideProps = async ({ req, res }) => {
   const props = {
     collections: [],
-    isLoggedIn: false
+    auth: {
+      loggedin: false
+    }
   }
 
   await applySession(req, res)
@@ -59,18 +63,19 @@ export const getServerSideProps = async ({ req, res }) => {
   })
 
   props.collections = collections
-  props.isLoggedIn = true
+  props.auth.loggedin = true
   return { props }
 }
 
-const Admin = ({ collections, isLoggedIn }) => {
-  if (!isLoggedIn) return <Error statusCode={404} />
-
+const Admin = ({ collections, auth: initialData }) => {
   const [activeMenu, setActiveMenu] = useState('blog')
   const [display, setDisplay] = useState('list')
   const { open: OpenMedia, Component: Media } = useMedia()
 
   const collection = collections.find(({ name }) => name === activeMenu)
+
+  const { data: auth } = useSWR('/api/user', axios.get, { initialData })
+  if (!auth.loggedin) return <Error statusCode={404} />
 
   return (<>
     <Head>

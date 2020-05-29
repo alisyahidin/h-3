@@ -5,5 +5,5 @@ export default connect()
   .use(session)
   .get((req, res) => {
     res.statusCode = 200
-    res.send({ loggedin: req.session.loggedin })
+    res.send({ loggedin: req.session.get('loggedin') ?? false })
   })

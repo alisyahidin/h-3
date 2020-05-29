@@ -8,16 +8,17 @@ import clsx from 'clsx'
 import matter from 'gray-matter'
 import yaml from 'yaml'
 import Widget from 'components/widgets'
-import axios from 'lib/axios'
 import getCollection from 'utils/getCollection'
 import { applySession } from 'lib/session'
 import UserSetting from 'components/admin/UserSetting'
+import axios from 'lib/axios'
+import useSWR from 'swr'
 
 export const getServerSideProps = async ({ req, res, params }) => {
   await applySession(req, res)
 
-  const props = { isLoggedIn: Boolean(req.session.get('loggedin')), available: false, isFile: false, entry: null, collection: null }
-  if (params.path.length > 2) return { props }
+  const props = { auth: { loggedin: Boolean(req.session.get('loggedin')) }, available: false, isFile: false, entry: null, collection: null }
+  if (params.path.length > 2 || !props.auth.loggedin) return { props }
 
   const [collectionName, slug] = params.path
   const collection = getCollection().find(({ name }) => name === collectionName)
@@ -87,15 +88,13 @@ export const getServerSideProps = async ({ req, res, params }) => {
   }
 }
 
-const Path = ({ isLoggedIn, available, entry, isFile, collection }) => {
-  if (!available || !isLoggedIn) return <Error statusCode={404} />
-
+const Path = ({ auth: initialData, available, entry, isFile, collection }) => {
   const back = () => {
     window.confirm('Are you sure want to leave this page?') && Router.back()
   }
 
   const [split, setSplit] = useState(false)
-  const [data, setData] = useState(entry.data)
+  const [data, setData] = useState(entry?.data ?? {})
   const handleChange = (key, value) => {
     setData(prevData => ({ ...prevData, [key]: value }))
   }
@@ -107,6 +106,8 @@ const Path = ({ isLoggedIn, available, entry, isFile, collection }) => {
       .then(() => Router.push('/admin'))
       .catch(console.log)
   }
+  const { data: auth } = useSWR('/api/user', axios.get, { initialData })
+  if (!available || !auth.loggedin) return <Error statusCode={404} />
 
   return (<>
     <Head>
