@@ -21,8 +21,7 @@
   &:hover {
     @if $hamburger-hover-use-filter == true {
       filter: $hamburger-hover-filter;
-    }
-    @else {
+    } @else {
       opacity: $hamburger-hover-opacity;
     }
   }
@@ -31,8 +30,7 @@
     &:hover {
       @if $hamburger-hover-use-filter == true {
         filter: $hamburger-active-hover-filter;
-      }
-      @else {
+      } @else {
         opacity: $hamburger-active-hover-opacity;
       }
     }
@@ -57,17 +55,30 @@
   top: 50%;
   margin-top: $hamburger-layer-height / -2;
 
+  &--dark {
+    &,
+    &::before,
+    &::after {
+      background-color: #000;
+    }
+  }
+
+  &--light {
+    &,
+    &::before,
+    &::after {
+      background-color: #fff;
+    }
+  }
+
   &,
   &::before,
   &::after {
+    transition: background-color 400ms ease !important;
     width: $hamburger-layer-width;
     height: $hamburger-layer-height;
-    background-color: $hamburger-layer-color;
     border-radius: $hamburger-layer-border-radius;
     position: absolute;
-    transition-property: transform;
-    transition-duration: 0.15s;
-    transition-timing-function: ease;
   }
 
   &::before,

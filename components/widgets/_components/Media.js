@@ -9,7 +9,7 @@ const Media = ({ open, closeModal, onSelected = null }) => {
 
   const fetchImages = useCallback(() => {
     axios.get('/api/images')
-      .then(({ data }) => setImages(data))
+      .then(data => setImages(data))
       .catch(console.log)
   }, [])
 
