@@ -1,6 +1,27 @@
 import { useState, useRef, useEffect } from 'react'
+import Slider from "react-slick"
 import Head from 'next/head'
 import Logo from 'components/Logo'
+
+const settings = {
+  dots: false,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  arrows: true,
+  responsive: [
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2,
+        infinite: true,
+        arrows: false,
+        dots: true
+      }
+    },
+  ]
+}
 
 export default function Home({ HamburgerMenu }) {
   const menu = useRef(null)
@@ -98,7 +119,25 @@ export default function Home({ HamburgerMenu }) {
         </h2>
       </div>
     </section>
-    <section menu-color="light" style={{ height: '100vh', backgroundColor: '#6F6F6F' }}></section>
+    <section menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
+      <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col text-white">
+        <div className="flex-1 flex items-center mb-12">
+          <h2 className="text-5xl">OUR PEOPLE</h2>
+        </div>
+        <div style={{ flexGrow: 2 }} className="block">
+          <Slider {...settings}>
+            {[...new Array(6)].map((_, index) =>
+              <div className="p-5" key={index}>
+                <img className="w-full" src="/images/people.png" alt="People" />
+                <h3 className="text-4xl">John Doe</h3>
+                <p className="text-2xl mb-0">Chief of Executive</p>
+                <p className="text-2xl">Hakuhodo</p>
+              </div>
+            )}
+          </Slider>
+        </div>
+      </div>
+    </section>
     <section menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">
@@ -123,7 +162,7 @@ export default function Home({ HamburgerMenu }) {
     <section menu-color="dark" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
-          <div className="w-4/12">
+          <div className="hidden md:block w-4/12">
             <img src="/logo-text.png" alt="Logo" />
           </div>
           <div>
