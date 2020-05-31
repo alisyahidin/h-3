@@ -3,12 +3,8 @@ import Head from 'next/head'
 import Error from 'next/error'
 import Router from 'next/router'
 import { Popup, Icon, Button } from 'semantic-ui-react'
-import { readFileSync, mkdirSync, existsSync } from 'fs'
 import clsx from 'clsx'
-import matter from 'gray-matter'
-import yaml from 'yaml'
 import Widget from 'components/widgets'
-import getCollection from 'utils/getCollection'
 import { applySession } from 'lib/session'
 import UserSetting from 'components/admin/UserSetting'
 import axios from 'lib/axios'
@@ -17,78 +13,23 @@ import useSWR from 'swr'
 export const getServerSideProps = async ({ req, res, params }) => {
   await applySession(req, res)
 
-  const props = { auth: { loggedin: Boolean(req.session.get('loggedin')) }, available: false, isFile: false, entry: null, collection: null }
+  const props = { auth: { loggedin: Boolean(req.session.get('loggedin')) }, entry: null, collection: null }
   if (params.path.length > 2 || !props.auth.loggedin) return { props }
 
-  const [collectionName, slug] = params.path
-  const collection = getCollection().find(({ name }) => name === collectionName)
-  if (typeof collection === 'undefined') return { props }
-
-  props.isFile = collection.hasOwnProperty('files')
-  if (collection.hasOwnProperty('folder')) {
-    !existsSync(collection.folder) && mkdirSync(collection.folder)
-    if (typeof slug === 'undefined') {
-      props.entry = {
-        name: collection.name,
-        label: collection.label,
-        file: null,
-        slug: null,
-        fields: collection.fields,
-        data: {}
-      }
-    } else {
-      if (!existsSync(`${collection.folder}/${slug}.md`)) return { props }
-
-      const file = readFileSync(`${collection.folder}/${slug}.md`, 'utf8').toString()
-      const { data, content } = matter(file)
-
-      collection.fields
-        .filter(({ widget }) => widget === 'date')
-        .map(field => {
-          return data[field.name] = data[field.name].toString()
-        })
-
-      props.entry = {
-        name: collection.name,
-        label: collection.label,
-        file: `${collection.folder}/${slug}.md`,
-        slug: null,
-        fields: collection.fields,
-        data: {
-          ...data,
-          body: content
-        }
-      }
-    }
+  try {
+    const uri = '/api/collection/' + params.path.join('/')
+    const { entry, collection } = await axios.get(uri, { headers: req.headers })
     props.collection = collection
-    props.available = true
+    props.entry = entry
 
     return { props }
-  }
-
-  if (collection.hasOwnProperty('files')) {
-    const collectionFile = collection.files.find(({ name }) => name === slug)
-    if (typeof collectionFile === 'undefined') return { props }
-
-    const file = readFileSync(collectionFile.file, 'utf8')
-    const data = yaml.parse(file)
-
-    props.entry = {
-      name: collection.name,
-      label: collection.label,
-      file: collectionFile.file,
-      slug: collectionFile.name,
-      fields: collectionFile.fields,
-      data
-    }
-    props.available = true
-    props.collection = collection
-
+  } catch (e) {
+    console.log(e.toString())
     return { props }
   }
 }
 
-const Path = ({ auth: initialData, available, entry, isFile, collection }) => {
+const Path = ({ auth: initialData, entry, collection }) => {
   const back = () => {
     window.confirm('Are you sure want to leave this page?') && Router.back()
   }
@@ -99,15 +40,17 @@ const Path = ({ auth: initialData, available, entry, isFile, collection }) => {
     setData(prevData => ({ ...prevData, [key]: value }))
   }
 
+  const isFile = collection?.hasOwnProperty('files')
+
   const publish = () => {
-    const [collectionName, slug] = Router.query.path
+    const [collectionName, slug] = Router.query.slug
     if (!data.slug && !isFile) data.slug = data[collection.identifier_field].toLowerCase().replace(/\s/g, '-')
     axios.post(`/api/collection/save/${collectionName}${typeof slug === 'undefined' ? '' : '/' + slug}`, { data }, { headers: { 'Content-Type': 'application/json' } })
       .then(() => Router.push('/admin'))
       .catch(console.log)
   }
   const { data: auth } = useSWR('/api/user', axios.get, { initialData })
-  if (!available || !auth.loggedin) return <Error statusCode={404} />
+  if (!auth.loggedin) return <Error statusCode={404} />
 
   return (<>
     <Head>
@@ -117,7 +60,7 @@ const Path = ({ auth: initialData, available, entry, isFile, collection }) => {
       <div className="flex items-center px-5 border-r-2">
         <Icon name="arrow left" />
         <div onClick={back} className="cursor-pointer ml-2">
-          <span className="block">Writing in {collection.label} collection</span>
+          <span className="block">Writing in {collection?.label} collection</span>
           <span className="block text-red-600 font-bold">UNSAVED CHANGES</span>
         </div>
       </div>
@@ -151,7 +94,7 @@ const Path = ({ auth: initialData, available, entry, isFile, collection }) => {
       <div className="flex">
         <div className="flex-1 py-6">
           <div className="max-w-3xl mx-auto">
-            {entry.fields.map((fieldWidget, index) => (
+            {entry?.fields?.map((fieldWidget, index) => (
               <Widget key={index} onChange={handleChange} value={data?.[fieldWidget.name] ?? ''} {...fieldWidget} />
             ))}
           </div>

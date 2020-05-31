@@ -46,7 +46,7 @@ const MenuList = ({ show, setShow }) => {
     <div ref={menuElement} style={{ left: '100%', zIndex: 5 }} className="fixed top-0 h-screen w-screen flex bg-white py-24">
       <div className="hidden md:flex h-100 flex-1 items-center justify-center border-gray-400 border-r-2">
         <div className="px-10">
-          <img src="logo-text.png" alt="H-3" />
+          <img src="/logo-text.png" alt="H-3" />
           <p className="lg:text-2xl text-xl uppercase menu-title">
             <b>H:THREE</b> Is a multinational <br />
             communication firm who belives in equal <br />

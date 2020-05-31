@@ -4,10 +4,6 @@ import Link from 'next/link'
 import Error from 'next/error'
 import { Popup, Icon, Button, Dropdown } from 'semantic-ui-react'
 import clsx from 'clsx'
-import { existsSync, mkdirSync, writeFileSync, readFileSync, readdirSync } from 'fs'
-import matter from 'gray-matter'
-import yaml from 'yaml'
-import getCollection from 'utils/getCollection'
 import useMedia from 'hooks/useMedia'
 import { applySession } from 'lib/session'
 import UserSetting from 'components/admin/UserSetting'
@@ -25,46 +21,13 @@ export const getServerSideProps = async ({ req, res }) => {
   await applySession(req, res)
   if (!Boolean(req.session.get('loggedin'))) return { props }
 
-  const collections = [...getCollection()]
-  collections.map(collection => {
-    if (collection.hasOwnProperty('folder')) {
-      !existsSync(collection.folder) && mkdirSync(collection.folder)
-      collection.entries = readdirSync(collection.folder).map(filename => {
-        const file = readFileSync(`${collection.folder}/${filename}`)
-        const { data } = matter(file)
-
-        // collection.fields
-        //   .filter(({ widget }) => widget === 'date')
-        //   .map(field => {
-        //     return data[field.name] = data[field.name].toString()
-        //   })
-
-        return {
-          name: filename.replace('.md', ''),
-          label: data[collection.identifier_field]
-        }
-      })
-    }
-    if (collection.hasOwnProperty('files')) {
-      collection.entries = collection.files.map(collectionFile => {
-        const { file, label, name, fields } = collectionFile
-        if (!existsSync(file)) {
-          const initialFile = {}
-          fields.forEach(obj => initialFile[obj.name] = '')
-          writeFileSync(file, yaml.stringify(initialFile))
-        }
-        return {
-          name,
-          label
-        }
-      })
-    }
-    collection.isFile = collection.hasOwnProperty('files')
-  })
-
-  props.collections = collections
-  props.auth.loggedin = true
-  return { props }
+  try {
+    props.collections = await axios.get('/api/collection', { headers: req.headers })
+    props.auth.loggedin = true
+    return { props }
+  } catch (e) {
+    return { props }
+  }
 }
 
 const Admin = ({ collections, auth: initialData }) => {
