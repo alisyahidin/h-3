@@ -1,5 +1,6 @@
 import Label from './_components/Label'
 import StringWidget from './String'
+import Markdown from './Markdown'
 import Image from './Image'
 import Date from './Date'
 import List from './List'
@@ -11,7 +12,7 @@ const getWidgetComponent = type => {
     case 'date':
       return Date
     case 'markdown':
-      return StringWidget
+      return Markdown
     case 'image':
       return Image
     case 'list':

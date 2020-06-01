@@ -1,8 +1,9 @@
 import 'styles/index.scss'
 import 'semantic-ui-css/semantic.min.css'
-import "react-datepicker/dist/react-datepicker.css"
-import "slick-carousel/slick/slick.css"
-import "slick-carousel/slick/slick-theme.css"
+import 'react-datepicker/dist/react-datepicker.css'
+import 'slick-carousel/slick/slick.css'
+import 'slick-carousel/slick/slick-theme.css'
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import { useState, forwardRef } from 'react'
 import SideMenu from 'components/SideMenu'
