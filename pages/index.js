@@ -1,7 +1,9 @@
-import { useState, useRef, useEffect, useCallback } from 'react'
-import Slider from "react-slick"
+import dynamic from 'next/dynamic'
+import { useState, useRef, useEffect } from 'react'
 import Head from 'next/head'
 import Logo from 'components/Logo'
+
+const Slider = dynamic(() => import('react-slick'), { ssr: false })
 
 const settings = {
   dots: false,
