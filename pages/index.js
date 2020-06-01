@@ -23,25 +23,25 @@ const settings = {
   ]
 }
 
-export default function Home({ HamburgerMenu }) {
-  const menu = useRef(null)
-  const [menuColor, setMenuColor] = useState('dark')
-
-  const changeMenuColor = useCallback(() => {
-    const sections = [...document.getElementsByTagName('section')].map(el => ({
+const getMenuColor = menu => {
+  const sections = process.browser
+    ? [...document.getElementsByTagName('section')].map(el => ({
       color: el.getAttribute('menu-color'),
       y: el.offsetTop
     }))
+    : []
 
-    setMenuColor(
-      sections.filter(section => section.y <= window.pageYOffset + menu?.current?.offsetTop).pop()?.color
-    )
-  }, [])
+  return sections.filter(section => section.y <= window.pageYOffset + menu?.current?.offsetTop).pop()?.color
+}
+
+export default function Home({ HamburgerMenu }) {
+  const menu = useRef(null)
+  const [menuColor, setMenuColor] = useState(getMenuColor(menu) ?? 'dark')
 
   useEffect(() => {
-    document.addEventListener('scroll', changeMenuColor)
-    return () => document.addEventListener('scroll', changeMenuColor)
-  }, [changeMenuColor])
+    document.addEventListener('scroll', () => setMenuColor(getMenuColor(menu)))
+    return () => document.addEventListener('scroll', () => setMenuColor(getMenuColor(menu)))
+  }, [])
 
   return (<>
     <Head>
