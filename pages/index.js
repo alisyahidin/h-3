@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic'
 import { useState, useRef, useEffect } from 'react'
 import Head from 'next/head'
 import Logo from 'components/Logo'
+import Arrow from 'components/Arrow'
 
 const Slider = dynamic(() => import('react-slick'), { ssr: false })
 
@@ -110,16 +111,19 @@ export default function Home({ HamburgerMenu }) {
         <div className="flex-1 flex items-center mb-12">
           <h2 className="text-5xl">OUR WORKS</h2>
         </div>
-        <div style={{ flexGrow: 2 }} className="grid grid-cols-2 xl:gap-12 gap-6">
+        <div style={{ flexGrow: 2 }} className="grid grid-cols-2 xl:gap-12 gap-6 mb-6">
           {[...new Array(6)].map((_, index) => (
             <div key={index} className="flex justify-center items-center">
               <img className="w-full" src="/images/Placeholder.png" alt="Placeholder" />
             </div>
           ))}
         </div>
-        <h2 className="text-3xl text-right">
-          See More
-        </h2>
+        <div className="flex items-center justify-end mt-6">
+          <h2 className="text-2xl mb-0 mr-4">
+            See More
+          </h2>
+          <Arrow />
+        </div>
       </div>
     </section>
     <section menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
@@ -156,9 +160,12 @@ export default function Home({ HamburgerMenu }) {
               </div>
             </div>
           ))}
-          <h2 className="ml-24 -3xl text-white">
-            See More
-          </h2>
+          <div className="flex items-center ml-24 mt-6">
+            <h2 className="text-2xl text-white mb-0 mr-4">
+              See More
+            </h2>
+            <Arrow color="white" />
+          </div>
         </div>
       </div>
     </section>
