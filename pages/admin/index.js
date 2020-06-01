@@ -8,7 +8,7 @@ import useMedia from 'hooks/useMedia'
 import { applySession } from 'lib/session'
 import UserSetting from 'components/admin/UserSetting'
 import axios from 'lib/axios'
-import useSWR from 'swr'
+import useAuth from 'hooks/useAuth'
 
 export const getServerSideProps = async ({ req, res }) => {
   const props = {
@@ -37,7 +37,7 @@ const Admin = ({ collections, auth: initialData }) => {
 
   const collection = collections.find(({ name }) => name === activeMenu)
 
-  const { data: auth } = useSWR('/api/user', axios.get, { initialData })
+  const { auth } = useAuth(initialData)
   if (!auth.loggedin) return <Error statusCode={404} />
 
   return (<>
