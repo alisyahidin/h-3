@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Slider from "react-slick"
 import Head from 'next/head'
 import Logo from 'components/Logo'
@@ -27,20 +27,21 @@ export default function Home({ HamburgerMenu }) {
   const menu = useRef(null)
   const [menuColor, setMenuColor] = useState('dark')
 
-  useEffect(() => {
+  const changeMenuColor = useCallback(() => {
     const sections = [...document.getElementsByTagName('section')].map(el => ({
       color: el.getAttribute('menu-color'),
       y: el.offsetTop
     }))
 
-    const onScroll = () => {
-      setMenuColor(
-        sections.filter(section => section.y <= window.pageYOffset + menu?.current?.offsetTop).pop()?.color
-      )
-    }
-    document.addEventListener('scroll', onScroll)
-    return () => document.addEventListener('scroll', onScroll)
+    setMenuColor(
+      sections.filter(section => section.y <= window.pageYOffset + menu?.current?.offsetTop).pop()?.color
+    )
   }, [])
+
+  useEffect(() => {
+    document.addEventListener('scroll', changeMenuColor)
+    return () => document.addEventListener('scroll', changeMenuColor)
+  }, [changeMenuColor])
 
   return (<>
     <Head>
