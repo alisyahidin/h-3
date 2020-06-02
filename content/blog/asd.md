@@ -1,6 +1,5 @@
 ---
 title: asd
-slug: aa
 date: '2020-05-20T02:25:00.000Z'
 description: as
 ---

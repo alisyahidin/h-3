@@ -96,7 +96,7 @@ const Admin = ({ collections, auth: initialData }) => {
                   </Button>
                 </Link>
               )}
-              <Dropdown
+              {/* <Dropdown
                 direction="left"
                 className="mx-3"
                 trigger={<span className="text-lg">Sort by</span>}
@@ -104,7 +104,7 @@ const Admin = ({ collections, auth: initialData }) => {
                   { key: 'date', text: 'Date Published' },
                   { key: 'category', text: 'Category' },
                 ]}
-              />
+              /> */}
               <Button.Group>
                 <Button onClick={() => setDisplay('list')} primary={display === 'list'} icon>
                   <Icon name="content" />
