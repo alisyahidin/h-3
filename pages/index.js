@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react'
 import Head from 'next/head'
 import Logo from 'components/Logo'
 import Arrow from 'components/Arrow'
+import axios from 'lib/axios'
 
 const Slider = dynamic(() => import('react-slick'), { ssr: false })
 
@@ -37,7 +38,12 @@ const getMenuColor = menu => {
   return sections.filter(section => section.y <= window.pageYOffset + menu?.current?.offsetTop).pop()?.color
 }
 
-export default function Home({ HamburgerMenu }) {
+export const getServerSideProps = async ({ req, res }) => {
+  const data = await axios.get('/api/collection/page/landingpage')
+  return { props: { data: data.entry.data } }
+}
+
+export default function Home({ data, HamburgerMenu }) {
   const menu = useRef(null)
   const [menuColor, setMenuColor] = useState(getMenuColor(menu) ?? 'dark')
 
@@ -133,12 +139,12 @@ export default function Home({ HamburgerMenu }) {
         </div>
         <div style={{ flexGrow: 2 }} className="block">
           <Slider {...settings}>
-            {[...new Array(6)].map((_, index) =>
+            {data['our-people'].map((people, index) =>
               <div className="p-5" key={index}>
-                <img className="w-full" src="/images/people.png" alt="People" />
-                <h3 className="text-4xl">John Doe</h3>
-                <p className="text-2xl mb-0">Chief of Executive</p>
-                <p className="text-2xl">Hakuhodo</p>
+                <img className="w-full" src={people.avatar} alt={people.name} />
+                <h3 className="text-4xl">{people.name}</h3>
+                <p className="text-2xl mb-0">{people.position}</p>
+                <p className="text-2xl">{people.company}</p>
               </div>
             )}
           </Slider>

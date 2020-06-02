@@ -9,6 +9,7 @@ import List from './List'
 const getWidgetComponent = type => {
   switch (type) {
     case 'string':
+    case 'text':
       return StringWidget
     case 'date':
       return Date

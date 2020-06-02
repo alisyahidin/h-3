@@ -12,7 +12,6 @@ const notFound = res => {
 }
 
 export default connect()
-  .use(auth)
   .get((req, res) => {
     if (req.query.path.length > 2) {
       return notFound(res)

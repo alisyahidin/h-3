@@ -1,19 +1,30 @@
 logo: /images/logo-text.png
-section1:
-  quote: |-
-    “ Design is not just 
-    what it looks like and feels like. 
-    Design is how it works. “
-  author: "- Steve Jobs"
-section2:
-  title: ABOUT US
-  quote: |-
-    **H:THREE** Is a multinational
-    communication firm who belives in
-    equal partnership, Supporter with
-    strong local talents.
-section3:
-  quote: |-
-    “Creating unique conversation
-    with identifiable result.”
-  title: PHILOSHOPHY
+our-people:
+  - name: John Doe
+    avatar: /images/people.png
+    position: CEO
+    company: Hakuhodo H3
+    description: The best time to view the moon, obviously, is at night when there
+      are few clouds and the weather is accommodating for a long and lasting
+      study.
+  - name: John Doe 2
+    avatar: /images/people.png
+    position: CFO
+    company: Hakuhodo H3
+    description: The best time to view the moon, obviously, is at night when there
+      are few clouds and the weather is accommodating for a long and lasting
+      study.
+  - name: John Doe 3
+    avatar: /images/people.png
+    position: CEO
+    company: Haukhodo
+    description: The best time to view the moon, obviously, is at night when there
+      are few clouds and the weather is accommodating for a long and lasting
+      study.
+  - name: John Doe 4
+    avatar: /images/people.png
+    position: CTO
+    company: Hakuhodo
+    description: The best time to view the moon, obviously, is at night when there
+      are few clouds and the weather is accommodating for a long and lasting
+      study.

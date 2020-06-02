@@ -10,18 +10,18 @@ module.exports = {
           file: 'content/landing-page.yaml',
           fields: [
             { name: 'logo', label: 'Logo', widget: 'image' },
-            { name: 'section1', label: 'Section 1', widget: 'object', fields: [
-              { name: 'quote', label: 'Quote', widget: 'markdown' },
-              { name: 'author', label: 'Author', widget: 'string' },
-            ] },
-            { name: 'section2', label: 'Section 2', widget: 'object', fields: [
-              { name: 'title', label: 'Title', widget: 'string' },
-              { name: 'quote', label: 'Quote', widget: 'markdown' },
-            ] },
-            { name: 'section3', label: 'Section 3', widget: 'object', fields: [
-              { name: 'title', label: 'Title', widget: 'string' },
-              { name: 'quote', label: 'Quote', widget: 'markdown' },
-            ] },
+            {
+              name: 'our-people',
+              label: 'Our People',
+              widget: 'list',
+              fields: [
+                { name: 'name', label: 'Name', widget: 'string' },
+                { name: 'avatar', label: 'Avatar', widget: 'image' },
+                { name: 'position', label: 'Position', widget: 'string' },
+                { name: 'company', label: 'Company', widget: 'string' },
+                { name: 'description', label: 'Description', widget: 'text' },
+              ]
+            }
           ]
         },
       ]
