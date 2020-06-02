@@ -91,12 +91,12 @@ const Admin = ({ collections, auth: initialData }) => {
         </div>
         <div className="col-span-4">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="m-0">{collection.label}</h2>
+            <h2 className="m-0">{collection?.label}</h2>
             <div>
-              {collection.create && (
-                <Link href="/admin/[...path]" as={`/admin/${collection.name}`}>
+              {collection?.create && (
+                <Link href="/admin/[...path]" as={`/admin/${collection?.name}`}>
                   <Button as="a" basic icon color="blue">
-                    <Icon name="plus" /> New {collection.label}
+                    <Icon name="plus" /> New {collection?.label}
                   </Button>
                 </Link>
               )}
@@ -120,7 +120,7 @@ const Admin = ({ collections, auth: initialData }) => {
             </div>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {collection.entries.map(({ name, label }, index) => (
+            {collection?.entries.map(({ name, label }, index) => (
               <Link key={index} href="/admin/[...path]" as={`/admin/${activeMenu}/${name}`}>
                 <a
                   className={clsx([

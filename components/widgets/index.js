@@ -1,5 +1,6 @@
 import Label from './_components/Label'
 import StringWidget from './String'
+import Text from './Text'
 import Markdown from './Markdown'
 import Image from './Image'
 import ObjectWidget from './Object'
@@ -9,8 +10,9 @@ import List from './List'
 const getWidgetComponent = type => {
   switch (type) {
     case 'string':
-    case 'text':
       return StringWidget
+    case 'text':
+      return Text
     case 'date':
       return DateWidget
     case 'markdown':
