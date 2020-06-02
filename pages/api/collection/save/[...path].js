@@ -46,7 +46,7 @@ export default (req, res) => {
       }
       if (collection.hasOwnProperty('files')) {
         const collectionFile = collection.files.find(({ name }) => name === slug)
-        fs.writeFileSync(`${collectionFile.file}`, yaml.stringify(data))
+        fs.writeFileSync(`${collectionFile.file}`, yaml.stringify(dataBody))
       }
       success(res)
     } catch (e) {

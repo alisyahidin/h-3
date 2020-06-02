@@ -2,6 +2,7 @@ import Label from './_components/Label'
 import StringWidget from './String'
 import Markdown from './Markdown'
 import Image from './Image'
+import ObjectWidget from './Object'
 import Date from './Date'
 import List from './List'
 
@@ -15,6 +16,8 @@ const getWidgetComponent = type => {
       return Markdown
     case 'image':
       return Image
+    case 'object':
+      return ObjectWidget
     case 'list':
       return List
     default:
