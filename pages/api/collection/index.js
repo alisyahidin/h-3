@@ -16,12 +16,6 @@ export default connect()
           const file = readFileSync(`${collection.folder}/${filename}`)
           const { data } = matter(file)
 
-          collection.fields
-            .filter(({ widget }) => widget === 'date')
-            .map(field => {
-              return data[field.name] = data[field.name].toString()
-            })
-
           return {
             name: filename.replace('.md', ''),
             label: data[collection.identifier_field]

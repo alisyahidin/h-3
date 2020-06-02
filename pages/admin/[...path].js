@@ -44,8 +44,7 @@ const Path = ({ auth: initialData, entry, collection }) => {
 
   const publish = () => {
     const [collectionName, slug] = Router.query.path
-    if (!data.slug && !isFile) data.slug = data[collection.identifier_field].toLowerCase().replace(/\s/g, '-')
-    axios.post(`/api/collection/save/${collectionName}${typeof slug === 'undefined' ? '' : '/' + slug}`, { data }, { headers: { 'Content-Type': 'application/json' } })
+    axios.post(`/api/collection/${collectionName}${typeof slug === 'undefined' ? '' : '/' + slug}`, { data }, { headers: { 'Content-Type': 'application/json' } })
       // .then(() => Router.push('/admin'))
       .then(() => console.log('published!'))
       .catch(console.log)

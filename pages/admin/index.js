@@ -21,13 +21,9 @@ export const getServerSideProps = async ({ req, res }) => {
   await applySession(req, res)
   if (!Boolean(req.session.get('loggedin'))) return { props }
 
-  try {
-    props.collections = await axios.get('/api/collection', { headers: req.headers })
-    props.auth.loggedin = true
-    return { props }
-  } catch (e) {
-    return { props }
-  }
+  props.collections = await axios.get('/api/collection', { headers: req.headers })
+  props.auth.loggedin = true
+  return { props }
 }
 
 const Admin = ({ collections, auth: initialData }) => {
