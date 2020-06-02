@@ -31,7 +31,7 @@ export const getServerSideProps = async ({ req, res }) => {
 }
 
 const Admin = ({ collections, auth: initialData }) => {
-  const [activeMenu, setActiveMenu] = useState('blog')
+  const [activeMenu, setActiveMenu] = useState('page')
   const [display, setDisplay] = useState('list')
   const { open: OpenMedia, Component: Media } = useMedia()
 

@@ -39,23 +39,29 @@ module.exports = {
       ]
     },
     {
-      name: 'team',
-      label: 'Our Teams',
-      folder: 'content/team',
-      identifier_field: 'name',
-      fields: [
-        { name: 'name', label: 'Name', widget: 'string' },
-        { name: 'position', label: 'Position', widget: 'string' },
-        { name: 'photo', label: 'Photo', widget: 'image' },
+      name: 'demo',
+      label: 'Demo',
+      files: [
         {
-          name: 'achievement',
-          label: 'Achievements',
-          widget: 'list',
+          name: 'all',
+          label: 'Demo Input Type',
+          file: 'content/demo.yaml',
           fields: [
-            { name: 'name', label: 'Name', widget: 'string' }
+            { name: 'string', label: 'String', widget: 'string' },
+            { name: 'text', label: 'Text', widget: 'text' },
+            { name: 'date', label: 'Date', widget: 'date' },
+            { name: 'image', label: 'Image', widget: 'image' },
+            { name: 'markdown', label: 'Markdown', widget: 'markdown' },
+            { name: 'list', label: 'List', widget: 'list', fields: [
+              { name: 'string-list', label: 'String in List', widget: 'string'},
+              { name: 'date-list', label: 'Date in List', widget: 'date'},
+            ] },
+            { name: 'object', label: 'Object', widget: 'object', fields: [
+              { name: 'string-obj', label: 'String in Object', widget: 'string'}
+            ] },
           ]
         },
-      ]
+      ],
     },
   ]
 }

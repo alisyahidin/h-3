@@ -88,13 +88,13 @@ const Path = ({ auth: initialData, entry, collection }) => {
         />
       </div>
     </header>
-    <div className="relative pt-24" style={{ height: '200vh' }}>
+    <div className="relative pt-24">
       <div className="fixed right-0">
         <Button onClick={() => setSplit(!split)} circular icon="eye" size="huge" basic primary={split} />
       </div>
       <div className="flex">
         <div className="flex-1 py-6">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto px-4">
             {entry?.fields?.map((fieldWidget, index) => (
               <Widget key={index} onChange={handleChange} value={data?.[fieldWidget.name] ?? ''} {...fieldWidget} />
             ))}

@@ -3,7 +3,7 @@ import StringWidget from './String'
 import Markdown from './Markdown'
 import Image from './Image'
 import ObjectWidget from './Object'
-import Date from './Date'
+import DateWidget from './Date'
 import List from './List'
 
 const getWidgetComponent = type => {
@@ -12,7 +12,7 @@ const getWidgetComponent = type => {
     case 'text':
       return StringWidget
     case 'date':
-      return Date
+      return DateWidget
     case 'markdown':
       return Markdown
     case 'image':

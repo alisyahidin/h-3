@@ -36,6 +36,7 @@ const MarkdownEditor = ({ value, onChange }) => {
     editorState={state}
     wrapperClassName="border-gray-300 border-2"
     editorClassName="px-3"
+    toolbarStyle={{ backgroundColor: '#e2e8f0', position: 'sticky', top: 73, zIndex: 2 }}
     onEditorStateChange={setState}
     placeholder="Type here ..."
     toolbar={{

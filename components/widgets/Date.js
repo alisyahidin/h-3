@@ -6,7 +6,7 @@ const DateWidget = ({ id, value, onChange }) => {
       <DatePicker
         id={id}
         className="w-full"
-        selected={new Date(value)}
+        selected={value === '' ? new Date() : new Date(value)}
         onChange={date => onChange(date.toISOString())}
         showTimeSelect
         timeFormat="HH:mm"

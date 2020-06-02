@@ -1,6 +1,6 @@
-import { useState, Fragment, useEffect } from 'react'
-import { Icon } from 'semantic-ui-react'
+import { useEffect } from 'react'
 import Widget from './index'
+import { Outer } from './_components/Wrapper'
 
 const ObjectWidget = ({ label, name, value, onChange, fields }) => {
   const handleChange = (fieldName, fieldValue) => {
@@ -15,11 +15,11 @@ const ObjectWidget = ({ label, name, value, onChange, fields }) => {
   }, [])
 
   return (
-    <div className="w-full border-gray-300 border-2 p-3 pt-0">
+    <Outer collapse>
       {fields.map((fieldWidget, index) => (
         <Widget key={index} onChange={handleChange} value={value?.[fieldWidget.name] ?? ''} {...fieldWidget} />
       ))}
-    </div>
+    </Outer>
   )
 }
 

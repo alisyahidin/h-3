@@ -1,6 +1,7 @@
 import { useState, Fragment, useEffect } from 'react'
 import { Icon } from 'semantic-ui-react'
 import Widget from './index'
+import { Outer, Inner } from './_components/Wrapper'
 
 const List = ({ label, name, value, onChange, fields }) => {
   const [length, setLength] = useState(value.length)
@@ -21,33 +22,29 @@ const List = ({ label, name, value, onChange, fields }) => {
     value === '' && onChange([])
   }, [])
 
-  return (<>
-    <div className="flex justify-between items-center bg-gray-300 p-3">
-      <div className="flex">
-        <button><Icon name="angle right" /></button>
-        <p className="m-0">{length} {name}s</p>
-      </div>
-      <button
-        onClick={() => setLength(length + 1)}
-        className="block bg-blue-300 py-1 px-2 rounded"
-      >
-        <Icon name="plus" /> Add {label}
-      </button>
-    </div>
-    <div className="w-full border-gray-300 border-2 p-3 pt-0">
-      {[...new Array(length)].map((_, index) => <Fragment key={index}>
-        <div className="flex justify-between items-center bg-gray-300 py-1 px-2 mt-3">
-          <button><Icon name="angle right" /></button>
-          <button onClick={() => deleteItem(index)}><Icon name="delete" /></button>
-        </div>
-        <div className="w-full border-gray-300 border-2 p-3 pt-0">
-          {fields.map((fieldWidget, fieldIndex) => (
-            <Widget key={fieldIndex} onChange={handleChange(index)} value={value[index]?.[fieldWidget.name] ?? ''} {...fieldWidget} />
-          ))}
-        </div>
-      </Fragment>)}
-    </div>
-  </>)
+  return (
+    <Outer
+      title={`${length} ${name}s`}
+      action={
+        <button
+          onClick={() => setLength(length + 1)}
+          className="block bg-blue-300 py-1 px-2 rounded"
+        >
+          <Icon name="plus" /> Add {label}
+        </button>
+      }
+    >
+      {
+        [...new Array(length)].map((_, index) =>
+          <Inner key={index} action={<button onClick={() => deleteItem(index)}><Icon name="delete" /></button>}>
+            {fields.map((fieldWidget, fieldIndex) => (
+              <Widget key={fieldIndex} onChange={handleChange(index)} value={value[index]?.[fieldWidget.name] ?? ''} {...fieldWidget} />
+            ))}
+          </Inner>
+        )
+      }
+    </Outer>
+  )
 }
 
 export default List
