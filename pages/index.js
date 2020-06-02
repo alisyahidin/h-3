@@ -190,7 +190,7 @@ export default function Home({ data, HamburgerMenu }) {
             <p className="text-xl">Mail. H3roes@h-three.id</p>
             <p className="text-xl">
               PT. Hita Wistara Mahir <br />
-              Jalan Kyaki Maja lantai 1 No.4 <br />
+              Jalan Kyai Maja lantai 1 No.4 <br />
               Kebayoran Baru <br />
               Jakarta 12120, Indonesia <br />
             </p>
