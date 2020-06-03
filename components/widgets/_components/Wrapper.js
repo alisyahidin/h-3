@@ -14,18 +14,16 @@ export const Outer = ({ children, collapse = false, title = null, action = null 
       </div>
       {action && action}
     </div>
-    <div  style={{ height: collapsed ? 'initial' : 0, overflow: 'hidden' }} className="w-full border-gray-300 border-2 p-3 pt-0">
+    <div style={{ height: collapsed ? 'initial' : 0, overflow: 'hidden' }} className="w-full border-gray-300 border-2 p-3 pt-0">
       {children}
     </div>
   </>)
 }
 
-export const Inner = ({ children, action = null }) => {
-  const [collapsed, setCollapsed] = useState(true)
-
+export const Inner = ({ children, action = null, collapsed, collapseItem }) => {
   return (<>
     <div className="flex justify-between items-center bg-gray-300 py-1 px-2 mt-3">
-      <button onClick={() => setCollapsed(!collapsed)}>
+      <button onClick={collapseItem}>
         <Icon name={`angle ${collapsed ? 'down' : 'right'}`} />
       </button>
       {action && action}
