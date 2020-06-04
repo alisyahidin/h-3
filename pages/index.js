@@ -134,17 +134,9 @@ export default function Home({ data, HamburgerMenu }) {
           <h2 className="text-52px text-white">AWWARDS</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
-          <div className="flex-1 grid grid-rows-3 grid-flow-col gap-6">
+          <div className="flex-1 grid md:grid-rows-3 md:grid-flow-col grid-cols-1 gap-6">
             {[...new Array(5)].map((_, index) => (<Fragment key={index}>
-              {index === 2 &&
-                <div className="flex items-center mt-6">
-                  <h2 className="text-20px text-white mb-0 mr-4">
-                    See More
-                </h2>
-                  <Arrow color="white" />
-                </div>
-              }
-              <div key={index} className="flex mb-6">
+              <div key={index} className={`flex mb-6 order-${index + 1}`}>
                 <img className="h-16 mr-8" src="/images/awwards-1.png" alt="Awwards 1" />
                 <div className="text-white">
                   <h2 className="text-22px">2019 LIA Chinese <br /> Creativity Show: Gold </h2>
@@ -152,6 +144,12 @@ export default function Home({ data, HamburgerMenu }) {
                 </div>
               </div>
             </Fragment>))}
+            <div className="flex items-center mt-6 md:order-2 order-5">
+              <h2 className="text-20px text-white mb-0 mr-4">
+                See More
+                  </h2>
+              <Arrow color="white" />
+            </div>
           </div>
         </div>
       </div>
