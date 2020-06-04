@@ -50,7 +50,6 @@ const OurPeople = ({ data }) => {
       open={profile !== null}
       onClose={() => setProfile(null)}
       size="large"
-      dimmer="blurring"
       style={{ borderRadius: 0 }}
     >
       <div className="flex flex-col md:flex-row items-center md:items-start p-12">

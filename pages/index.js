@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, Fragment } from 'react'
 import Head from 'next/head'
+import Link from 'next/link'
 import Logo from 'components/Logo'
 import ScrollDown from 'components/ScrollDown'
 import Arrow from 'components/Arrow'
@@ -119,12 +120,14 @@ export default function Home({ data, HamburgerMenu }) {
             </div>
           ))}
         </div>
-        <div className="flex items-center justify-end mt-6">
-          <h2 className="text-20px mb-0 mr-4">
-            See More
-          </h2>
-          <Arrow />
-        </div>
+        <Link href="/our-works">
+          <a className="flex items-center justify-end mt-6 text-red">
+            <h2 className="text-20px mb-0 mr-4">
+              See More
+            </h2>
+            <Arrow />
+          </a>
+        </Link>
       </div>
     </section>
     <OurPeople data={data['our-people']} />
