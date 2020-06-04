@@ -1,4 +1,5 @@
 import { Modal } from 'semantic-ui-react'
+import Content from 'components/Content'
 
 const WorkCard = ({ data, ...props }) => {
   return (
@@ -20,8 +21,8 @@ WorkCard.Detail = ({ data, closeDetail }) => {
       size="large"
       style={{ borderRadius: 0 }}
     >
-      <div className="p-6">
-        <div className="flex justify-between items-center">
+      <div className="p-12">
+        <div className="flex justify-between">
           <h1 className="text-60px font-medium">{data.title}</h1>
           <button
             type="button"
@@ -34,9 +35,7 @@ WorkCard.Detail = ({ data, closeDetail }) => {
             </span>
           </button>
         </div>
-        <div>
-          <p className="text-default text-gray-600">{data.description}</p>
-        </div>
+        <Content className="work-card__detail text-default text-gray-600" text={data.description} />
       </div>
     </Modal>
   )

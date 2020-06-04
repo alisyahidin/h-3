@@ -4,6 +4,19 @@ import WorkCard from 'components/WorkCard'
 import Logo from 'components/Logo'
 import axios from 'lib/axios'
 
+export const OurWorksList = ({ data, className }) => {
+  const [work, setWork] = useState(null)
+
+  return (<>
+    <div style={{ flexGrow: 2 }} className={clsx("grid grid-cols-2 xl:gap-12 gap-6", className)}>
+      {data.map((work, index) => (
+        <WorkCard onClick={() => setWork(work)} data={work} key={index} />
+      ))}
+    </div>
+    {work !== null && <WorkCard.Detail data={work} closeDetail={() => setWork(null)} />}
+  </>)
+}
+
 export const getServerSideProps = async () => {
   const data = await axios.get('/api/collection/page/our-work')
 
@@ -24,7 +37,6 @@ export const getServerSideProps = async () => {
 
 const OurWorks = ({ data, menu, HamburgerMenu }) => {
   const [active, setActive] = useState(menu[0])
-  const [work, setWork] = useState(null)
 
   return (<>
     <Logo />
@@ -41,12 +53,7 @@ const OurWorks = ({ data, menu, HamburgerMenu }) => {
       <p className="text-gray-600 text-default mb-16" style={{ lineHeight: '28px' }}>
         {data.description}
       </p>
-      <div style={{ flexGrow: 2 }} className="grid grid-cols-2 xl:gap-12 gap-6">
-        {data.works.map((work, index) => (
-          <WorkCard onClick={() => setWork(work)} data={work} key={index} />
-        ))}
-      </div>
-      {work !== null && <WorkCard.Detail data={work} closeDetail={() => setWork(null)} />}
+      <OurWorksList data={data.works} />
     </div>
   </>)
 }

@@ -5,8 +5,8 @@ import Logo from 'components/Logo'
 import ScrollDown from 'components/ScrollDown'
 import Arrow from 'components/Arrow'
 import axios from 'lib/axios'
-
 import OurPeople from 'components/OurPeople'
+import { OurWorksList } from './our-works'
 
 const getMenuColor = element => {
   const sections = process.browser
@@ -21,10 +21,12 @@ const getMenuColor = element => {
 
 export const getServerSideProps = async () => {
   const data = await axios.get('/api/collection/page/landingpage')
-  return { props: { data: data.entry.data } }
+  const works = await axios.get('/api/collection/page/our-work')
+
+  return { props: { data: data.entry.data, works: works.entry.data.works } }
 }
 
-export default function Home({ data, HamburgerMenu }) {
+export default function Home({ data, works, HamburgerMenu }) {
   const menu = useRef(null)
   const scrollDown = useRef(null)
   const [menuColor, setMenuColor] = useState(getMenuColor(menu) ?? 'dark')
@@ -113,13 +115,7 @@ export default function Home({ data, HamburgerMenu }) {
         <div className="flex-1 flex items-center mb-12">
           <h2 className="text-52px">OUR WORKS</h2>
         </div>
-        <div style={{ flexGrow: 2 }} className="grid grid-cols-2 xl:gap-12 gap-6 mb-6">
-          {[...new Array(6)].map((_, index) => (
-            <div key={index} className="flex justify-center items-center">
-              <img className="w-full" src="/images/Placeholder.png" alt="Placeholder" />
-            </div>
-          ))}
-        </div>
+        <OurWorksList data={works.filter((_, index) => index < 6)} className="mb-6" />
         <Link href="/our-works">
           <a className="flex items-center justify-end mt-6 text-red">
             <h2 className="text-20px mb-0 mr-4">

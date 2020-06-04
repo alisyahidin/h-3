@@ -40,7 +40,13 @@ const MarkdownEditor = ({ value, onChange }) => {
     onEditorStateChange={setState}
     placeholder="Type here ..."
     toolbar={{
-      options: ['inline', 'blockType', 'list', 'link', 'textAlign', 'image', 'history'],
+      options: ['inline', 'blockType', 'list', 'link', 'image', 'history'],
+      inline: {
+        options: ['bold', 'italic', 'underline', 'strikethrough'],
+      },
+      list: {
+        options: ['unordered', 'ordered'],
+      },
     }}
     toolbarCustomButtons={[<CustomOption />]}
   />
