@@ -34,3 +34,6 @@ h3 {
     color: #828282;
   }
 }
+
+// fix react slick in flex container
+* { min-height: 0; min-width: 0; }

@@ -38,8 +38,8 @@ const MenuList = ({ show, setShow }) => {
 
   useEffect(() => {
     show
-      ? gsap.to(menuElement.current, 0.3, { left: '0%' })
-      : gsap.to(menuElement.current, 0.4, { left: '100%' })
+      ? gsap.to(menuElement.current, 1.5, { left: '0%', ease: "expo.out" })
+      : gsap.to(menuElement.current, 1.3, { left: '100%', ease: "expo.out" })
   }, [show])
 
   return createPortal(

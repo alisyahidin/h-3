@@ -1,32 +1,11 @@
-import dynamic from 'next/dynamic'
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, Fragment } from 'react'
 import Head from 'next/head'
 import Logo from 'components/Logo'
 import ScrollDown from 'components/ScrollDown'
 import Arrow from 'components/Arrow'
 import axios from 'lib/axios'
 
-const Slider = dynamic(() => import('react-slick'), { ssr: false })
-
-const settings = {
-  dots: false,
-  infinite: true,
-  speed: 500,
-  slidesToShow: 3,
-  slidesToScroll: 1,
-  arrows: true,
-  responsive: [
-    {
-      breakpoint: 768,
-      settings: {
-        slidesToShow: 2,
-        infinite: true,
-        arrows: false,
-        dots: true
-      }
-    },
-  ]
-}
+import OurPeople from 'components/landingpage/OurPeople'
 
 const getMenuColor = element => {
   const sections = process.browser
@@ -148,25 +127,7 @@ export default function Home({ data, HamburgerMenu }) {
         </div>
       </div>
     </section>
-    <section menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
-      <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col text-white">
-        <div className="flex-1 flex items-center mb-12">
-          <h2 className="text-52px">OUR PEOPLE</h2>
-        </div>
-        <div style={{ flexGrow: 2 }} className="block">
-          <Slider {...settings}>
-            {data['our-people'].map((people, index) =>
-              <div className="p-5" key={index}>
-                <img className="w-full" src={people.avatar} alt={people.name} />
-                <h3 className="text-32px">{people.name}</h3>
-                <p className="text-16px mb-0">{people.position}</p>
-                <p className="text-16px">{people.company}</p>
-              </div>
-            )}
-          </Slider>
-        </div>
-      </div>
-    </section>
+    <OurPeople data={data['our-people']} />
     <section menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">
@@ -174,7 +135,7 @@ export default function Home({ data, HamburgerMenu }) {
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
           <div className="flex-1 grid grid-rows-3 grid-flow-col gap-6">
-            {[...new Array(5)].map((_, index) => (<>
+            {[...new Array(5)].map((_, index) => (<Fragment key={index}>
               {index === 2 &&
                 <div className="flex items-center mt-6">
                   <h2 className="text-20px text-white mb-0 mr-4">
@@ -186,11 +147,11 @@ export default function Home({ data, HamburgerMenu }) {
               <div key={index} className="flex mb-6">
                 <img className="h-16 mr-8" src="/images/awwards-1.png" alt="Awwards 1" />
                 <div className="text-white">
-                  <h2 className="text-22px">2019 LIA Chinese <br/> Creativity Show: Gold </h2>
+                  <h2 className="text-22px">2019 LIA Chinese <br /> Creativity Show: Gold </h2>
                   <p className="text-default">Lorem Ipsum is simply dummy text of the <br /> printing and typesetting industry.</p>
                 </div>
               </div>
-            </>))}
+            </Fragment>))}
           </div>
         </div>
       </div>
