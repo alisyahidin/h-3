@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
-import { Button, Header, Image, Modal } from 'semantic-ui-react'
+import { Modal } from 'semantic-ui-react'
 
 const Slider = dynamic(() => import('react-slick'), { ssr: false })
 const settings = {
@@ -46,7 +46,7 @@ const OurPeople = ({ data }) => {
         </div>
       </div>
     </section>
-    <Modal
+    {profile !== null && <Modal
       open={profile !== null}
       onClose={() => setProfile(null)}
       size="large"
@@ -71,7 +71,7 @@ const OurPeople = ({ data }) => {
           </span>
         </button>
       </div>
-    </Modal>
+    </Modal>}
   </>)
 }
 

@@ -6,7 +6,7 @@ import ScrollDown from 'components/ScrollDown'
 import Arrow from 'components/Arrow'
 import axios from 'lib/axios'
 
-import OurPeople from 'components/landingpage/OurPeople'
+import OurPeople from 'components/OurPeople'
 
 const getMenuColor = element => {
   const sections = process.browser
@@ -19,7 +19,7 @@ const getMenuColor = element => {
   return sections.filter(section => section.y <= window.pageYOffset + element?.current?.offsetTop).pop()?.color
 }
 
-export const getServerSideProps = async ({ req, res }) => {
+export const getServerSideProps = async () => {
   const data = await axios.get('/api/collection/page/landingpage')
   return { props: { data: data.entry.data } }
 }

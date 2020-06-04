@@ -64,7 +64,7 @@ const Media = ({ open, closeModal, onSelected = null }) => {
               key={index}
               onClick={() => setSelected(selected => selected === url ? null : url)}
               className={clsx([
-                selected === index && 'border-blue-500',
+                selected === url && 'border-blue-500',
                 'media-file col-span-1 cursor-pointer border-2 rounded'
               ])}
             >

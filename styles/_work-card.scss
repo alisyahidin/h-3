@@ -1,0 +1,23 @@
+.work-card {
+  @apply cursor-pointer;
+  &:hover {
+    .work-card__text {
+      opacity: 1;
+    }
+  }
+  &__text {
+    @apply opacity-0;
+    @apply absolute;
+    @apply bottom-0;
+    @apply left-0;
+    @apply p-4;
+    @apply h-full;
+    @apply w-full;
+    @apply text-white;
+    @apply flex;
+    @apply flex-col;
+    @apply justify-end;
+    box-shadow: inset 0px -150px 80px -40px rgba(0, 0, 0, 0.6);
+    transition: all 300ms ease;
+  }
+}

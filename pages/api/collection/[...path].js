@@ -91,6 +91,7 @@ export default connect()
         fields: collectionFile.fields,
         data
       }
+      collection.files = collection.files.filter(({ name }) => name === slug)
       response.collection = collection
     }
 
