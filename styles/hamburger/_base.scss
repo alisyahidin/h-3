@@ -59,7 +59,7 @@
     &,
     &::before,
     &::after {
-      background-color: #000;
+      @apply bg-red;
     }
   }
 

@@ -47,8 +47,8 @@ const MenuList = ({ show, setShow }) => {
       <div className="hidden md:flex h-100 flex-1 items-center justify-center border-gray-400 border-r-2">
         <div className="px-10">
           <img src="/logo-text.png" alt="H-3" />
-          <p className="lg:text-2xl text-xl uppercase menu-title">
-            <b>H:THREE</b> Is a multinational <br />
+          <p className="text-default uppercase menu-title" style={{ lineHeight: '28px' }}>
+            <b style={{ color: '#CD697B'}}>H:THREE</b> Is a multinational <br />
             communication firm who belives in equal <br />
             partnership, Supporter with strong local talents.
             </p>
@@ -57,14 +57,14 @@ const MenuList = ({ show, setShow }) => {
       <div className="h-100 flex-1 flex items-center justify-center">
         <ul className="md:mr-16">
           {menu.map((item, index) => (
-            <li key={index} className="mb-3">
+            <li key={index} className="mb-5">
               <Link href={item.href}>
                 <a
                   onClick={() => setShow(false)}
-                  className={clsx(['menu-link lg:text-3xl text-2xl cursor-pointer', router.pathname === item.href && 'menu-link--active'])}
+                  className={clsx(['menu-link text-22px cursor-pointer', router.pathname === item.href && 'menu-link--active'])}
                 >
                   {item.title[0]}
-                  <p className="lg:text-5xl text-4xl ml-6 inline-block">{item.title[1]}</p>
+                  <p className="text-42px font-bold ml-6 inline-block">{item.title[1]}</p>
                 </a>
               </Link>
             </li>

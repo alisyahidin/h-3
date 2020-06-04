@@ -1,0 +1,16 @@
+import { forwardRef } from "react"
+
+const ScrollDown = forwardRef(({ color: colorProps }, ref) => {
+  const color = colorProps === 'dark' ? '#9D9D9D' : '#FFF'
+
+  return (
+    <div ref={ref} className="fixed left-0 bottom-0 ml-8 sm:ml-12 lg:ml-16 mb-16 pl-2 flex flex-col items-center hidden md:flex cursor-pointer">
+      <p className="text-12px" style={{ color, writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>Scroll Down</p>
+      <svg width="8" height="59" viewBox="0 0 8 59" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill={color} d="M3.64644 58.3535C3.84171 58.5488 4.15829 58.5488 4.35355 58.3535L7.53553 55.1716C7.73079 54.9763 7.73079 54.6597 7.53553 54.4645C7.34027 54.2692 7.02369 54.2692 6.82842 54.4645L4 57.2929L1.17157 54.4645C0.976308 54.2692 0.659726 54.2692 0.464463 54.4645C0.269201 54.6597 0.269201 54.9763 0.464463 55.1716L3.64644 58.3535ZM3.5 1.77104e-08L3.5 58L4.5 58L4.5 -1.77108e-08L3.5 1.77104e-08Z" />
+      </svg>
+    </div>
+  )
+})
+
+export default ScrollDown
