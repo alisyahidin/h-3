@@ -58,6 +58,7 @@ module.exports = {
             { name: 'object', label: 'Object', widget: 'object', fields: [
               { name: 'string-obj', label: 'String in Object', widget: 'string'}
             ] },
+            { name: 'select', label: 'Select', widget: 'select', options: [ 'Option 1', 'Option 2', 'Option 3' ] },
           ]
         },
       ],

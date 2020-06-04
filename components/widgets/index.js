@@ -3,6 +3,7 @@ import StringWidget from './String'
 import Text from './Text'
 import Markdown from './Markdown'
 import Image from './Image'
+import Select from './Select'
 import ObjectWidget from './Object'
 import DateWidget from './Date'
 import List from './List'
@@ -13,6 +14,8 @@ const getWidgetComponent = type => {
       return StringWidget
     case 'text':
       return Text
+    case 'select':
+      return Select
     case 'date':
       return DateWidget
     case 'markdown':

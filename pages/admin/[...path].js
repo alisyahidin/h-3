@@ -46,7 +46,7 @@ const Path = ({ auth: initialData, entry, collection }) => {
     const [collectionName, slug] = Router.query.path
     axios.post(`/api/collection/${collectionName}${typeof slug === 'undefined' ? '' : '/' + slug}`, { data }, { headers: { 'Content-Type': 'application/json' } })
       // .then(() => Router.push('/admin'))
-      .then(() => console.log('published!'))
+      .then(() => alert('Succesfully published!'))
       .catch(console.log)
   }
   const { auth } = useAuth(initialData)
