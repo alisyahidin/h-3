@@ -1,0 +1,63 @@
+- name: page
+  label: Pages
+  files:
+  - name: landingpage
+    label: Landing Page
+    file: content/landing-page.yaml
+    fields:
+    - name: our-people
+      label: Our People
+      widget: list
+      fields:
+      - { name: name, label: Name, widget: string }
+      - { name: avatar, label: Avatar, widget: image }
+      - { name: position, label: Position, widget: string }
+      - { name: company, label: Company, widget: string }
+      - { name: description, label: Description, widget: text }
+  - name: our-work
+    label: Our Works
+    file: content/our-work.yaml
+    fields:
+    - { name: title, label: Title, widget: string }
+    - { name: description, label: Description, widget: text }
+    - name: works
+      label: List Works
+      widget: list
+      fields:
+      - { name: title, label: Title, widget: string }
+      - { name: category, label: Category, widget: select, options: [ All, Branding, Web, Development, Films ] }
+      - { name: thumbnail, label: Thumbnail, widget: image }
+      - { name: slug, label: Slug, widget: string }
+      - { name: description, label: Description, widget: markdown }
+- name: blog
+  label: Blog
+  folder: content/blog
+  fields:
+  - { name: title, label: Title, widget: string }
+  - { name: date, label: Published Date, widget: date }
+  - { name: description, label: Description, widget: string }
+  - { name: body, label: Main Content, widget: markdown }
+- name: demo
+  label: Demo
+  files:
+  - name: all
+    label: Demo Input Type
+    file: content/demo.yaml
+    fields:
+    - { name: string, label: String, widget: string }
+    - { name: text, label: Text, widget: text }
+    - { name: date, label: Date, widget: date }
+    - { name: image, label: Image, widget: image }
+    - { name: markdown, label: Markdown, widget: markdown }
+    - name: list
+      label: List
+      widget: list
+      fields:
+      - { name: string-list, label: String in List, widget: string }
+      - { name: date-list, label: Date in List, widget: date }
+    - name: object
+      label: Object
+      widget: object
+      fields:
+      - { name: string-obj, label: String in Object, widget: string }
+    - { name: select , label: Select, widget: select, options: [ Option1, Option2, Option3 ] }

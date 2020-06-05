@@ -36,5 +36,16 @@ h3 {
   }
 }
 
+img.logo {
+  width: 42px;
+  transition: all 150ms linear;
+  &--dark {
+    filter: invert(0%);
+  }
+  &--light {
+    filter: invert(100%);
+  }
+}
+
 // fix react slick in flex container
 * { min-height: 0; min-width: 0; }

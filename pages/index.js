@@ -49,7 +49,7 @@ export default function Home({ data, works, HamburgerMenu }) {
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <Logo />
+    <Logo color={menuColor} />
     <HamburgerMenu
       ref={menu}
       color={menuColor}
@@ -61,8 +61,9 @@ export default function Home({ data, works, HamburgerMenu }) {
 
     <section menu-color="dark" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col items-center">
-        <div className="flex-1 flex items-center">
-          <img src="/logo-text.png" alt="Hakuhodo" />
+        <div className="flex-1 flex flex-col justify-center items-center">
+          <img className="mb-4" src="/logo.svg" alt="Hakuhodo" />
+          <img src="/Hakuhodo.svg" alt="Hakuhodo" />
         </div>
         <div className="flex flex-col items-center">
           <p className="cursor-pointer text-14px">HERE WE ARE</p>
@@ -135,8 +136,8 @@ export default function Home({ data, works, HamburgerMenu }) {
         <div style={{ flexGrow: 2 }} className="flex items-center">
           <div className="flex-1 grid md:grid-cols-2 grid-cols-1 gap-6">
             {[...new Array(5)].map((_, index) => (<Fragment key={index}>
-              <div key={index} className={`flex mb-6 order-${index + 1}`}>
-                <img className="h-16 mr-8" src="/images/awwards-1.png" alt="Awwards 1" />
+              <div key={index} className={`flex items-start mb-6 order-${index + 1}`}>
+                <img className="mr-4 md:mr-8" src="/images/awwards-1.png" alt="Awwards 1" />
                 <div className="text-white">
                   <h2 className="text-22px">2019 LIA Chinese <br /> Creativity Show: Gold </h2>
                   <p className="text-default">Lorem Ipsum is simply dummy text of the <br /> printing and typesetting industry.</p>
@@ -156,10 +157,11 @@ export default function Home({ data, works, HamburgerMenu }) {
     <section menu-color="dark" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
-          <div className="hidden md:block w-4/12">
-            <img src="/logo-text.png" alt="Logo" />
+          <div className="hidden md:flex w-2/12 flex-1 flex-col justify-center items-center">
+            <img className="mb-4" src="/logo.svg" alt="Hakuhodo" />
+            <img src="/Hakuhodo.svg" alt="Hakuhodo" />
           </div>
-          <div className="md:ml-12">
+          <div className="md:ml-12" style={{ flex: 2 }}>
             <h2 className="text-48px text-red">H:THREE OFFICE</h2>
             <p className="text-20px mb-4" style={{ color: '#4F4F4F' }}>
               <span className="mr-6">Tel. +62 21 27516000</span>

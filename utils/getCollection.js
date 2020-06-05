@@ -1,8 +1,9 @@
 import { readFileSync } from 'fs'
+import yaml from 'yaml'
 
 export default function getCollection() {
-  const collection = readFileSync('collection.json')
-  const collections = JSON.parse(collection)
+  const file = readFileSync('collection.yaml', 'utf8')
+  const collections = yaml.parse(file)
   return collections.map(collection => {
     if (collection.hasOwnProperty('folder')) {
       collection.create = collection.create ?? true
