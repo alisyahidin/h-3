@@ -1,0 +1,39 @@
+title: Awards
+description: Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+  accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo
+  inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+  Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.
+awards:
+  - collapsed: false
+    description: >-
+      The best time to view the moon, obviously, is at night when there are few
+      clouds and the weather is accommodating for a long and lasting study.
+
+
+      For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens.
+    title: "2019 LIA Chinese Creativity Show: Gold "
+    thumbnail: /images/awards-1.png
+    picture: /images/awards-picture.png
+    slug: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  - collapsed: true
+    description: >-
+      The best time to view the moon, obviously, is at night when there are few
+      clouds and the weather is accommodating for a long and lasting study.
+
+
+      For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens.
+    title: "2019 LIA Chinese Creativity Show: Gold "
+    thumbnail: /images/awards-1.png
+    picture: /images/sample.jpg
+    slug: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+  - collapsed: true
+    description: >-
+      The best time to view the moon, obviously, is at night when there are few
+      clouds and the weather is accommodating for a long and lasting study.
+
+
+      For most of us, the idea of astronomy is something we directly connect to “stargazing”, telescopes and seeing magnificent displays in the heavens.
+    title: "2019 LIA Chinese Creativity Show: Gold "
+    slug: Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+    thumbnail: /images/awards-1.png
+    picture: /images/awards-picture.png

@@ -29,6 +29,21 @@
       - { name: thumbnail, label: Thumbnail, widget: image }
       - { name: slug, label: Slug, widget: string }
       - { name: description, label: Description, widget: markdown }
+  - name: awards
+    label: Awards
+    file: content/awards.yaml
+    fields:
+    - { name: title, label: Title, widget: string }
+    - { name: description, label: Description, widget: text }
+    - name: awards
+      label: List awards
+      widget: list
+      fields:
+      - { name: title, label: Title, widget: string }
+      - { name: thumbnail, label: Thumbnail, widget: image }
+      - { name: picture, label: Picture, widget: image }
+      - { name: slug, label: Slug, widget: string }
+      - { name: description, label: Description, widget: markdown }
 - name: blog
   label: Blog
   folder: content/blog

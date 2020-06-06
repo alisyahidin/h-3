@@ -7,6 +7,7 @@ import Arrow from 'components/Arrow'
 import axios from 'lib/axios'
 import OurPeople from 'components/OurPeople'
 import { OurWorksList } from './our-works'
+import { AwardList } from './awards'
 
 const getMenuColor = element => {
   const sections = process.browser
@@ -22,11 +23,18 @@ const getMenuColor = element => {
 export const getServerSideProps = async () => {
   const data = await axios.get('/api/collection/page/landingpage')
   const works = await axios.get('/api/collection/page/our-work')
+  const awards = await axios.get('/api/collection/page/awards')
 
-  return { props: { data: data.entry.data, works: works.entry.data.works } }
+  return {
+    props: {
+      data: data.entry.data,
+      works: works.entry.data.works,
+      awards: awards.entry.data.awards,
+    }
+  }
 }
 
-export default function Home({ data, works, HamburgerMenu }) {
+export default function Home({ data, works, awards, HamburgerMenu }) {
   const menu = useRef(null)
   const scrollDown = useRef(null)
   const [menuColor, setMenuColor] = useState(getMenuColor(menu) ?? 'dark')
@@ -131,26 +139,24 @@ export default function Home({ data, works, HamburgerMenu }) {
     <section menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">
-          <h2 className="text-52px text-white">AWWARDS</h2>
+          <h2 className="text-52px text-white">AWARDS</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
-          <div className="flex-1 grid md:grid-cols-2 grid-cols-1 gap-6">
-            {[...new Array(5)].map((_, index) => (<Fragment key={index}>
-              <div key={index} className={`flex items-start mb-6 order-${index + 1}`}>
-                <img className="mr-4 md:mr-8" src="/images/awwards-1.png" alt="Awwards 1" />
-                <div className="text-white">
-                  <h2 className="text-22px">2019 LIA Chinese <br /> Creativity Show: Gold </h2>
-                  <p className="text-default">Lorem Ipsum is simply dummy text of the <br /> printing and typesetting industry.</p>
-                </div>
-              </div>
-            </Fragment>))}
-            <div className="flex items-center mt-6 md:order-4 order-5">
-              <h2 className="text-20px text-white mb-0 mr-4">
-                See More
-              </h2>
-              <Arrow color="white" />
-            </div>
-          </div>
+          <AwardList
+            icon
+            className="mb-6"
+            data={awards.filter((_, index) => index < 5)}
+            link={
+              <Link href="/awards">
+                <a className={`flex items-center mt-6 md:order-${awards.length > 2 ? awards.length - 1 : 3} order-5`}>
+                  <h2 className="text-20px text-white mb-0 mr-4">
+                    See More
+                </h2>
+                  <Arrow color="white" />
+                </a>
+              </Link>
+            }
+          />
         </div>
       </div>
     </section>
