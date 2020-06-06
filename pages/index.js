@@ -74,7 +74,7 @@ export default function Home({ data, works, awards, HamburgerMenu }) {
           <img src="/Hakuhodo.svg" alt="Hakuhodo" />
         </div>
         <div className="flex flex-col items-center">
-          <p className="cursor-pointer text-14px">HERE WE ARE</p>
+          <p className="cursor-pointer text-14px mb-4">HERE WE ARE</p>
           <svg className="cursor-pointer" width="8" height="30" viewBox="0 0 8 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3.64645 29.3536C3.84171 29.5488 4.15829 29.5488 4.35355 29.3536L7.53553 26.1716C7.73079 25.9763 7.73079 25.6597 7.53553 25.4645C7.34027 25.2692 7.02369 25.2692 6.82843 25.4645L4 28.2929L1.17157 25.4645C0.97631 25.2692 0.659727 25.2692 0.464465 25.4645C0.269203 25.6597 0.269203 25.9763 0.464465 26.1716L3.64645 29.3536ZM3.5 -2.18557e-08L3.5 29L4.5 29L4.5 2.18557e-08L3.5 -2.18557e-08Z" fill="black" />
           </svg>
