@@ -148,7 +148,7 @@ export default function Home({ data, works, awards, HamburgerMenu }) {
             data={awards.filter((_, index) => index < 5)}
             link={
               <Link href="/awards">
-                <a className={`flex items-center mt-6 md:order-${awards.length > 2 ? awards.length - 1 : 3} order-5`}>
+                <a className={`flex items-center mt-6 md:order-${(awards.length > 2 && awards.length % 2 == 1) ? awards.length - 1 : awards.length + 1} order-5`}>
                   <h2 className="text-20px text-white mb-0 mr-4">
                     See More
                 </h2>
