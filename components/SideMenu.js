@@ -45,10 +45,13 @@ const MenuList = ({ show, setShow }) => {
   return createPortal(
     <div ref={menuElement} style={{ left: '100%', zIndex: 5 }} className="fixed top-0 h-screen w-screen flex bg-white py-24">
       <div className="hidden md:flex h-100 flex-1 items-center justify-center border-gray-400 border-r-2">
-        <div className="px-10">
-          <img src="/logo-text.png" alt="H-3" />
+        <div className="px-10 flex flex-col items-start">
+          <div className="flex flex-col mb-12">
+            <img className="mb-8" src="/logo.svg" alt="Hakuhodo" />
+            <img src="/Hakuhodo.svg" alt="Hakuhodo" />
+          </div>
           <p className="text-default uppercase menu-title" style={{ lineHeight: '28px' }}>
-            <b style={{ color: '#CD697B'}}>H:THREE</b> Is a multinational <br />
+            <b style={{ color: '#CD697B' }}>H:THREE</b> Is a multinational <br />
             communication firm who belives in equal <br />
             partnership, Supporter with strong local talents.
             </p>

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, Fragment } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import Logo from 'components/Logo'
@@ -8,6 +8,12 @@ import axios from 'lib/axios'
 import OurPeople from 'components/OurPeople'
 import { OurWorksList } from './our-works'
 import { AwardList } from './awards'
+import { gsap } from 'gsap'
+
+if (process.browser) {
+  const ScrollToPlugin = require('gsap/ScrollToPlugin')
+  gsap.registerPlugin(ScrollToPlugin)
+}
 
 const getMenuColor = element => {
   const sections = process.browser
@@ -18,6 +24,14 @@ const getMenuColor = element => {
     : []
 
   return sections.filter(section => section.y <= window.pageYOffset + element?.current?.offsetTop).pop()?.color
+}
+
+const scrollToDown = () => {
+  const scrollable = [...document.getElementsByTagName('section')]
+    .map(el => el.offsetTop)
+    .filter(val => val > window.pageYOffset)
+
+  gsap.to(window, { duration: 2, scrollTo: { y: scrollable[0] }, ease: 'expo.out' })
 }
 
 export const getServerSideProps = async () => {
@@ -65,6 +79,7 @@ export default function Home({ data, works, awards, HamburgerMenu }) {
     <ScrollDown
       ref={scrollDown}
       color={scrollDownColor}
+      onClick={scrollToDown}
     />
 
     <section menu-color="dark" className="bg-white">
@@ -74,8 +89,8 @@ export default function Home({ data, works, awards, HamburgerMenu }) {
           <img src="/Hakuhodo.svg" alt="Hakuhodo" />
         </div>
         <div className="flex flex-col items-center">
-          <p className="cursor-pointer text-14px mb-4">HERE WE ARE</p>
-          <svg className="cursor-pointer" width="8" height="30" viewBox="0 0 8 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <p onClick={scrollToDown} className="cursor-pointer text-14px mb-4">HERE WE ARE</p>
+          <svg onClick={scrollToDown} className="cursor-pointer" width="8" height="30" viewBox="0 0 8 30" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3.64645 29.3536C3.84171 29.5488 4.15829 29.5488 4.35355 29.3536L7.53553 26.1716C7.73079 25.9763 7.73079 25.6597 7.53553 25.4645C7.34027 25.2692 7.02369 25.2692 6.82843 25.4645L4 28.2929L1.17157 25.4645C0.97631 25.2692 0.659727 25.2692 0.464465 25.4645C0.269203 25.6597 0.269203 25.9763 0.464465 26.1716L3.64645 29.3536ZM3.5 -2.18557e-08L3.5 29L4.5 29L4.5 2.18557e-08L3.5 -2.18557e-08Z" fill="black" />
           </svg>
         </div>

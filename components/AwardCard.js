@@ -6,7 +6,7 @@ const AwardCard = ({ data, sort, icon, onClick = null }) => {
   return (
     <div
       className={clsx(["flex items-start mb-6", "order-" + sort, icon ? 'flex-row' : 'flex-col', !icon && 'cursor-pointer'])}
-      onClick={!icon && onClick}
+      onClick={!icon ? onClick : undefined}
     >
       <img className="mb-4 mr-4 md:mr-8" src={icon ? data.thumbnail : data.picture} alt={'Awward' + sort} style={{ maxWidth: 230 }} />
       <div className="text-white">
