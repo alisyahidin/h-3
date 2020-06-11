@@ -10,7 +10,6 @@ const DateWidget = ({ id, value, onChange }) => {
     <div className="w-full border-gray-300 border-2 p-3 flex justify-between">
       <DatePicker
         id={id}
-        className="w-full"
         selected={value !== '' ? new Date(value) : null}
         onChange={date => onChange(date.toISOString())}
         showTimeSelect

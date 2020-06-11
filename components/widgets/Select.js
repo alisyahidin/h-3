@@ -1,9 +1,9 @@
-import { Select, Input } from 'semantic-ui-react'
+import { Select as SelectUi } from 'semantic-ui-react'
 
-const String = ({ name, value, onChange, options }) => {
+const Select = ({ name, value, onChange, options }) => {
   const selectOptions = options.map((opt, index) => ({ key: index, value: opt, text: opt }))
 
-  return <Select
+  return <SelectUi
     placeholder={`Select ${name}`}
     className="w-full"
     options={selectOptions}
@@ -12,4 +12,4 @@ const String = ({ name, value, onChange, options }) => {
   />
 }
 
-export default String
+export default Select

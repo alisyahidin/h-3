@@ -7,6 +7,7 @@ import Select from './Select'
 import ObjectWidget from './Object'
 import DateWidget from './Date'
 import List from './List'
+import Relation from './Relation'
 
 const getWidgetComponent = type => {
   switch (type) {
@@ -16,6 +17,8 @@ const getWidgetComponent = type => {
       return Text
     case 'select':
       return Select
+    case 'relation':
+      return Relation
     case 'date':
       return DateWidget
     case 'markdown':
