@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 import WorkCard from 'components/WorkCard'
-import Logo from 'components/Logo'
 import axios from 'lib/axios'
+
+const Logo = dynamic(() => import('components/Logo'), { ssr: false })
 
 export const OurWorksList = ({ data, className }) => {
   const [work, setWork] = useState(null)

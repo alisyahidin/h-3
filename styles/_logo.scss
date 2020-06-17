@@ -1,0 +1,10 @@
+svg.logo {
+  width: 42px;
+  transition: filter 150ms linear;
+  &--dark {
+    filter: invert(0%);
+  }
+  &--light {
+    filter: invert(100%);
+  }
+}

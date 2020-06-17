@@ -1,14 +1,17 @@
 import { useState, useRef, useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
-import Logo from 'components/Logo'
 import ScrollDown from 'components/ScrollDown'
 import Arrow from 'components/Arrow'
+import { LogoSVG } from 'components/Logo'
 import axios from 'lib/axios'
 import OurPeople from 'components/OurPeople'
 import { OurWorksList } from './our-works'
 import { AwardList } from './awards'
 import { gsap } from 'gsap'
+import dynamic from 'next/dynamic'
+
+const Logo = dynamic(() => import('components/Logo'), { ssr: false })
 
 if (process.browser) {
   const ScrollToPlugin = require('gsap/ScrollToPlugin')
@@ -85,7 +88,7 @@ export default function Home({ data, works, awards, HamburgerMenu }) {
     <section menu-color="dark" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col items-center">
         <div className="flex-1 flex flex-col justify-center items-center">
-          <img className="mb-4" src="/logo.svg" alt="Hakuhodo" />
+          <LogoSVG className="mb-4" width={194} />
           <img src="/Hakuhodo.svg" alt="Hakuhodo" />
         </div>
         <div className="flex flex-col items-center">

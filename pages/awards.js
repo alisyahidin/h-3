@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 import axios from 'lib/axios'
-import Logo from 'components/Logo'
 import AwardCard from 'components/AwardCard'
+
+const Logo = dynamic(() => import('components/Logo'), { ssr: false })
 
 export const AwardList = ({ data, className, icon = false, link = null }) => {
   const [award, setAward] = useState(null)
