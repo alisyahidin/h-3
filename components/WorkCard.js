@@ -4,10 +4,10 @@ import Content from 'components/Content'
 const WorkCard = ({ data, ...props }) => {
   return (
     <div {...props} className="work-card relative">
-      <img src={data.thumbnail} alt={data.title} />
+      <img src={process.env.NEXT_PUBLIC_API_URI + data.thumbnail.url} alt={data.title} />
       <div className="work-card__text" style={{ zIndex: 2 }}>
         <h2 className="text-40px font-medium">{data.title}</h2>
-        <p className="text-default w-6/12">{data.slug}</p>
+        <p className="text-default w-6/12">{data.short_description}</p>
       </div>
     </div>
   )

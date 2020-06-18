@@ -36,10 +36,10 @@ const OurPeople = ({ data }) => {
           <Slider {...settings}>
             {data.map((people, index) =>
               <div onClick={() => setProfile(index)} className="cursor-pointer p-5" key={index}>
-                <img className="w-full" src={people.avatar} alt={people.name} />
-                <h3 className="text-32px">{people.name}</h3>
-                <p className="text-16px mb-0">{people.position}</p>
-                <p className="text-16px">{people.company}</p>
+                <img className="w-full" src={process.env.NEXT_PUBLIC_API_URI + people?.Photo?.url} alt={people?.Name} />
+                <h3 className="text-32px">{people?.Name}</h3>
+                <p className="text-16px mb-0">{people?.Position}</p>
+                <p className="text-16px">{people?.Company}</p>
               </div>
             )}
           </Slider>
@@ -53,12 +53,12 @@ const OurPeople = ({ data }) => {
       style={{ borderRadius: 0 }}
     >
       <div className="flex flex-col md:flex-row items-center md:items-start p-12">
-        <img className="md:mr-12 max-w-full md:w-4/12" height="auto" src={data[profile]?.avatar} alt={data[profile]?.name} />
+        <img className="md:mr-12 max-w-full md:w-4/12" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data[profile]?.Photo.url} alt={data[profile]?.Name} />
         <div className="flex-1 text-center md:text-left">
-          <h1 className="text-40px mb-0">{data[profile]?.name}</h1>
-          <p style={{ color: '#222222', opacity: 0.7 }} className="text-16px mb-0">{data[profile]?.position}</p>
-          <p style={{ color: '#222222', opacity: 0.7 }} className="text-16px">{data[profile]?.company}</p>
-          <p style={{ color: '#222222', opacity: 0.7 }} className="text-default max-w-md">{data[profile]?.description}</p>
+          <h1 className="text-40px mb-0">{data[profile]?.Name}</h1>
+          <p style={{ color: '#222222', opacity: 0.7 }} className="text-16px mb-0">{data[profile]?.Position}</p>
+          <p style={{ color: '#222222', opacity: 0.7 }} className="text-16px">{data[profile]?.Company}</p>
+          <p style={{ color: '#222222', opacity: 0.7 }} className="text-default max-w-md">{data[profile]?.Description}</p>
         </div>
         <button
           type="button"

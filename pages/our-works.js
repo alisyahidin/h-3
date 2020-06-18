@@ -20,24 +20,16 @@ export const OurWorksList = ({ data, className }) => {
 }
 
 export const getServerSideProps = async () => {
-  const data = await axios.get('/api/collection/page/our-work')
+  const { data } = await axios.get('/our-works-page')
 
   return {
     props: {
-      data: data.entry.data,
-      menu: data
-        ?.collection
-        ?.files[0]
-        ?.fields
-        ?.find(({ name }) => name === 'works')
-        ?.fields
-        ?.find(({ name }) => name === 'category')
-        ?.options ?? []
+      data
     }
   }
 }
 
-const OurWorks = ({ data, menu, HamburgerMenu }) => {
+const OurWorks = ({ data, menu = [], HamburgerMenu }) => {
   const [active, setActive] = useState(menu[0])
 
   return (<>

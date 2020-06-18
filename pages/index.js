@@ -38,15 +38,14 @@ const scrollToDown = () => {
 }
 
 export const getServerSideProps = async () => {
-  const data = await axios.get('/api/collection/page/landingpage')
-  const works = await axios.get('/api/collection/page/our-work')
-  const awards = await axios.get('/api/collection/page/awards')
-
+  const { data } = await axios.get('/landing-page')
+  const { data: ourWork } = await axios.get('/our-works-page')
+  const { data: awards } = await axios.get('/awards-page')
   return {
     props: {
-      data: data.entry.data,
-      works: works.entry.data.works,
-      awards: awards.entry.data.awards,
+      data: data,
+      works: ourWork.works,
+      awards: awards.awards,
     }
   }
 }
@@ -153,7 +152,7 @@ export default function Home({ data, works, awards, HamburgerMenu }) {
         </Link>
       </div>
     </section>
-    <OurPeople data={data['our-people']} />
+    <OurPeople data={data.our_peoples} />
     <section menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">
@@ -182,7 +181,7 @@ export default function Home({ data, works, awards, HamburgerMenu }) {
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
           <div className="hidden md:flex w-2/12 flex-1 flex-col justify-center items-center">
-            <img className="mb-4" src="/logo.svg" alt="Hakuhodo" />
+            <LogoSVG className="mb-4" width={194} />
             <img src="/Hakuhodo.svg" alt="Hakuhodo" />
           </div>
           <div className="md:ml-12" style={{ flex: 2 }}>
