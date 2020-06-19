@@ -32,3 +32,10 @@ our-people:
       are few clouds and the weather is accommodating for a long and lasting
       study.
     collapsed: true
+social-media:
+  - collapsed: true
+    name: instagram
+    link: https://instagram.com
+  - collapsed: true
+    name: facebook
+    link: https://facebook.com

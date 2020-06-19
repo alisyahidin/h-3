@@ -44,3 +44,16 @@
       - { name: picture, label: Picture, widget: image }
       - { name: slug, label: Slug, widget: string }
       - { name: description, label: Description, widget: markdown }
+- name: footer
+  label: Footer
+  files:
+  - name: social-media
+    label: Social Media
+    file: content/landing-page.yaml
+    fields:
+    - name: social-media
+      label: Social Media
+      widget: list
+      fields:
+      - { name: name, label: Name, widget: select, options: [ instagram, facebook, twitter ] }
+      - { name: link, label: Link, widget: string }

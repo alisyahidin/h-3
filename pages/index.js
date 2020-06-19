@@ -41,17 +41,19 @@ export const getServerSideProps = async () => {
   const data = await axios.get('/api/collection/page/landingpage')
   const works = await axios.get('/api/collection/page/our-work')
   const awards = await axios.get('/api/collection/page/awards')
+  const socialMedia = await axios.get('/api/collection/footer/social-media')
 
   return {
     props: {
       data: data.entry.data,
       works: works.entry.data.works,
       awards: awards.entry.data.awards,
+      socialMedia: socialMedia.entry.data['social-media'],
     }
   }
 }
 
-export default function Home({ data, works, awards, HamburgerMenu }) {
+export default function Home({ data, works, awards, socialMedia, HamburgerMenu }) {
   const menu = useRef(null)
   const scrollDown = useRef(null)
   const [menuColor, setMenuColor] = useState(getMenuColor(menu) ?? 'dark')
@@ -207,10 +209,11 @@ export default function Home({ data, works, awards, HamburgerMenu }) {
           </div>
           <div>
             <span style={{ color: '#757575', opacity: 0.4 }} className="text-default mr-3">@ Hakuhodo H3 2020 all rights reserved</span>
-            <i style={{ color: '#757575', opacity: 0.4 }} className="text-default icon twitter" aria-hidden="true" />
-            <i style={{ color: '#757575', opacity: 0.4 }} className="text-default icon linkedin" aria-hidden="true" />
-            <i style={{ color: '#757575', opacity: 0.4 }} className="text-default icon google" aria-hidden="true" />
-            <i style={{ color: '#757575', opacity: 0.4 }} className="text-default icon facebook f" aria-hidden="true" />
+            {socialMedia.map(({ name, link }, index) => link && (
+              <a key={index} href={link} target="_blank">
+                <i style={{ color: '#757575', opacity: 0.4 }} className={`text-default icon ${name}`} aria-hidden="true" />
+              </a>
+            ))}
           </div>
         </div>
       </div>
