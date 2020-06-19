@@ -10,6 +10,7 @@ import { OurWorksList } from './our-works'
 import { AwardList } from './awards'
 import { gsap } from 'gsap'
 import dynamic from 'next/dynamic'
+import Error from 'next/error'
 
 const Logo = dynamic(() => import('components/Logo'), { ssr: false })
 
@@ -38,25 +39,29 @@ const scrollToDown = () => {
 }
 
 export const getServerSideProps = async () => {
-  const { data } = await axios.get('/landing-page')
-  const { data: ourWork } = await axios.get('/our-works-page')
-  const { data: awards } = await axios.get('/awards-page')
-  return {
-    props: {
-      data: data,
-      works: ourWork.works,
-      awards: awards.awards,
-    }
+  const props = { data: null, works: null, awards: null, error: null }
+  try {
+    props.data = (await axios.get('/landing-page')).data
+    props.works = (await axios.get('/landing-page')).data.works
+    props.awards = (await axios.get('/landing-page')).data.awards
+
+    return { props }
+  } catch (e) {
+    console.log(e)
+    props.error = e.toString()
+    return { props }
   }
 }
 
-export default function Home({ data, works, awards, HamburgerMenu }) {
+export default function Home({ error, data, works, awards, HamburgerMenu }) {
   const menu = useRef(null)
   const scrollDown = useRef(null)
   const [menuColor, setMenuColor] = useState(getMenuColor(menu) ?? 'dark')
   const [scrollDownColor, setScrollDownColor] = useState(getMenuColor(scrollDown) ?? 'dark')
 
   useEffect(() => {
+    if (error) console.error(error)
+
     document.addEventListener('scroll', () => {
       setMenuColor(getMenuColor(menu))
       setScrollDownColor(getMenuColor(scrollDown))
@@ -66,6 +71,8 @@ export default function Home({ data, works, awards, HamburgerMenu }) {
       setScrollDownColor(getMenuColor(scrollDown))
     })
   }, [])
+
+  if (error) return <Error statusCode={500} />
 
   return (<>
     <Head>
