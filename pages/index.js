@@ -182,7 +182,7 @@ export default function Home({ data, works, awards, HamburgerMenu }) {
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
           <div className="hidden md:flex w-2/12 flex-1 flex-col justify-center items-center">
-            <img className="mb-4" src="/logo.svg" alt="Hakuhodo" />
+            <LogoSVG className="mb-4" width={194} />
             <img src="/Hakuhodo.svg" alt="Hakuhodo" />
           </div>
           <div className="md:ml-12" style={{ flex: 2 }}>

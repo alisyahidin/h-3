@@ -9,6 +9,7 @@ import { applySession } from 'lib/session'
 import UserSetting from 'components/admin/UserSetting'
 import axios from 'lib/axios'
 import useAuth from 'hooks/useAuth'
+import { LogoSVG } from 'components/Logo'
 
 export const getServerSideProps = async ({ req, res }) => {
   const props = {
@@ -44,7 +45,7 @@ const Admin = ({ collections, auth: initialData }) => {
     <header className="absolute w-full bg-white shadow">
       <div className="container px-5 flex justify-between mx-auto text-lg">
         <a className="flex items-center" href={process.env.NEXT_PUBLIC_SITE_URI} target="_blank" rel="noopener">
-          <img width="26px" className="py-2 mr-2" src="/logo.svg" alt="Logo" />
+          <LogoSVG width="26px" className="py-2 mr-2" />
           <h1 className="m-0 text-black">{process.env.NEXT_PUBLIC_SITE_NAME}</h1>
         </a>
         <div className="flex items-center cursor-pointer py-3">
