@@ -43,19 +43,21 @@ const OurWorks = ({ data, menu, HamburgerMenu }) => {
   return (<>
     <Logo />
     <HamburgerMenu color="dark" />
-    <div className="container xl:px-24 md:px-16 px-8 py-12 mx-auto">
-      <nav className="flex items-center justify-between mb-8">
-        <h1 className="text-52px font-medium uppercase">{data.title}</h1>
-        {/* <ul className="flex text-14px uppercase">
+    <div className="min-h-screen pt-20 md:pt-0" style={{ backgroundColor: '#FFFFFF' }}>
+      <div className="container xl:px-24 md:px-16 px-8 py-12 mx-auto">
+        <nav className="flex items-center justify-between mb-8">
+          <h1 className="text-52px font-medium uppercase">{data.title}</h1>
+          {/* <ul className="flex text-14px uppercase">
           {menu.map((menuText, index) =>
             <li key={index} onClick={() => setActive(menuText)} className={clsx(["ml-2 font-medium cursor-pointer p-3", active === menuText ? 'text-red' : 'text-gray-500'])}>{menuText}</li>
           )}
         </ul> */}
-      </nav>
-      <p className="text-gray-600 text-default mb-16" style={{ lineHeight: '28px' }}>
-        {data.description}
-      </p>
-      <OurWorksList data={data.works} />
+        </nav>
+        <p className="text-gray-600 text-default mb-16" style={{ lineHeight: '28px' }}>
+          {data.description}
+        </p>
+        <OurWorksList data={data.works} />
+      </div>
     </div>
   </>)
 }
