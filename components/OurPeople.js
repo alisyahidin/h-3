@@ -23,11 +23,11 @@ const settings = {
   ]
 }
 
-const OurPeople = ({ data }) => {
+const OurPeople = ({ id, data }) => {
   const [profile, setProfile] = useState(null)
 
   return (<>
-    <section menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
+    <section id={id} menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col text-white">
         <div className="flex-1 flex items-center mb-12">
           <h2 className="text-52px">OUR PEOPLE</h2>

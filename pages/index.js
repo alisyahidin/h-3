@@ -87,7 +87,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
       onClick={scrollToDown}
     />
 
-    <section menu-color="dark" className="bg-white">
+    <section id="home" menu-color="dark" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col items-center">
         <div className="flex-1 flex flex-col justify-center items-center">
           <LogoSVG className="mb-4" width={194} />
@@ -111,7 +111,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
         </p>
       </div>
     </section>
-    <section menu-color="light" style={{ backgroundColor: '#221F1F' }}>
+    <section id="about-us" menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
           <h2 className="text-52px text-red">ABOUT US</h2>
@@ -126,7 +126,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
         </div>
       </div>
     </section>
-    <section menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
+    <section id="philoshophy" menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
           <h2 className="text-52px text-white">PHILOSHOPHY</h2>
@@ -139,7 +139,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
         </div>
       </div>
     </section>
-    <section menu-color="dark" className="bg-white">
+    <section id="our-works" menu-color="dark" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">
           <h2 className="text-52px">OUR WORKS</h2>
@@ -155,8 +155,8 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
         </Link>
       </div>
     </section>
-    <OurPeople data={data['our-people']} />
-    <section menu-color="light" style={{ backgroundColor: '#221F1F' }}>
+    <OurPeople id="our-people" data={data['our-people']} />
+    <section id="awards" menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">
           <h2 className="text-52px text-white">AWARDS</h2>

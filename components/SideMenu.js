@@ -1,33 +1,32 @@
 import { useRef, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { gsap } from 'gsap'
 import clsx from 'clsx'
 
 const menu = [
   {
-    href: '/',
+    href: '#home',
     title: ['01', 'HOME']
   },
   {
-    href: '/about-us',
+    href: '#about-us',
     title: ['02', 'ABOUT US']
   },
   {
-    href: '/philoshophy',
+    href: '#philoshophy',
     title: ['03', 'PHILOSHOPHY']
   },
   {
-    href: '/our-works',
+    href: '#our-works',
     title: ['04', 'OUR WORKS']
   },
   {
-    href: '/our-people',
+    href: '#our-people',
     title: ['05', 'OUR PEOPLE']
   },
   {
-    href: '/awards',
+    href: '#awards',
     title: ['06', 'AWARDS']
   },
 ]
@@ -35,6 +34,12 @@ const menu = [
 const MenuList = ({ show, setShow }) => {
   const menuElement = useRef(null)
   const router = useRouter()
+
+  const scrollTo = id => {
+    setShow(false)
+    gsap.to(window, { duration: 1, scrollTo: id, ease: 'power2.in' })
+    router.replace('/' + id)
+  }
 
   useEffect(() => {
     show
@@ -61,15 +66,16 @@ const MenuList = ({ show, setShow }) => {
         <ul className="md:mr-16">
           {menu.map((item, index) => (
             <li key={index} className="mb-5">
-              <Link href={item.href}>
-                <a
-                  onClick={() => setShow(false)}
-                  className={clsx(['menu-link text-22px cursor-pointer', router.pathname === item.href && 'menu-link--active'])}
-                >
-                  {item.title[0]}
-                  <p className="text-42px font-bold ml-6 inline-block">{item.title[1]}</p>
-                </a>
-              </Link>
+              <a
+                onClick={e => {
+                  e.preventDefault()
+                  scrollTo(item.href)
+                }}
+                className={clsx(['menu-link text-22px cursor-pointer', router.pathname === item.href && 'menu-link--active'])}
+              >
+                {item.title[0]}
+                <p className="text-42px font-bold ml-6 inline-block">{item.title[1]}</p>
+              </a>
             </li>
           ))}
         </ul>
