@@ -1,37 +1,46 @@
 logo: /images/logo-text.png
 our-people:
-  - name: John Doe
-    avatar: /images/people.png
-    position: CEO
+  - name: Shafiq Muljanto
+    avatar: /images/Koki Ito.jpg
+    position: General Manager
     company: Hakuhodo H3
-    description: The best time to view the moon, obviously, is at night when there
-      are few clouds and the weather is accommodating for a long and lasting
-      study.
+    description: |-
+      23 years experience
+      MACS909 - Fortune indonesia - Dentsu Strat - Kita Anak Bangsa - H:Three
     collapsed: true
-  - name: John Doe 2
-    avatar: /images/people.png
-    position: CFO
+  - name: Koki Ito
+    avatar: /images/Koki Ito.jpg
+    position: Client Service Director
     company: Hakuhodo H3
-    description: The best time to view the moon, obviously, is at night when there
-      are few clouds and the weather is accommodating for a long and lasting
-      study.
+    description: |-
+      12 years experience
+      Hakuhodo Tokyo - Hakuhodo Bangkok - Hakuhodo Indonesia
     collapsed: true
-  - name: John Doe 3
-    avatar: /images/people.png
-    position: CEO
+  - name: Redy Pramanjaya
+    avatar: /images/Redy Pramanjaya.jpg
+    position: Creative Director
     company: Haukhodo
-    description: The best time to view the moon, obviously, is at night when there
-      are few clouds and the weather is accommodating for a long and lasting
-      study.
+    description: |-
+      15 Years Experience
+      Gatra Magazine - Draft FCB - TBWA - H:Three
     collapsed: true
-  - name: John Doe 4
-    avatar: /images/people.png
-    position: CTO
+  - name: Rafiga Tjahjadi
+    avatar: /images/Rafiga Tjahjadi.JPG
+    position: Senior Account Director
     company: Hakuhodo
-    description: The best time to view the moon, obviously, is at night when there
-      are few clouds and the weather is accommodating for a long and lasting
-      study.
+    description: |-
+      
+      17 Years Experience
+      Publicis - Hakuhodo Indonesia - H:Three
     collapsed: true
+  - collapsed: true
+    name: Eka Harithsyah
+    avatar: /images/Eka Haritsyah.jpg
+    position: Associate Planning Director
+    company: Hakuhodo
+    description: |-
+      13 Years Experience
+      OgilvyOne - Neo Indonesia Group - Hakuhodo Lotus (Lotus:H) - H:Three
 social-media:
   - collapsed: true
     name: instagram

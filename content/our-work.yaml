@@ -1,59 +1,37 @@
 title: Our Works
-description: Hakuhodo is one of the most highly decorated agencies in the world
-  for creative work. Unique among Asian-based agencies, we have twice won the
-  Cannes Grand Prix and were awarded a Special Lion commemorating Cannes Lions’
-  50th anniversary. A selection of our recent creative work that has received
-  top awards at major international advertising competitions is shown here.
+description: >-
+  
+  We have had the opportunity to collaborate with diverse clients in creating works that provide solutions to different kinds of challenges.
 works:
-  - collapsed: false
-    title: Advert
-    thumbnail: /images/Placeholder.png
-    description: Hakuhodo is one of the most highly decorated agencies in the world
-      for creative work. Unique among Asian-based agencies, we have twice won
-      the Cannes Grand Prix and were awarded a Special Lion commemorating Cannes
-      Lions’ 50th anniversary. A selection of our recent creative work that has
-      received top awards at major international advertising competitions is
-      shown here.
-    category: Branding
-    slug: Hakuhodo is one of the most highly decorated agencies in the world for
-      creative work.
   - collapsed: true
-    title: Advert 2
-    thumbnail: /images/Placeholder1.png
-    description: >-
-      As we approached the palace I could see through the great windows of the
-      first floor into the brilliantly illuminated audience chamber of Than
-      Kosis. The immense hall was crowded with nobles and their women, as though
-      some important function was in progress.
-
-
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur
-
-
-      **Awwards**
-
-
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-    category: Branding
-    slug: Hakuhodo is one of the most highly decorated agencies in the world for
-      creative work.
-  - collapsed: false
-    title: Advert 3
+    title: Traveloka Xperience Launching
     thumbnail: /images/Placeholder.png
-    description: >-
-      As we approached the palace I could see through the great windows of the
-      first floor into the brilliantly illuminated audience chamber of Than
-      Kosis. The immense hall was crowded with nobles and their women, as though
-      some important function was in progress.
-
-
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur
-
-
-      **Awwards**
-
-
-      Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+    description: When Traveloka wanted to launch a things-to-do megastore, we make
+      sure people remember it as instantly as they associate traveling with this
+      notable online travel agent.
+    category: Branding
+    slug: Expanding the brand’s definition.
+  - collapsed: true
+    title: Mitsubishi Xpander Tons of Real Happiness
+    thumbnail: /images/Placeholder1.png
+    description: "We helped the record-breaking MPV to turn the boring, conventional
+      test drive into a memorable experience that the entire family can
+      enjoy.  "
+    category: Branding
+    slug: Test drive reinvented.
+  - collapsed: true
+    title: Aquaproof Cat Pelapis Anti Bocor
+    thumbnail: /images/Placeholder.png
+    description: "We took a unique and dramatic twist to show the product’s benefits
+      instead of the problem-solution narrative that other waterproof paint
+      brands commonly use. "
     category: Web
-    slug: Hakuhodo is one of the most highly decorated agencies in the world for
-      creative work.
+    slug: A unique twist on a familiar brand.
+  - collapsed: true
+    description: "Parallel to what Herbana does in modernizing herbal consuming
+      tradition, we display the good old herbal ingredients in a modern and
+      attractive 3D motion graphics display.    "
+    title: Herbana Relief Sari
+    category: Branding
+    slug: Do it like the brand does.
+    thumbnail: /images/Placeholder1.png
