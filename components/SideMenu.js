@@ -6,27 +6,27 @@ import clsx from 'clsx'
 
 const menu = [
   {
-    href: '#home',
+    href: 'home',
     title: ['01', 'HOME']
   },
   {
-    href: '#about-us',
+    href: 'about-us',
     title: ['02', 'ABOUT US']
   },
   {
-    href: '#philoshophy',
+    href: 'philoshophy',
     title: ['03', 'PHILOSHOPHY']
   },
   {
-    href: '#our-works',
+    href: 'our-works',
     title: ['04', 'OUR WORKS']
   },
   {
-    href: '#our-people',
+    href: 'our-people',
     title: ['05', 'OUR PEOPLE']
   },
   {
-    href: '#awards',
+    href: 'awards',
     title: ['06', 'AWARDS']
   },
 ]
@@ -69,9 +69,9 @@ const MenuList = ({ show, setShow }) => {
               <a
                 onClick={e => {
                   e.preventDefault()
-                  scrollTo(item.href)
+                  scrollTo('#' + item.href)
                 }}
-                className={clsx(['menu-link text-22px cursor-pointer', router.pathname === item.href && 'menu-link--active'])}
+                className={clsx(['menu-link text-22px cursor-pointer', (location.hash === '#' + item.href || router.pathname === '/' + item.href) && 'menu-link--active'])}
               >
                 {item.title[0]}
                 <p className="text-42px font-bold ml-6 inline-block">{item.title[1]}</p>

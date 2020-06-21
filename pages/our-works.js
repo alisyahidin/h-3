@@ -38,12 +38,12 @@ export const getServerSideProps = async () => {
 }
 
 const OurWorks = ({ data, menu, HamburgerMenu }) => {
-  const [active, setActive] = useState(menu[0])
+  // const [active, setActive] = useState(menu[0])
 
   return (<>
     <Logo />
     <HamburgerMenu color="dark" />
-    <div className="min-h-screen pt-20 md:pt-0" style={{ backgroundColor: '#FFFFFF' }}>
+    <section id="our-works" className="min-h-screen pt-20 md:pt-0" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 mx-auto">
         <nav className="flex items-center justify-between mb-8">
           <h1 className="text-52px font-medium uppercase">{data.title}</h1>
@@ -58,7 +58,7 @@ const OurWorks = ({ data, menu, HamburgerMenu }) => {
         </p>
         <OurWorksList data={data.works} />
       </div>
-    </div>
+    </section>
   </>)
 }
 
