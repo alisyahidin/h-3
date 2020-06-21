@@ -1,5 +1,6 @@
 import { Modal } from 'semantic-ui-react'
 import Content from 'components/Content'
+import Video from 'components/Video'
 
 const WorkCard = ({ data, ...props }) => {
   return (
@@ -35,6 +36,7 @@ WorkCard.Detail = ({ data, closeDetail }) => {
             </span>
           </button>
         </div>
+        {data.video && <Video src={data.video} />}
         <Content className="work-card__detail text-default text-gray-600" text={data.description} />
       </div>
     </Modal>

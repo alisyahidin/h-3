@@ -14,7 +14,7 @@ const Video = ({ name, value, onChange }) => {
       </>)}
       {!filled && <button onClick={open} className="bg-blue-200 py-1 px-2 rounded">Choose Video</button>}
     </div>
-    <Media onSelected={onChange} accept=".mp4,.3gp,.mkv" />
+    <Media onSelected={onChange} accept=".mp4" />
   </>)
 }
 
