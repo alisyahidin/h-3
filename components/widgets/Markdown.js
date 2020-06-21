@@ -1,25 +1,32 @@
-import { Component, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import { EditorState, convertToRaw, convertFromRaw, Modifier } from 'draft-js'
+import { EditorState, convertToRaw, convertFromRaw, AtomicBlockUtils } from 'draft-js'
 import { draftToMarkdown, markdownToDraft } from 'markdown-draft-js'
+import useMedia from 'hooks/useMedia'
 
-class CustomOption extends Component {
-  addStar = () => {
-    const { editorState, onChange } = this.props
-    const contentState = Modifier.replaceText(
-      editorState.getCurrentContent(),
-      editorState.getSelection(),
-      '⭐',
-      editorState.getCurrentInlineStyle(),
+const CustomOption = ({ onChange, editorState }) => {
+  const { open, Component: Media } = useMedia()
+
+  const addImage = (src) => {
+    const entityData = { src, height: 'auto', width: 'auto' }
+    const entityKey = editorState
+      .getCurrentContent()
+      .createEntity('IMAGE', 'MUTABLE', entityData)
+      .getLastCreatedEntityKey()
+    const newEditorState = AtomicBlockUtils.insertAtomicBlock(
+      editorState,
+      entityKey,
+      '![alt text](/images/awards-1.png "Logo Title Text 1")'
     )
-    onChange(EditorState.push(editorState, contentState, 'insert-characters'))
+    onChange(newEditorState)
   }
 
-  render() {
-    return (
-      <div onClick={this.addStar}>⭐</div>
-    )
-  }
+  return (<>
+    <div className="rdw-image-wrapper">
+      <div className="rdw-option-wrapper" onClick={open}>⭐</div>
+    </div>
+    <Media onSelected={addImage} />
+  </>)
 }
 
 const Editor = dynamic(() => import('react-draft-wysiwyg').then(mod => mod.Editor), { ssr: false })
@@ -29,6 +36,7 @@ const MarkdownEditor = ({ value, onChange }) => {
   const [state, setState] = useState(EditorState.createWithContent(initialState))
 
   useEffect(() => {
+    console.log(convertToRaw(state.getCurrentContent()))
     onChange(draftToMarkdown(convertToRaw(state.getCurrentContent())))
   }, [state])
 

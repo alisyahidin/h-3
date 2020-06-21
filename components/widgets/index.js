@@ -3,6 +3,7 @@ import StringWidget from './String'
 import Text from './Text'
 import Markdown from './Markdown'
 import Image from './Image'
+import Video from './Video'
 import Select from './Select'
 import ObjectWidget from './Object'
 import DateWidget from './Date'
@@ -25,6 +26,8 @@ const getWidgetComponent = type => {
       return Markdown
     case 'image':
       return Image
+    case 'video':
+      return Video
     case 'object':
       return ObjectWidget
     case 'list':

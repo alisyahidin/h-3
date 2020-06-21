@@ -1,7 +1,6 @@
 title: Our Works
-description: >-
-  
-  We have had the opportunity to collaborate with diverse clients in creating works that provide solutions to different kinds of challenges.
+description: We have had the opportunity to collaborate with diverse clients in
+  creating works that provide solutions to different kinds of challenges.
 works:
   - collapsed: true
     title: Traveloka Xperience Launching
@@ -14,23 +13,23 @@ works:
   - collapsed: true
     title: Mitsubishi Xpander Tons of Real Happiness
     thumbnail: /images/Placeholder1.png
-    description: "We helped the record-breaking MPV to turn the boring, conventional
-      test drive into a memorable experience that the entire family can
-      enjoy.  "
+    description: " We helped the record-breaking MPV to turn the boring,
+      conventional test drive into a memorable experience that the entire family
+      can enjoy."
     category: Branding
     slug: Test drive reinvented.
   - collapsed: true
     title: Aquaproof Cat Pelapis Anti Bocor
     thumbnail: /images/Placeholder.png
-    description: "We took a unique and dramatic twist to show the product’s benefits
+    description: We took a unique and dramatic twist to show the product’s benefits
       instead of the problem-solution narrative that other waterproof paint
-      brands commonly use. "
+      brands commonly use.
     category: Web
     slug: A unique twist on a familiar brand.
   - collapsed: true
-    description: "Parallel to what Herbana does in modernizing herbal consuming
+    description: Parallel to what Herbana does in modernizing herbal consuming
       tradition, we display the good old herbal ingredients in a modern and
-      attractive 3D motion graphics display.    "
+      attractive 3D motion graphics display.
     title: Herbana Relief Sari
     category: Branding
     slug: Do it like the brand does.

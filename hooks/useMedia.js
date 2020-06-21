@@ -6,7 +6,7 @@ const useMedia = () => {
   const close = () => setShow(false)
   const open = () => setShow(true)
 
-  return { open, close, Component: ({ onSelected }) => show && <Media open={show} closeModal={close} onSelected={onSelected} /> }
+  return { open, close, Component: ({ onSelected, ...props }) => show && <Media {...props} open={show} closeModal={close} onSelected={onSelected} /> }
 }
 
 export default useMedia

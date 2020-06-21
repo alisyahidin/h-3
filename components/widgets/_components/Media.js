@@ -2,14 +2,25 @@ import { useState, useEffect, useCallback } from 'react'
 import { Input, Button, Image, Modal } from 'semantic-ui-react'
 import clsx from 'clsx'
 import axios from 'lib/axios'
+import Video from 'components/Video'
 
-const Media = ({ open, closeModal, onSelected = null }) => {
+const imageExtension = [
+  '.jpg',
+  '.jpeg',
+  '.svg',
+  '.png'
+]
+
+const Media = ({ open, closeModal, onSelected = null, accept = '.jpg,.jpeg,.svg,.png' }) => {
   const [images, setImages] = useState([])
   const [selected, setSelected] = useState(null)
 
   const fetchImages = useCallback(() => {
     axios.get('/api/images')
-      .then(data => setImages(data))
+      .then(data => setImages(
+        data
+          .filter(file => accept.split(',').includes('.' + file.name.split('.').pop()))
+      ))
       .catch(console.log)
   }, [])
 
@@ -45,7 +56,7 @@ const Media = ({ open, closeModal, onSelected = null }) => {
             <Button className="mr-6" disabled={selected === null} size="small">Download</Button>
             <label className="ui small button">
               <span>Upload</span>
-              <input onChange={uploadImage} className="hidden" name="image" type="file" accept=".jpg,.jpeg,.svg,.png" />
+              <input onChange={uploadImage} className="hidden" name="image" type="file" accept={accept} />
             </label>
           </div>
         </div>
@@ -58,7 +69,10 @@ const Media = ({ open, closeModal, onSelected = null }) => {
             {onSelected !== null && <Button onClick={selectImage} icon="check" disabled={selected === null} size="small" positive content="Choose Selected" />}
           </div>
         </div>
-        <div className="grid grid-cols-4 scrolling gap-6 mt-6 content">
+        <div className={clsx(["grid scrolling gap-6 mt-6 content", images.length > 0 ? 'grid-cols-4' : 'grid-cols-1'])}>
+          {images.length === 0 && <div className="w-full py-20">
+            <h2 className="text-gray-600 text-center">No file uploaded</h2>
+          </div>}
           {images.map(({ name, url }, index) => (
             <div
               key={index}
@@ -69,7 +83,7 @@ const Media = ({ open, closeModal, onSelected = null }) => {
               ])}
             >
               <div className="media-file__preview">
-                <Image src={url} alt={name} />
+                {imageExtension.includes('.' + name.split('.').pop()) ? <Image src={url} alt={name} /> : <Video src={url} />}
               </div>
               <p className="p-4 text-lg text-center text-gray-600 border-t">{name}</p>
             </div>

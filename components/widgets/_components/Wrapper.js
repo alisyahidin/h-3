@@ -14,7 +14,7 @@ export const Outer = ({ children, collapse = false, title = null, action = null 
       </div>
       {action && action}
     </div>
-    <div style={{ height: collapsed ? 'initial' : 0, overflow: 'hidden' }} className="w-full border-gray-300 border-2 p-3 pt-0">
+    <div style={{ height: collapsed ? 'initial' : 0, overflow: collapsed ? 'none' : 'hidden' }} className="w-full border-gray-300 border-2 p-3 pt-0">
       {children}
     </div>
   </>)
@@ -28,7 +28,7 @@ export const Inner = ({ children, action = null, collapsed, collapseItem }) => {
       </button>
       {action && action}
     </div>
-    <div style={{ height: collapsed ? 'initial' : 0, overflow: 'hidden' }} className="w-full border-gray-300 border-2 p-3 pt-0">
+    <div style={{ height: collapsed ? 'initial' : 0, overflow: collapsed ? 'none' : 'hidden' }} className="w-full border-gray-300 border-2 p-3 pt-0">
       {children}
     </div>
   </>)

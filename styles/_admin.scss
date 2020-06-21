@@ -19,6 +19,10 @@
 
 .media-file {
   z-index: 2;
+  &--disable {
+    cursor: default !important;
+    opacity: 0.3;
+  }
   &__preview {
     height: 162px;
     & > img {
