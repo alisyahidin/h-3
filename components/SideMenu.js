@@ -15,7 +15,7 @@ const menu = [
   },
   {
     href: 'philoshophy',
-    title: ['03', 'PHILOSHOPHY']
+    title: ['03', 'PHILOSOPHY']
   },
   {
     href: 'our-works',
@@ -58,7 +58,7 @@ const MenuList = ({ show, setShow }) => {
           <p className="text-default uppercase menu-title" style={{ lineHeight: '28px' }}>
             <b style={{ color: '#CD697B' }}>H:THREE</b> Is a multinational <br />
             communication firm who belives in equal <br />
-            partnership, Supporter with strong local talents.
+            partnership, Supported with strong local talents.
             </p>
         </div>
       </div>

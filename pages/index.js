@@ -196,7 +196,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
             <p className="text-20px mb-4" style={{ color: '#4F4F4F' }}>Mail. H3roes@h-three.id</p>
             <p className="text-20px mb-4" style={{ color: '#333333' }}>
               PT. Hita Wistara Mahir <br />
-              Jalan Kyai Maja lantai 1 No.4 <br />
+              Jl. Kyai Maja No.4, lantai 1 <br />
               Kebayoran Baru <br />
               Jakarta 12120, Indonesia <br />
             </p>
