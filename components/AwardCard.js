@@ -5,10 +5,12 @@ import Content from 'components/Content'
 const AwardCard = ({ data, sort, icon, onClick = null }) => {
   return (
     <div
-      className={clsx(["flex items-start mb-6", "order-" + sort, icon ? 'flex-row' : 'flex-col', !icon && 'cursor-pointer'])}
+      className={clsx(["flex items-start md:items-center justify-center mb-6", "order-" + sort, icon ? 'flex-row' : 'flex-col', !icon && 'cursor-pointer'])}
       onClick={!icon ? onClick : undefined}
     >
-      <img className="mb-4 mr-4 md:mr-8" src={icon ? data.thumbnail : data.picture} alt={'Awward' + sort} style={{ width: icon ? 'initial' : 237, maxWidth: '100%', minWidth: icon ? 57 : 'initial' }} />
+      <div className={clsx(["mr-4 md:mr-8 flex items-center", sort === 1 ? 'w-3/6' : 'w-8/12'])} style={{ minHeight: 150 }}>
+        <img src={icon ? data.thumbnail : data.picture} alt={'Awward' + sort} width="100%" />
+      </div>
       <div className="text-white">
         <h2 className="text-24px mb-2">{data.title}</h2>
         <p className="text-16px" style={{ color: icon ? '#FFF' : '#767676' }}>{data.slug}</p>

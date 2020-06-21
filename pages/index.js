@@ -5,13 +5,13 @@ import ScrollDown from 'components/ScrollDown'
 import Arrow from 'components/Arrow'
 import { LogoSVG } from 'components/Logo'
 import axios from 'lib/axios'
-import OurPeople from 'components/OurPeople'
 import { OurWorksList } from './our-works'
 import { AwardList } from './awards'
 import { gsap } from 'gsap'
 import dynamic from 'next/dynamic'
 
 const Logo = dynamic(() => import('components/Logo'), { ssr: false })
+const OurPeople = dynamic(() => import('components/OurPeople'), { ssr: false })
 
 if (process.browser) {
   const ScrollToPlugin = require('gsap/ScrollToPlugin')

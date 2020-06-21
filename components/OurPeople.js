@@ -36,7 +36,7 @@ const OurPeople = ({ id, data }) => {
           <Slider {...settings}>
             {data.map((people, index) =>
               <div onClick={() => setProfile(index)} className="cursor-pointer p-5" key={index}>
-                <img className="w-full" src={people.avatar} alt={people.name} />
+                <img className="w-full" style={{ objectFit: 'cover', height: window.innerWidth > 767 ? '250' : 70 }} src={people.avatar} alt={people.name} />
                 <h3 className="text-32px">{people.name}</h3>
                 <p className="text-16px mb-0">{people.position}</p>
                 <p className="text-16px">{people.company}</p>
