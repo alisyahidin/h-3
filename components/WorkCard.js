@@ -36,7 +36,7 @@ WorkCard.Detail = ({ data, closeDetail }) => {
             </span>
           </button>
         </div>
-        {data.video && <Video src={data.video} />}
+        {data.video && <div className="my-8"><Video src={data.video} /></div>}
         <Content className="work-card__detail text-default text-gray-600" text={data.description} />
       </div>
     </Modal>

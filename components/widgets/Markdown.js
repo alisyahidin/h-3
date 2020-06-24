@@ -36,7 +36,6 @@ const MarkdownEditor = ({ value, onChange }) => {
   const [state, setState] = useState(EditorState.createWithContent(initialState))
 
   useEffect(() => {
-    console.log(convertToRaw(state.getCurrentContent()))
     onChange(draftToMarkdown(convertToRaw(state.getCurrentContent())))
   }, [state])
 

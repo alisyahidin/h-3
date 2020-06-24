@@ -1,32 +1,37 @@
-import { readdirSync, writeFileSync } from 'fs'
+import { readdirSync, existsSync, unlinkSync } from 'fs'
 import multer from 'multer'
 import connect from 'next-connect'
-import session from 'lib/session'
+import auth from 'middleware/auth'
 
 export const config = { api: { bodyParser: false } }
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'public/images')
+    cb(null, 'public/files')
   },
   filename: (req, { originalname }, cb) => {
+    req.on('aborted', () => {
+      unlinkSync(process.cwd() + '/public/files/' + originalname)
+    })
     cb(null, originalname)
   }
 })
-const upload = multer({ storage }).single('image')
+const upload = multer({ storage, limits: 1024 * 1024 * 1024 * 100 }).single('file')
 
 export default connect()
-  .use(session)
   .get((req, res) => {
-    const images = readdirSync('public/images').map(
+    if (!existsSync('public/files')) mkdirSync('public/files')
+
+    const files = readdirSync('public/files').map(
       filename => ({
         name: filename,
-        url: '/images/' + filename
+        url: '/files/' + filename
       })
     )
     res.statusCode = 200
-    res.json([...images])
+    res.json([...files])
   })
+  .use(auth)
   .post((req, res) => {
     upload(req, res, err => {
       if (err) {
