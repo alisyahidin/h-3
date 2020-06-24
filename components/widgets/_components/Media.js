@@ -63,14 +63,17 @@ const Media = ({ open, closeModal, onSelected = null, accept = '.jpg,.jpeg,.svg,
     sendRequest(e.target.files[0])
       .then(() => {
         setCurrentRequest(null)
-        setUploading(false)
-        fetchFiles()
+        setTimeout(() => {
+          setUploading(false)
+          fetchFiles()
+        }, 1500)
       })
       .catch(error => {
-        console.error(error)
         setCurrentRequest(null)
-        setUploading(false)
-        fetchFiles()
+        setTimeout(() => {
+          setUploading(false)
+          fetchFiles()
+        }, 1500)
       })
   }
 
@@ -110,7 +113,7 @@ const Media = ({ open, closeModal, onSelected = null, accept = '.jpg,.jpeg,.svg,
         </div>
       </Modal.Header>
       <Modal.Content style={{ position: 'relative' }}>
-        {uploading && <div className="w-full h-full absolute top-0 left-0 bg-white flex items-center justify-center flex-col px-32" style={{ zIndex: 2}}>
+        {uploading && <div className="w-full h-full absolute top-0 left-0 bg-white flex items-center justify-center flex-col px-32 z-20">
           <Progress style={{ width: '100%', margin: 0 }} percent={progress.percent} indicating progress>
             Uploading {formatBytes(progress.size)} / {formatBytes(progress.total)}
           </Progress>

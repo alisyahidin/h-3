@@ -2,6 +2,7 @@ import { readdirSync, existsSync, unlinkSync } from 'fs'
 import multer from 'multer'
 import connect from 'next-connect'
 import auth from 'middleware/auth'
+import { spawn } from 'child_process'
 
 export const config = { api: { bodyParser: false } }
 
@@ -39,7 +40,12 @@ export default connect()
         res.statusCode = 500
         return res.send({ message: 'Failed upload file' })
       }
-      res.statusCode = 201
-      res.send({ message: 'Succesfully upload file' })
+      const restart = spawn('pm2', ['reload', 'app'])
+      restart.on('exit', () => {
+        setTimeout(() => {
+          res.statusCode = 201
+          res.send({ message: 'Succesfully upload file' })
+        }, 100)
+      })
     })
   })
