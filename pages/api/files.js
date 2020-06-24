@@ -17,7 +17,10 @@ const storage = multer.diskStorage({
     cb(null, originalname)
   }
 })
-const upload = multer({ storage, limits: 1024 * 1024 * 1024 * 100 }).single('file')
+const upload = multer({
+  storage,
+  // limits: 1024 * 1024 * 1024 * 100
+}).single('file')
 
 export default connect()
   .get((req, res) => {
@@ -48,4 +51,13 @@ export default connect()
         }, 100)
       })
     })
+  })
+  .delete((req, res) => {
+    if (req.query.file) {
+      const file = process.cwd() + '/public/files/' + req.query.file
+      existsSync(file) && unlinkSync(file)
+      res.statusCode = 200
+      res.json({ message: 'Succesfully deleted' })
+      res.end()
+    }
   })

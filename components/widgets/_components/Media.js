@@ -15,7 +15,7 @@ const imageExtension = [
 const Media = ({ open, closeModal, onSelected = null, accept = '.jpg,.jpeg,.svg,.png' }) => {
   const [files, setFiles] = useState([])
   const [progress, setProgress] = React.useState({ percent: 0, size: 0, total: 0 })
-  const [uploading, setUploading] = useState(false)
+  const [uploading, setUploading] = useState({ process: false, finished: true })
   const [selected, setSelected] = useState(null)
   const [currentRequest, setCurrentRequest] = useState(null)
 
@@ -59,19 +59,21 @@ const Media = ({ open, closeModal, onSelected = null, accept = '.jpg,.jpeg,.svg,
 
   const uploadFile = e => {
     setProgress({ percent: 0, size: 0, total: 0 })
-    setUploading(true)
+    setUploading(({ process: true, finished: false}))
     sendRequest(e.target.files[0])
       .then(() => {
         setCurrentRequest(null)
+        setUploading(({ process: false, finished: false}))
         setTimeout(() => {
-          setUploading(false)
+          setUploading(({ process: false, finished: true}))
           fetchFiles()
         }, 1500)
       })
-      .catch(error => {
+      .catch(() => {
         setCurrentRequest(null)
+        setUploading(({ process: false, finished: false}))
         setTimeout(() => {
-          setUploading(false)
+          setUploading(({ process: false, finished: true}))
           fetchFiles()
         }, 1500)
       })
@@ -80,7 +82,20 @@ const Media = ({ open, closeModal, onSelected = null, accept = '.jpg,.jpeg,.svg,
   const cancelUpload = () => {
     currentRequest && currentRequest.abort()
     setProgress({ percent: 0, size: 0, total: 0 })
-    setUploading(false)
+    setUploading(({ process: false, finished: true}))
+  }
+
+  const deleteFile = () => {
+    const file = selected.split('/').pop()
+    axios.delete('/api/files', { params: { file } })
+      .then(() => {
+        setSelected(null)
+        fetchFiles()
+      })
+      .catch(() => {
+        setSelected(null)
+        fetchFiles()
+      })
   }
 
   useEffect(() => {
@@ -104,16 +119,16 @@ const Media = ({ open, closeModal, onSelected = null, accept = '.jpg,.jpeg,.svg,
           Media Assets
           <div>
             <Button className="mr-6" disabled={selected === null} size="small">Download</Button>
-            {!uploading && <label className="ui small button">
+            {uploading.finished && <label className="ui small button">
               <span>Upload</span>
               <input onChange={uploadFile} className="hidden" name="image" type="file" accept={accept} />
             </label>}
-            {uploading && <Button onClick={cancelUpload} color="red" className="mr-6" size="small">Cancel Upload</Button>}
+            {!uploading.finished && <Button disabled={!uploading.process} onClick={cancelUpload} color="red" className="mr-6" size="small">Cancel Upload</Button>}
           </div>
         </div>
       </Modal.Header>
       <Modal.Content style={{ position: 'relative' }}>
-        {uploading && <div className="w-full h-full absolute top-0 left-0 bg-white flex items-center justify-center flex-col px-32 z-20">
+        {!uploading.finished && <div className="w-full h-full absolute top-0 left-0 bg-white flex items-center justify-center flex-col px-32 z-20">
           <Progress style={{ width: '100%', margin: 0 }} percent={progress.percent} indicating progress>
             Uploading {formatBytes(progress.size)} / {formatBytes(progress.total)}
           </Progress>
@@ -121,7 +136,7 @@ const Media = ({ open, closeModal, onSelected = null, accept = '.jpg,.jpeg,.svg,
         <div className="flex justify-between items-center">
           <Input icon='search' placeholder='Search...' />
           <div>
-            <Button icon="trash alternate outline" disabled={selected === null} size="small" negative content="Delete Selected" />
+            <Button onClick={deleteFile} icon="trash alternate outline" disabled={selected === null} size="small" negative content="Delete Selected" />
             {onSelected !== null && <Button onClick={selectFile} icon="check" disabled={selected === null} size="small" positive content="Choose Selected" />}
           </div>
         </div>
