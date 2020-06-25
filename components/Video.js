@@ -15,8 +15,10 @@ const Video = ({ src }) => {
   }
 
   const playVideo = () => {
-    setPlayed(true)
-    player.current.seekTo(0, 'seconds')
+    if (!played) {
+      setPlayed(true)
+      player.current.seekTo(0, 'seconds')
+    }
   }
 
   useEffect(() => {
