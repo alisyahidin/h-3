@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import ScrollDown from 'components/ScrollDown'
 import Arrow from 'components/Arrow'
+import Content from 'components/Content'
 import { LogoSVG } from 'components/Logo'
 import axios from 'lib/axios'
 import { OurWorksList } from './our-works'
@@ -117,12 +118,9 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
           <h2 className="text-52px text-red">ABOUT US</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
-          <p className="text-32px text-white uppercase">
-            <span className="text-red">H:THREE</span> Is a multinational <br />
-            communication firm who belives in <br />
-            equal partnership, Supporter with <br />
-            strong local talents.
-          </p>
+          <div className="text-32px text-white uppercase" style={{ whiteSpace: 'break-spaces' }}>
+            <Content text={data['about-us']} />
+          </div>
         </div>
       </div>
     </section>

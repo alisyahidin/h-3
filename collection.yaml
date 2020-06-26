@@ -5,6 +5,12 @@
     label: Landing Page
     file: content/landing-page.yaml
     fields:
+    - name: about-us
+      label: About us
+      widget: markdown
+    - name: philosophy
+      label: Philosophy
+      widget: markdown
     - name: our-people
       label: Our People
       widget: list

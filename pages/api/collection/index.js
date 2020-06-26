@@ -3,10 +3,8 @@ import matter from 'gray-matter'
 import yaml from 'yaml'
 import connect from 'next-connect'
 import getCollection from 'utils/getCollection'
-import auth from 'middleware/auth'
 
 export default connect()
-  .use(auth)
   .get((req, res) => {
     const collections = [...getCollection()]
     collections.map(collection => {

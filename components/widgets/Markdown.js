@@ -16,7 +16,7 @@ const CustomOption = ({ onChange, editorState }) => {
     const newEditorState = AtomicBlockUtils.insertAtomicBlock(
       editorState,
       entityKey,
-      '![alt text](/images/awards-1.png "Logo Title Text 1")'
+      '![alt text](/files/awards-1.png "Logo Title Text 1")'
     )
     onChange(newEditorState)
   }
@@ -36,7 +36,6 @@ const MarkdownEditor = ({ value, onChange }) => {
   const [state, setState] = useState(EditorState.createWithContent(initialState))
 
   useEffect(() => {
-    console.log(convertToRaw(state.getCurrentContent()))
     onChange(draftToMarkdown(convertToRaw(state.getCurrentContent())))
   }, [state])
 
