@@ -21,11 +21,11 @@ export const AwardList = ({ data, className, icon = false, link = null }) => {
 }
 
 export const getServerSideProps = async () => {
-  const data = await axios.get('/api/collection/page/awards')
+  const data = await axios.get('/awards-page')
 
   return {
     props: {
-      data: data.entry.data
+      data: data
     }
   }
 }

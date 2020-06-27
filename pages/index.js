@@ -39,17 +39,17 @@ const scrollToDown = () => {
 }
 
 export const getServerSideProps = async () => {
-  const data = await axios.get('/api/collection/page/landingpage')
-  const works = await axios.get('/api/collection/page/our-work')
-  const awards = await axios.get('/api/collection/page/awards')
-  const socialMedia = await axios.get('/api/collection/footer/social-media')
+  const data = await axios.get('/landing-page')
+  const works = await axios.get('/our-works-page')
+  const awards = await axios.get('/awards-page')
+  const socialMedia = await axios.get('/footer')
 
   return {
     props: {
-      data: data.entry.data,
-      works: works.entry.data.works,
-      awards: awards.entry.data.awards,
-      socialMedia: socialMedia.entry.data['social-media'],
+      data: data,
+      works: works.works,
+      awards: awards.awards,
+      socialMedia: socialMedia.social_media,
     }
   }
 }
@@ -119,7 +119,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
           <div className="text-32px text-white uppercase" style={{ whiteSpace: 'break-spaces' }}>
-            <Content text={data['about-us']} />
+            <Content text={data['about_us']} />
           </div>
         </div>
       </div>
@@ -153,7 +153,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
         </Link>
       </div>
     </section>
-    <OurPeople id="our-people" data={data['our-people']} />
+    <OurPeople id="our-people" data={data.our_peoples} />
     <section id="awards" menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">

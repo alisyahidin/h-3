@@ -20,26 +20,16 @@ export const OurWorksList = ({ data, className }) => {
 }
 
 export const getServerSideProps = async () => {
-  const data = await axios.get('/api/collection/page/our-work')
+  const data = await axios.get('/our-works-page')
 
   return {
     props: {
-      data: data.entry.data,
-      menu: data
-        ?.collection
-        ?.files[0]
-        ?.fields
-        ?.find(({ name }) => name === 'works')
-        ?.fields
-        ?.find(({ name }) => name === 'category')
-        ?.options ?? []
+      data: data
     }
   }
 }
 
-const OurWorks = ({ data, menu, HamburgerMenu }) => {
-  // const [active, setActive] = useState(menu[0])
-
+const OurWorks = ({ data, HamburgerMenu }) => {
   return (<>
     <Logo />
     <HamburgerMenu color="dark" />
@@ -47,11 +37,6 @@ const OurWorks = ({ data, menu, HamburgerMenu }) => {
       <div className="container xl:px-24 md:px-16 px-8 py-12 mx-auto">
         <nav className="flex items-center justify-between mb-8">
           <h1 className="text-52px font-medium uppercase">{data.title}</h1>
-          {/* <ul className="flex text-14px uppercase">
-          {menu.map((menuText, index) =>
-            <li key={index} onClick={() => setActive(menuText)} className={clsx(["ml-2 font-medium cursor-pointer p-3", active === menuText ? 'text-red' : 'text-gray-500'])}>{menuText}</li>
-          )}
-        </ul> */}
         </nav>
         <p className="text-gray-600 text-default mb-16" style={{ lineHeight: '28px' }}>
           {data.description}
