@@ -15,7 +15,7 @@ const menu = [
     title: ['02', 'ABOUT US']
   },
   {
-    href: 'philoshophy',
+    href: 'philosophy',
     title: ['03', 'PHILOSOPHY']
   },
   {

@@ -30,7 +30,7 @@ const OurPeople = ({ id, data }) => {
     <section id={id} menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col text-white">
         <div className="flex-1 flex items-center mb-12">
-          <h2 className="text-52px">OUR PEOPLE</h2>
+          <h2 className="text-48px md:text-52px">OUR PEOPLE</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
           <Slider {...settings}>

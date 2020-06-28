@@ -12,3 +12,12 @@
     @apply text-red;
   }
 }
+
+#philosophy {
+  p {
+    @apply text-32px;
+    @apply text-white;
+    @apply uppercase;
+    white-space: break-spaces;
+  }
+}

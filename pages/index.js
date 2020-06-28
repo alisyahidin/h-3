@@ -115,7 +115,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
     <section id="about-us" menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
-          <h2 className="text-52px text-red">ABOUT US</h2>
+          <h2 className="text-48px md:text-52px text-red">ABOUT US</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
           <div className="text-32px text-white uppercase" style={{ whiteSpace: 'break-spaces' }}>
@@ -124,23 +124,20 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
         </div>
       </div>
     </section>
-    <section id="philoshophy" menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
+    <section id="philosophy" menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
-          <h2 className="text-52px text-white">PHILOSHOPHY</h2>
+          <h2 className="text-48px md:text-52px text-white">PHILOSOPHY</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
-          <p className="text-32px text-white uppercase">
-            “Creating unique conversation <br />
-            with identifiable result.”
-          </p>
+          <Content text={data['philosophy']} />
         </div>
       </div>
     </section>
     <section id="our-works" menu-color="dark" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">
-          <h2 className="text-52px">OUR WORKS</h2>
+          <h2 className="text-48px md:text-52px">OUR WORKS</h2>
         </div>
         <OurWorksList data={works.filter((_, index) => index < 6)} className="mb-6" />
         <Link href="/our-works">
@@ -157,7 +154,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
     <section id="awards" menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">
-          <h2 className="text-52px text-white">AWARDS</h2>
+          <h2 className="text-48px md:text-52px text-white">AWARDS</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
           <AwardList
