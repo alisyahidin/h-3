@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef } from 'react'
 import ReactPlayer from 'react-player'
 import clsx from 'clsx'
 
@@ -17,15 +17,9 @@ const Video = ({ src }) => {
   const playVideo = () => {
     if (!played) {
       setPlayed(true)
-      player.current.seekTo(0, 'seconds')
+      player?.current?.seekTo?.(0, 'seconds')
     }
   }
-
-  useEffect(() => {
-    if (!played) {
-      console.log(player.current.getCurrentTime())
-    }
-  }, [])
 
   return (
     <div className={clsx([{ 'cursor-pointer': !played }])} onClick={playVideo} onMouseLeave={mouseLeave} onMouseEnter={() => !played && setPreview(true)} style={{ position: 'relative' }}>
