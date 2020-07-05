@@ -75,7 +75,7 @@ const MenuList = ({ show, setShow }) => {
                 className={clsx(['menu-link text-22px cursor-pointer', (location.hash === '#' + item.href || router.pathname === '/' + item.href) && 'menu-link--active'])}
               >
                 {item.title[0]}
-                <p className="text-42px font-bold ml-6 inline-block">{item.title[1]}</p>
+                <p className="text-32px md:text-42px font-bold ml-6 inline-block">{item.title[1]}</p>
               </a>
             </li>
           ))}

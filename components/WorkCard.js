@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import ReactPlayer from 'react-player'
 import { Modal } from 'semantic-ui-react'
 import Content from 'components/Content'
+import isMobile from 'hooks/isMobile'
 
 const WorkCard = ({ data, ...props }) => {
   const player = useRef(null)
@@ -43,6 +44,8 @@ const WorkCard = ({ data, ...props }) => {
 }
 
 WorkCard.Detail = ({ data, closeDetail }) => {
+  const isMobileDevice = isMobile()
+
   return (
     <Modal
       open={data !== null}
@@ -52,12 +55,12 @@ WorkCard.Detail = ({ data, closeDetail }) => {
     >
       <div className="p-12">
         <div className="flex justify-between">
-          <h1 className="text-60px font-medium">{data.title}</h1>
+          <h1 className="text-16px md:text-60px w-8/12 md:w-full font-medium">{data.title}</h1>
           <button
             type="button"
             onClick={closeDetail}
             className="self-center hamburger hamburger--squeeze is-active pb-5 mt-5 md:mt-0"
-            style={{ transform: 'scale(0.7)' }}
+            style={{ transform: isMobileDevice ? 'scale(0.5)' : 'scale(0.7)' }}
           >
             <span className="hamburger-box">
               <span className={`hamburger-inner`} />
@@ -73,7 +76,7 @@ WorkCard.Detail = ({ data, closeDetail }) => {
             url={process.env.NEXT_PUBLIC_API_URI + data?.thumbnail?.url}
           />
         </div>}
-        <Content className="work-card__detail text-default text-gray-600" text={data.description} />
+        <Content className="work-card__detail text-12px md:text-default text-gray-600" text={data.description} />
       </div>
     </Modal>
   )

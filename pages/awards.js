@@ -1,10 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 import axios from 'lib/axios'
 import AwardCard from 'components/AwardCard'
+import { gsap } from 'gsap'
 
 const Logo = dynamic(() => import('components/Logo'), { ssr: false })
+
+if (process.browser) {
+  const ScrollToPlugin = require('gsap/ScrollToPlugin')
+  gsap.registerPlugin(ScrollToPlugin)
+}
 
 export const AwardList = ({ data, className, icon = false, link = null }) => {
   const [award, setAward] = useState(null)
@@ -31,6 +37,10 @@ export const getServerSideProps = async () => {
 }
 
 const Awards = ({ data, HamburgerMenu }) => {
+  useEffect(() => {
+    process.browser && gsap.to(window, { duration: 0.5, scrollTo: { y: 0 } })
+  }, [])
+
   return (<>
     <Logo color="light" />
     <HamburgerMenu color="light" />

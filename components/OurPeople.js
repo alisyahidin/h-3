@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import { Modal } from 'semantic-ui-react'
+import isMobile from 'hooks/isMobile'
 
 const Slider = dynamic(() => import('react-slick'), { ssr: false })
 const settings = {
@@ -25,6 +26,7 @@ const settings = {
 
 const OurPeople = ({ id, data }) => {
   const [profile, setProfile] = useState(null)
+  const isMobileDevice = isMobile()
 
   return (<>
     <section id={id} menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
@@ -52,7 +54,7 @@ const OurPeople = ({ id, data }) => {
       size="large"
       style={{ borderRadius: 0 }}
     >
-      <div className="flex flex-col md:flex-row items-center md:items-start p-12">
+      {!isMobileDevice && <div className="flex flex-col md:flex-row items-center md:items-start p-12">
         <img className="md:mr-12 max-w-full md:w-4/12" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data[profile].Photo.url} alt={data[profile]?.Name} />
         <div className="flex-1 text-center md:text-left">
           <h1 className="text-40px mb-0">{data[profile]?.Name}</h1>
@@ -70,7 +72,27 @@ const OurPeople = ({ id, data }) => {
             <span className={`hamburger-inner`} />
           </span>
         </button>
-      </div>
+      </div>}
+      {isMobileDevice &&
+        <div className="p-12">
+          <div className="flex justify-between items-center">
+            <h1 className="text-16px md:text-60px w-8/12 md:w-full font-medium mb-0"><strong>{data[profile]?.Name}</strong></h1>
+            <button
+              type="button"
+              onClick={() => setProfile(null)}
+              className="self-center hamburger hamburger--squeeze is-active pb-5 mt-5 md:mt-0"
+              style={{ transform: isMobileDevice ? 'scale(0.5)' : 'scale(0.7)' }}
+            >
+              <span className="hamburger-box">
+                <span className={`hamburger-inner`} />
+              </span>
+            </button>
+          </div>
+          <img className="md:mr-12 max-w-full md:w-4/12" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data[profile].Photo.url} alt={data[profile]?.Name} />
+          <p style={{ color: '#222222', opacity: 0.7 }} className="text-16px mt-4 mb-0">{data[profile]?.Position}</p>
+          <p style={{ color: '#222222', opacity: 0.7 }} className="text-16px">{data[profile]?.Company}</p>
+          <p style={{ color: '#222222', opacity: 0.7, whiteSpace: 'pre-line' }} className="text-default max-w-md">{data[profile]?.Description}</p>
+        </div>}
     </Modal>}
   </>)
 }
