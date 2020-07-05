@@ -30,14 +30,14 @@ const OurPeople = ({ id, data }) => {
     <section id={id} menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col text-white">
         <div className="flex-1 flex items-center mb-12">
-          <h2 className="text-48px md:text-52px">OUR PEOPLE</h2>
+          <h2 className="text-32px md:text-52px">OUR PEOPLE</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
           <Slider {...settings}>
             {data.map((people, index) =>
               <div onClick={() => setProfile(index)} className="cursor-pointer p-5" key={index}>
                 <img className="w-full" style={{ objectFit: 'cover', height: window.innerWidth > 767 ? '250' : 'auto' }} src={process.env.NEXT_PUBLIC_API_URI + people?.Photo?.url} alt={people?.Name} />
-                <h3 className="text-32px">{people?.Name}</h3>
+                <h3 className="text-22px md:text-32px">{people?.Name}</h3>
                 <p className="text-16px mb-0">{people?.Position}</p>
                 <p className="text-16px">{people?.Company}</p>
               </div>

@@ -91,8 +91,8 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
     <section id="home" menu-color="dark" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col items-center">
         <div className="flex-1 flex flex-col justify-center items-center">
-          <LogoSVG className="mb-4" width={194} />
-          <img src="/Hakuhodo.svg" alt="Hakuhodo" />
+          <LogoSVG className="mb-4 w-5/12 md:w-auto" width={194} />
+          <img className="w-8/12 md:w-auto" src="/Hakuhodo.svg" alt="Hakuhodo" />
         </div>
         <div className="flex flex-col items-center">
           <p onClick={scrollToDown} className="cursor-pointer text-14px mb-4">HERE WE ARE</p>
@@ -104,21 +104,21 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
     </section>
     <section menu-color="light" className="bg-red">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex items-center">
-        <p className="text-32px whitespace-pre-line text-white uppercase">
-          “ Design is not just <br />
-          what it looks like and feels like. <br />
-          Design is how it works. “ <br />
-          <span className="text-28px normal-case">- Steve Jobs</span>
+        <p className="text-20px md:text-32px whitespace-pre-line text-white uppercase">
+          “ <strong>Design</strong> is not just <br />
+          what it looks like and <br className="md:hidden" /> feels like. <br className="hidden md:block" />
+          Design is <br className="md:hidden" /> how it works. “ <br />
+          <span className="text-20px md:text-28px normal-case">- Steve Jobs</span>
         </p>
       </div>
     </section>
     <section id="about-us" menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
-        <div className="flex-1 flex items-center">
-          <h2 className="text-48px md:text-52px text-red">ABOUT US</h2>
+        <div className="flex-1 flex items-end md:items-center">
+          <h2 className="text-32px md:text-52px text-red">ABOUT US</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
-          <div className="text-32px text-white uppercase" style={{ whiteSpace: 'break-spaces' }}>
+          <div className="text-20px md:text-32px text-white uppercase" style={{ whiteSpace: 'break-spaces' }}>
             <Content text={data['about_us']} />
           </div>
         </div>
@@ -126,10 +126,10 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
     </section>
     <section id="philosophy" menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
-        <div className="flex-1 flex items-center">
-          <h2 className="text-48px md:text-52px text-white">PHILOSOPHY</h2>
+        <div className="flex-1 flex items-end md:items-center">
+          <h2 className="text-32px md:text-52px text-white">PHILOSOPHY</h2>
         </div>
-        <div style={{ flexGrow: 2 }} className="flex items-center">
+        <div style={{ flexGrow: 2 }} className="flex items-center text-20px md:text-32px">
           <Content text={data['philosophy']} />
         </div>
       </div>
@@ -137,7 +137,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
     <section id="our-works" menu-color="dark" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">
-          <h2 className="text-48px md:text-52px">OUR WORKS</h2>
+          <h2 className="text-32px md:text-52px">OUR WORKS</h2>
         </div>
         <OurWorksList data={works.filter((_, index) => index < 6)} className="mb-6" />
         <Link href="/our-works">
@@ -154,7 +154,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
     <section id="awards" menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center mb-12">
-          <h2 className="text-48px md:text-52px text-white">AWARDS</h2>
+          <h2 className="text-32px md:text-52px text-white">AWARDS</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="flex items-center">
           <AwardList
@@ -176,20 +176,20 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
       </div>
     </section>
     <section menu-color="dark" className="bg-white">
-      <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
+      <div className="container xl:px-24 md:px-16 px-8 pb-0 md:pb-12 pt-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
           <div className="hidden md:flex w-2/12 flex-1 flex-col justify-center items-center">
             <LogoSVG className="mb-4" width={194} />
             <img src="/Hakuhodo.svg" alt="Hakuhodo" />
           </div>
           <div className="md:ml-12" style={{ flex: 2 }}>
-            <h2 className="text-48px text-red">H:THREE OFFICE</h2>
+            <h2 className="text-32px text-red">H:THREE OFFICE</h2>
             <p className="text-20px mb-4" style={{ color: '#4F4F4F' }}>
-              <span className="mr-6">Tel. +62 21 27516000</span>
+              <span className="mr-6 block md:inline mb-4 md:mb-0">Tel. +62 21 27516000</span><br className="block md:hidden" />
               <span>Fax. +62 21 2751608</span>
             </p>
             <p className="text-20px mb-4" style={{ color: '#4F4F4F' }}>Mail. H3roes@h-three.id</p>
-            <p className="text-20px mb-4" style={{ color: '#333333' }}>
+            <p className="text-20px mb-4 mt-8 md:mt-0" style={{ color: '#333333' }}>
               PT. Hita Wistara Mahir <br />
               Jl. Kyai Maja No.4, lantai 1 <br />
               Kebayoran Baru <br />
@@ -199,18 +199,26 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
         </div>
         <div className="flex justify-between border-gray-200 border-t-2 py-6">
           <div>
-            <a style={{ color: '#757575', opacity: 0.4 }} className="text-default mr-6">Terms</a>
-            <a style={{ color: '#757575', opacity: 0.4 }} className="text-default">Hakuhodo Global</a>
+            <a style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default mr-6">Terms</a>
+            <a style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default">Hakuhodo Global</a>
           </div>
-          <div>
-            <span style={{ color: '#757575', opacity: 0.4 }} className="text-default mr-3">@ Hakuhodo H3 2020 all rights reserved</span>
+          <div className="hidden md:block">
+            <span style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default mr-3">@ Hakuhodo H3 2020 all rights reserved</span>
             {socialMedia.map(({ name, link }, index) => link && (
               <a key={index} href={link} target="_blank">
-                <i style={{ color: '#757575', opacity: 0.4 }} className={`text-default icon ${name}`} aria-hidden="true" />
+                <i style={{ color: '#757575', opacity: 0.4 }} className={`text-12px md:text-default icon ${name}`} aria-hidden="true" />
               </a>
             ))}
           </div>
         </div>
+      </div>
+      <div className="flex md:hidden px-8 py-6 justify-end" style={{ backgroundColor: '#F2F2F2' }}>
+        <span style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default mr-3">@ Hakuhodo H3 2020 all rights reserved</span>
+        {socialMedia.map(({ name, link }, index) => link && (
+          <a key={index} href={link} target="_blank">
+            <i style={{ color: '#757575', opacity: 0.4 }} className={`text-12px md:text-default icon ${name}`} aria-hidden="true" />
+          </a>
+        ))}
       </div>
     </section>
   </>)

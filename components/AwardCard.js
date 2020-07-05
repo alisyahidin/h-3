@@ -1,20 +1,27 @@
 import clsx from "clsx"
 import { Modal } from 'semantic-ui-react'
 import Content from 'components/Content'
+import { useEffect, useState } from "react"
 
 const AwardCard = ({ data, sort, icon, onClick = null }) => {
+  const [isMobile, setIsMobile] = useState(false)
   const image = icon ? process.env.NEXT_PUBLIC_API_URI + data?.thumbnail?.url : process.env.NEXT_PUBLIC_API_URI + data?.picture?.url
+
+  useEffect(() => {
+    process.browser && setIsMobile(window.innerWidth < 768)
+  }, [])
+
   return (
     <div
-      className={clsx(["flex items-start justify-center mb-6", "order-" + sort, icon ? 'flex-col md:flex-row' : 'flex-col', !icon && 'cursor-pointer'])}
+      className={clsx(["flex items-start justify-center mb-6", "order-" + sort, icon ? 'flex-row' : 'flex-col', !icon && 'cursor-pointer'])}
       onClick={!icon ? onClick : undefined}
     >
-      <div className="md:mr-8 flex items-center mb-6" style={{ minHeight: 150 }}>
-        <img src={image} alt={'Awward' + sort} width="200px" />
+      <div className="mr-4 md:mr-8 flex items-start md:items-center md:mb-6" style={{ minHeight: 150 }}>
+        <img src={image} alt={'Awward' + sort} style={{ objectFit: 'cover', width: isMobile ? '66px' : "200px", height: isMobile ? '66px' : 'auto' }} />
       </div>
       <div className="text-white flex-1">
-        <h2 className="text-24px mb-2">{data.title}</h2>
-        <p className="text-16px" style={{ color: icon ? '#FFF' : '#767676' }}>{data.short_description}</p>
+        <h2 className="text-20px md:text-24px mb-2">{data.title}</h2>
+        <p className="text-16px" style={{ color: icon ? '#E0E0E0' : '#E0E0E0' }}>{data.short_description}</p>
       </div>
     </div>
   )
