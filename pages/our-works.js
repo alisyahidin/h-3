@@ -36,7 +36,7 @@ const OurWorks = ({ data, HamburgerMenu }) => {
     <section id="our-works" className="min-h-screen pt-20 md:pt-0" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 mx-auto">
         <nav className="flex items-center justify-between mb-8">
-          <h1 className="text-52px font-medium uppercase">{data.title}</h1>
+          <h1 className="text-32px md:text-52px font-medium uppercase">{data.title}</h1>
         </nav>
         <p className="text-gray-600 text-default mb-16" style={{ lineHeight: '28px' }}>
           {data.description}

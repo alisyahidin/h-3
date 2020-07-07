@@ -46,7 +46,7 @@ const Awards = ({ data, HamburgerMenu }) => {
     <HamburgerMenu color="light" />
     <section id="awards" className="min-h-screen pt-20 md:pt-0" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 mx-auto">
-        <h1 className="text-52px text-white font-medium uppercase mb-12">{data.title}</h1>
+        <h1 className="text-32px md:text-52px text-white font-medium uppercase mb-12">{data.title}</h1>
         <p className="text-white opacity-75 text-22px mb-20" style={{ lineHeight: '28px' }}>
           {data.description}
         </p>
