@@ -4,6 +4,11 @@ import { Modal } from 'semantic-ui-react'
 import Content from 'components/Content'
 import isMobile from 'hooks/isMobile'
 
+const isVideo = url => {
+  const ext = url.split('.').pop()
+  return ['mp4'].includes(ext)
+}
+
 const WorkCard = ({ data, ...props }) => {
   const player = useRef(null)
   const [played, setPlayed] = useState(false)
@@ -25,16 +30,31 @@ const WorkCard = ({ data, ...props }) => {
 
   return (
     <div {...props} onMouseLeave={mouseLeave} onMouseEnter={() => !played && setPreview(true)} className="work-card relative">
-      <ReactPlayer
-        ref={player}
-        playing={played || preview}
-        width="100%"
-        height="100%"
-        url={process.env.NEXT_PUBLIC_API_URI + data?.thumbnail?.url}
-        controls={played}
-        volume={1}
-        muted={!played}
-      />
+      {isVideo(data?.thumbnail?.url)
+        ? <ReactPlayer
+          ref={player}
+          playing={played || preview}
+          width="100%"
+          height="100%"
+          url={process.env.NEXT_PUBLIC_API_URI + data?.thumbnail?.url}
+          controls={played}
+          volume={1}
+          muted={!played}
+        />
+        : <>
+          {!preview && <img className="absolute left-0 top-0 w-full" src={process.env.NEXT_PUBLIC_API_URI + data?.thumbnail?.url} alt={data?.title} />}
+          <ReactPlayer
+            style={{ opacity: played || preview ? 1 : 0 }}
+            ref={player}
+            playing={played || preview}
+            width="100%"
+            height="100%"
+            url={process.env.NEXT_PUBLIC_API_URI + data?.video?.url}
+            controls={played}
+            volume={1}
+            muted={!played}
+          />
+        </>}
       <div className="work-card__text" style={{ zIndex: 2 }}>
         <h2 className="text-40px font-medium">{data.title}</h2>
         <p className="text-default w-6/12">{data.short_description}</p>
@@ -73,7 +93,7 @@ WorkCard.Detail = ({ data, closeDetail }) => {
             width="100%"
             height="100%"
             controls
-            url={process.env.NEXT_PUBLIC_API_URI + data?.thumbnail?.url}
+            url={process.env.NEXT_PUBLIC_API_URI + data?.video?.url}
           />
         </div>}
         <Content className="work-card__detail text-12px md:text-default text-gray-600" text={data.description} />

@@ -1,5 +1,7 @@
 .work-card {
   @apply cursor-pointer;
+  overflow: hidden;
+
   &:hover {
     .work-card__text {
       opacity: 1;
