@@ -2,17 +2,23 @@ import clsx from "clsx"
 import { Modal } from 'semantic-ui-react'
 import Content from 'components/Content'
 import isMobile from "hooks/isMobile"
+import { useState, useEffect } from "react"
 
 const AwardCard = ({ data, sort, icon, onClick = null }) => {
   const isMobileDevice = isMobile()
+  const [height, setHeight] = useState('initial')
   const image = icon ? process.env.NEXT_PUBLIC_API_URI + data?.thumbnail?.url : process.env.NEXT_PUBLIC_API_URI + data?.picture?.url
+
+  useEffect(() => {
+    setHeight(icon ? 'initial' : isMobileDevice ? 'initial' : 200)
+  }, [isMobileDevice])
 
   return (
     <div
       className={clsx(["flex items-start justify-center mb-6", "order-" + sort, (icon || isMobileDevice) ? 'flex-row' : 'flex-col', !icon && 'cursor-pointer'])}
       onClick={!icon ? onClick : undefined}
     >
-      <div className="mr-4 md:mr-8 flex items-start md:items-center md:mb-6 overflow-hidden" style={{ height: icon ? 'initial' : 200 }}>
+      <div className="mr-4 md:mr-8 flex items-start md:items-center md:mb-6 overflow-hidden" style={{ height }}>
         <img src={image} alt={'Awward' + sort} style={{ objectFit: 'cover', width: isMobileDevice ? '66px' : "100%", height: isMobileDevice ? '66px' : 'auto' }} />
       </div>
       <div className="text-white flex-1">
@@ -64,7 +70,7 @@ AwardCard.Detail = ({ data, closeDetail }) => {
             </span>
           </button>
         </div>
-        <img className="md:mr-12 max-w-full md:w-4/12" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data?.picture?.url} alt={data.title} />
+        <img className="md:mr-12 max-w-full md:w-4/12 my-8" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data?.picture?.url} alt={data.title} />
         <Content text={data.description} style={{ color: '#222222', opacity: 0.7 }} />
       </div>}
     </Modal>
