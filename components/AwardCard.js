@@ -12,8 +12,8 @@ const AwardCard = ({ data, sort, icon, onClick = null }) => {
       className={clsx(["flex items-start justify-center mb-6", "order-" + sort, (icon || isMobileDevice) ? 'flex-row' : 'flex-col', !icon && 'cursor-pointer'])}
       onClick={!icon ? onClick : undefined}
     >
-      <div className="mr-4 md:mr-8 flex items-start md:items-center md:mb-6" style={{ minHeight: 150 }}>
-        <img src={image} alt={'Awward' + sort} style={{ objectFit: 'cover', width: isMobileDevice ? '66px' : "200px", height: isMobile ? '66px' : 'auto' }} />
+      <div className="mr-4 md:mr-8 flex items-start md:items-center md:mb-6 overflow-hidden" style={{ height: icon ? 'initial' : 200 }}>
+        <img src={image} alt={'Awward' + sort} style={{ objectFit: 'cover', width: isMobileDevice ? '66px' : "100%", height: isMobileDevice ? '66px' : 'auto' }} />
       </div>
       <div className="text-white flex-1">
         <h2 className="text-20px md:text-24px mb-2">{data.title}</h2>
@@ -24,6 +24,8 @@ const AwardCard = ({ data, sort, icon, onClick = null }) => {
 }
 
 AwardCard.Detail = ({ data, closeDetail }) => {
+  const isMobileDevice = isMobile()
+
   return (
     <Modal
       open={data !== null}
@@ -31,7 +33,7 @@ AwardCard.Detail = ({ data, closeDetail }) => {
       size="large"
       style={{ borderRadius: 0 }}
     >
-      <div className="flex flex-col md:flex-row items-center md:items-start p-12">
+      {!isMobileDevice && <div className="flex flex-col md:flex-row items-center md:items-start p-12">
         <img className="md:mr-12 max-w-full md:w-4/12" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data?.picture?.url} alt={data.title} />
         <div className="flex-1 text-center md:text-left">
           <h1 className="text-40px font-medium mb-8">{data.title}</h1>
@@ -47,7 +49,24 @@ AwardCard.Detail = ({ data, closeDetail }) => {
             <span className={`hamburger-inner`} />
           </span>
         </button>
-      </div>
+      </div>}
+      {isMobileDevice && <div className="p-12">
+        <div className="flex justify-between items-center">
+          <h1 className="text-16px md:text-60px w-10/12 md:w-full font-medium m-0">{data.title}</h1>
+          <button
+            type="button"
+            onClick={closeDetail}
+            className="self-center hamburger hamburger--squeeze is-active pb-5 mt-5 md:mt-0"
+            style={{ transform: 'scale(0.5)' }}
+          >
+            <span className="hamburger-box">
+              <span className={`hamburger-inner`} />
+            </span>
+          </button>
+        </div>
+        <img className="md:mr-12 max-w-full md:w-4/12" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data?.picture?.url} alt={data.title} />
+        <Content text={data.description} style={{ color: '#222222', opacity: 0.7 }} />
+      </div>}
     </Modal>
   )
 }

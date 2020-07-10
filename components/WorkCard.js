@@ -74,8 +74,8 @@ WorkCard.Detail = ({ data, closeDetail }) => {
       style={{ borderRadius: 0 }}
     >
       <div className="p-12">
-        <div className="flex justify-between">
-          <h1 className="text-16px md:text-60px w-8/12 md:w-full font-medium">{data.title}</h1>
+        <div className="flex justify-between items-center">
+          <h1 className="m-0 text-16px md:text-60px w-10/12 md:w-full font-medium">{data.title}</h1>
           <button
             type="button"
             onClick={closeDetail}
