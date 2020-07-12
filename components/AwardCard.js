@@ -15,11 +15,11 @@ const AwardCard = ({ data, sort, icon, onClick = null }) => {
 
   return (
     <div
-      className={clsx(["flex items-start justify-center mb-6", "order-" + sort, (icon || isMobileDevice) ? 'flex-row' : 'flex-col', !icon && 'cursor-pointer'])}
-      onClick={!icon ? onClick : undefined}
+      className={clsx(["flex items-start justify-center mb-6 cursor-pointer", "order-" + sort, (icon || isMobileDevice) ? 'flex-row' : 'flex-col'])}
+      onClick={onClick}
     >
-      <div className="mr-4 md:mr-8 flex items-start md:items-center md:mb-6 overflow-hidden" style={{ height }}>
-        <img src={image} alt={'Awward' + sort} style={{ objectFit: 'cover', width: isMobileDevice ? '66px' : "100%", height: isMobileDevice ? '66px' : 'auto' }} />
+      <div className="mr-4 md:mr-8 flex items-start md:items-center md:mb-6 overflow-hidden" style={{ height, width: isMobileDevice ? 'calc(30vw - 12px)' : 'initial' }}>
+        <img className="flex-1" src={image} alt={'Awward' + sort} style={{ objectFit: 'cover', width: "100%", height: isMobileDevice ? 'initial' : 'auto' }} />
       </div>
       <div className="text-white flex-1">
         <h2 className="text-20px md:text-24px mb-2">{data.title}</h2>
