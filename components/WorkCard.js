@@ -42,7 +42,7 @@ const WorkCard = ({ data, ...props }) => {
           muted={!played}
         />
         : <>
-          {!preview && <img className="absolute left-0 top-0 w-full" src={process.env.NEXT_PUBLIC_API_URI + data?.thumbnail?.url} alt={data?.title} />}
+          {!preview && <img className="absolute left-0 w-full" src={process.env.NEXT_PUBLIC_API_URI + data?.thumbnail?.url} alt={data?.title} style={{ top: '50%', transform: 'translateY(-50%)' }} />}
           <ReactPlayer
             style={{ opacity: played || preview ? 1 : 0 }}
             ref={player}
@@ -56,8 +56,8 @@ const WorkCard = ({ data, ...props }) => {
           />
         </>}
       <div className="work-card__text" style={{ zIndex: 2 }}>
-        <h2 className="text-40px font-medium">{data.title}</h2>
-        <p className="text-default w-6/12">{data.short_description}</p>
+        <h2 className="text-40px font-medium mb-2" style={{ lineHeight: 1 }}>{data.title}</h2>
+        <p className="text-default w-full">{data.short_description}</p>
       </div>
     </div>
   )
