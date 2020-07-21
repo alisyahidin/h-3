@@ -30,7 +30,7 @@ export const LogoSVG = forwardRef(({ className, color, ...props }, ref) => (
 
 const Logo = ({ color }) => {
   return createPortal(
-    <div className="fixed md:fixed--center left-0 top-0 ml-8 sm:ml-12 lg:ml-16 z-10 md:z-0 mt-6 md:mt-0">
+    <div className="hidden md:block fixed md:fixed--center left-0 top-0 ml-8 sm:ml-12 lg:ml-16 z-10 md:z-0 mt-6 md:mt-0">
       <Link href="/">
         {/* <LogoSVG className={`cursor-pointer logo logo--${color}`} color={color} /> */}
         <img width="42px" src="/H3.svg" alt="Logo" className={`cursor-pointer logo logo--${color}`} color={color} />

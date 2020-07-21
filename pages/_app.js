@@ -10,6 +10,7 @@ import Router from 'next/router'
 import { start as startLoading, done as stopLoading } from 'nprogress'
 import SideMenu from 'components/SideMenu'
 import FloatingMenu from 'components/FloatingMenu'
+import NavbarMobile from 'components/NavbarMobile'
 
 function App({ Component, pageProps }) {
   const [active, setActive] = useState(false)
@@ -26,6 +27,7 @@ function App({ Component, pageProps }) {
   }, [])
 
   return <>
+    <NavbarMobile menuActive={active} setMenuActive={setActive} />
     <Component
       {...pageProps}
       HamburgerMenu={forwardRef(({ color }, ref) => <FloatingMenu ref={ref} color={color} menuActive={active} setMenuActive={setActive} />)}

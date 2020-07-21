@@ -7,7 +7,7 @@ const FloatingMenu = forwardRef(({ color = "light", menuActive, setMenuActive },
   useEffect(() => { setRender(process.browser) }, [])
 
   return render ? createPortal(
-    <div ref={ref} className="fixed md:fixed--center right-0 top-0 mr-8 sm:mr-12 lg:mr-16 z-10 mt-6 md:mt-0">
+    <div ref={ref} className="hidden md:block fixed md:fixed--center right-0 top-0 mr-8 sm:mr-12 lg:mr-16 z-10 mt-6 md:mt-0">
       <button
         type="button"
         onClick={() => setMenuActive(active => !active)}

@@ -214,13 +214,15 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
           </div>
         </div>
       </div>
-      <div className="flex md:hidden px-8 py-6 justify-end" style={{ backgroundColor: '#F2F2F2' }}>
+      <div className="flex md:hidden px-8 py-6 justify-between" style={{ backgroundColor: '#F2F2F2' }}>
         <span style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default mr-3">@ Hakuhodo H3 2020 all rights reserved</span>
-        {socialMedia.map(({ name, link }, index) => link && (
-          <a key={index} href={link} target="_blank">
-            <i style={{ color: '#757575', opacity: 0.4 }} className={`text-12px md:text-default icon ${name}`} aria-hidden="true" />
-          </a>
-        ))}
+        <div>
+          {socialMedia.map(({ name, link }, index) => link && (
+            <a key={index} href={link} target="_blank">
+              <i style={{ color: '#757575', opacity: 0.4 }} className={`text-12px md:text-default icon ${name}`} aria-hidden="true" />
+            </a>
+          ))}
+        </div>
       </div>
     </section>
   </>)
