@@ -41,7 +41,7 @@ AwardCard.Detail = ({ data, closeDetail }) => {
     >
       {!isMobileDevice && <div className="flex flex-col md:flex-row items-center md:items-start p-12">
         <img className="md:mr-12 max-w-full md:w-4/12" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data?.picture?.url} alt={data.title} />
-        <div className="flex-1 text-center md:text-left">
+        <div className="flex-1 text-center md:text-left" style={{ whiteSpace: 'break-spaces' }}>
           <h1 className="text-40px font-medium mb-8">{data.title}</h1>
           <Content text={data.description} style={{ color: '#222222', opacity: 0.7 }} />
         </div>

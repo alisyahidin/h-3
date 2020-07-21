@@ -7,7 +7,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 import { useState, forwardRef, useEffect } from 'react'
 import Router from 'next/router'
-import { start as startLoading, done as stopLoading } from 'nprogress'
+import { start as startLoading, done as stopLoading, configure } from 'nprogress'
 import SideMenu from 'components/SideMenu'
 import FloatingMenu from 'components/FloatingMenu'
 import NavbarMobile from 'components/NavbarMobile'
@@ -16,6 +16,7 @@ function App({ Component, pageProps }) {
   const [active, setActive] = useState(false)
 
   useEffect(() => {
+    configure({ showSpinner: window.innerWidth > 768 })
     Router.events.on('routeChangeStart', startLoading)
     Router.events.on('routeChangeComplete', stopLoading)
     Router.events.on('routeChangeError', stopLoading)
