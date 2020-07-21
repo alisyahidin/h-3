@@ -43,6 +43,14 @@ AwardCard.Detail = ({ data, closeDetail }) => {
         <img className="md:mr-12 max-w-full md:w-4/12" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data?.picture?.url} alt={data.title} />
         <div className="flex-1 text-center md:text-left" style={{ whiteSpace: 'break-spaces' }}>
           <h1 className="text-40px font-medium mb-8">{data.title}</h1>
+          {data?.detail && (<>
+            {data.detail?.trophy && <p className="mb-1 font-bold">{data.detail?.trophy}</p>}
+            {data.detail?.category && <p className="mb-1">{data.detail?.category}</p>}
+            {data.detail?.awarding_event && <p className="mb-1">{data.detail?.awarding_event}</p>}
+            {data.detail?.project_name && <p className="mb-1">{data.detail?.project_name}</p>}
+            {data.detail?.product_name && <p className="mb-1">{data.detail?.product_name}</p>}
+            {data.detail?.client_name && <p className="mb-1">{data.detail?.client_name}</p>}
+          </>)}
           <Content text={data.description} style={{ color: '#222222', opacity: 0.7 }} />
         </div>
         <button
