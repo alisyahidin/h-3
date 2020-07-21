@@ -57,7 +57,7 @@ export const getServerSideProps = async () => {
 export default function Home({ data, works, awards, socialMedia, HamburgerMenu }) {
   const menu = useRef(null)
   const scrollDown = useRef(null)
-  const [menuColor, setMenuColor] = useState(getMenuColor(menu) ?? 'dark')
+  const [menuColor, setMenuColor] = useState(getMenuColor(menu) ?? 'hide')
   const [scrollDownColor, setScrollDownColor] = useState(getMenuColor(scrollDown) ?? 'dark')
 
   useEffect(() => {
@@ -77,18 +77,18 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <Logo color={menuColor} />
+    {menuColor !== 'hide' && <Logo color={menuColor} />}
     <HamburgerMenu
       ref={menu}
-      color={menuColor}
+      color={menuColor === 'hide' ? 'dark' : menuColor}
     />
     <ScrollDown
       ref={scrollDown}
-      color={scrollDownColor}
+      color={scrollDownColor === 'hide' ? 'dark' : scrollDownColor}
       onClick={scrollToDown}
     />
 
-    <section id="home" menu-color="dark" className="bg-white">
+    <section id="home" menu-color="hide" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col items-center">
         <div className="flex-1 flex flex-col justify-center items-center">
           <LogoSVG className="mb-4 w-5/12 md:w-auto" width={194} />
@@ -175,7 +175,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
         </div>
       </div>
     </section>
-    <section menu-color="dark" className="bg-white">
+    <section menu-color="hide" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 pb-0 md:pb-12 pt-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
           <div className="hidden md:flex w-2/12 flex-1 flex-col justify-center items-center">
