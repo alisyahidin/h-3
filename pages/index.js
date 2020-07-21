@@ -182,14 +182,16 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
             <LogoSVG className="mb-4" width={194} />
             <img src="/Hakuhodo.svg" alt="Hakuhodo" />
           </div>
-          <div className="md:ml-12" style={{ flex: 2 }}>
+          <div className="md:ml-64" style={{ flex: 2 }}>
             <h2 className="text-32px text-red">H:THREE OFFICE</h2>
-            <p className="text-20px mb-4" style={{ color: '#4F4F4F' }}>
-              <span className="mr-6 block md:inline mb-4 md:mb-0">Tel. +62 21 27516000</span><br className="block md:hidden" />
-              <span>Fax. +62 21 2751608</span>
+            <p className="text-20px mb-0" style={{ color: '#4F4F4F' }}>
+              Tel. +62 21 27516000
             </p>
-            <p className="text-20px mb-4" style={{ color: '#4F4F4F' }}>Mail. H3roes@h-three.id</p>
-            <p className="text-20px mb-4 mt-8 md:mt-0" style={{ color: '#333333' }}>
+            <p className="text-20px mb-0" style={{ color: '#4F4F4F' }}>
+              Fax. +62 21 2751608
+            </p>
+            <p className="text-20px mb-4" style={{ color: '#4F4F4F' }}>Mail. <a style={{ color: '#4F4F4F' }} href="mailto:contactus@h-three.id">contactus@h-three.id</a></p>
+            <p className="text-20px mb-4 mt-8 md:mt-0" style={{ color: '#4F4F4F' }}>
               PT. Hita Wistara Mahir <br />
               Jl. Kyai Maja No.4, lantai 1 <br />
               Kebayoran Baru <br />

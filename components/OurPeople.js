@@ -61,7 +61,7 @@ const OurPeople = ({ id, data }) => {
           <h1 className="text-40px mb-0">{data[profile]?.Name}</h1>
           <p style={{ color: '#222222', opacity: 0.7 }} className="text-16px mb-0">{data[profile]?.Position}</p>
           <p style={{ color: '#222222', opacity: 0.7 }} className="text-16px">{data[profile]?.Company}</p>
-          <p style={{ color: '#222222', opacity: 0.7, whiteSpace: 'break-spaces' }} className="text-default max-w-md">{data[profile]?.Description}</p>
+          <p style={{ color: '#222222', opacity: 0.7, whiteSpace: 'break-spaces' }} className="text-default">{data[profile]?.Description}</p>
         </div>
         <button
           type="button"
