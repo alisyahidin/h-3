@@ -38,8 +38,10 @@ const MenuList = ({ show, setShow }) => {
 
   const scrollTo = id => {
     setShow(false)
-    gsap.to(window, { duration: 1, scrollTo: id, ease: 'power2.in' })
     router.replace('/' + id)
+    
+    const scrollElement = document.getElementById(id.replace('#', ''))
+    scrollElement !== null && gsap.to(window, { duration: 1, scrollTo: id, ease: 'power2.in' }), 100
   }
 
   useEffect(() => {
