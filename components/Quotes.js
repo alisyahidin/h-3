@@ -15,21 +15,13 @@ const settings = {
 }
 
 const Quotes = ({ data = [] }) => {
-  const [widthInidicator, setWidthInidicator] = useState('0%')
-
-  const updateWidth = index => {
-    setWidthInidicator((((index + 1) / data.length) * 100).toString() + '%')
-  }
-
-  useEffect(() => {
-    updateWidth(0)
-  }, [])
+  const [indicator, setIndicator] = useState(0)
 
   return (
     <section menu-color="light" className="bg-red">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col text-white">
         <div className="flex-1 flex items-center">
-          <Slider {...settings} afterChange={updateWidth}>
+          <Slider {...settings} afterChange={setIndicator}>
             {data.map(({quote, author}, index) => (
               <div className="quote" key={index}>
                 <Content text={quote} />
@@ -39,9 +31,9 @@ const Quotes = ({ data = [] }) => {
           </Slider>
         </div>
         <div className="flex items-center my-12">
-          <span className="text-default">{('0' + 1).slice(-2)}</span>
+          <span className="text-default">{('0' + (indicator + 1).toString()).slice(-2)}</span>
           <div className="relative md:w-64 w-full mx-6">
-            <div className="absolute left-0 top-0 bg-white" style={{ zIndex: 1, height: 2, width: widthInidicator, backgroundColor: 'white', transition: 'width 300ms ease' }}></div>
+            <div className="absolute left-0 top-0 bg-white" style={{ zIndex: 1, height: 2, width: (((indicator + 1) / data.length) * 100).toString() + '%', backgroundColor: 'white', transition: 'width 300ms ease' }}></div>
             <div className="absolute left-0 top-0 opacity-50" style={{ height: 2, width: '100%', backgroundColor: '#D7D4D4' }}></div>
           </div>
           <span className="text-default">{('0' + data.length).slice(-2)}</span>
