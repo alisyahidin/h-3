@@ -4,6 +4,7 @@ import Link from 'next/link'
 import ScrollDown from 'components/ScrollDown'
 import Arrow from 'components/Arrow'
 import Content from 'components/Content'
+import Quotes from 'components/Quotes'
 import { LogoSVG } from 'components/Logo'
 import axios from 'lib/axios'
 import { OurWorksList } from './our-works'
@@ -42,19 +43,19 @@ export const getServerSideProps = async () => {
   const data = await axios.get('/landing-page')
   const works = await axios.get('/our-works-page')
   const awards = await axios.get('/awards-page')
-  const socialMedia = await axios.get('/footer')
+  const footer = await axios.get('/footer')
 
   return {
     props: {
-      data: data,
+      data,
       works: works.works,
       awards: awards.awards,
-      socialMedia: socialMedia.social_media,
+      footer
     }
   }
 }
 
-export default function Home({ data, works, awards, socialMedia, HamburgerMenu }) {
+export default function Home({ data, works, awards, footer, HamburgerMenu }) {
   const menu = useRef(null)
   const scrollDown = useRef(null)
   const [menuColor, setMenuColor] = useState(getMenuColor(menu) ?? 'hide')
@@ -102,16 +103,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
         </div>
       </div>
     </section>
-    <section menu-color="light" className="bg-red">
-      <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex items-center">
-        <p className="text-20px md:text-32px whitespace-pre-line text-white uppercase">
-          “ <strong>Design</strong> is not just <br />
-          what it looks like and <br className="md:hidden" /> feels like. <br className="hidden md:block" />
-          Design is <br className="md:hidden" /> how it works. “ <br />
-          <span className="text-20px md:text-28px normal-case">- Steve Jobs</span>
-        </p>
-      </div>
-    </section>
+    <Quotes data={data.quotes} />
     <section id="about-us" menu-color="light" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-end md:items-center">
@@ -178,24 +170,20 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
     <section menu-color="hide" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 pb-0 md:pb-12 pt-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-center">
-          <div className="hidden md:flex w-2/12 flex-1 flex-col justify-center items-center">
-            <LogoSVG className="mb-4" width={194} />
-            <img src="/Hakuhodo.svg" alt="Hakuhodo" />
-          </div>
+          {footer.logo && <div className="hidden md:flex w-2/12 flex-1 flex-col justify-center items-center">
+            <img src={process.env.NEXT_PUBLIC_API_URI + footer.logo.url} alt="Hakuhodo" />
+          </div>}
           <div className="md:ml-64" style={{ flex: 2 }}>
-            <h2 className="text-32px text-red">H:THREE OFFICE</h2>
-            <p className="text-20px mb-0" style={{ color: '#4F4F4F' }}>
-              Tel. +62 21 27516000
-            </p>
-            <p className="text-20px mb-0" style={{ color: '#4F4F4F' }}>
-              Fax. +62 21 2751608
-            </p>
+            <h2 className="text-32px text-red">{footer.title}</h2>
+            {footer.telephone && <p className="text-20px mb-0" style={{ color: '#4F4F4F' }}>
+              Tel. {footer.telephone}
+            </p>}
+            {footer.faximile && <p className="text-20px mb-0" style={{ color: '#4F4F4F' }}>
+              Fax. {footer.faximile}
+            </p>}
             <p className="text-20px mb-4" style={{ color: '#4F4F4F' }}>Mail. <a style={{ color: '#4F4F4F' }} href="mailto:contactus@h-three.id">contactus@h-three.id</a></p>
-            <p className="text-20px mb-4 mt-8 md:mt-0" style={{ color: '#4F4F4F' }}>
-              PT. Hita Wistara Mahir <br />
-              Jl. Kyai Maja No.4, lantai 1 <br />
-              Kebayoran Baru <br />
-              Jakarta 12120, Indonesia <br />
+            <p className="text-20px mb-4 mt-8 md:mt-0" style={{ color: '#4F4F4F', whiteSpace: 'break-spaces' }}>
+              {footer.address}
             </p>
           </div>
         </div>
@@ -206,7 +194,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
           </div>
           <div className="hidden md:block">
             <span style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default mr-3">@ Hakuhodo H3 2020 all rights reserved</span>
-            {socialMedia.map(({ name, link }, index) => link && (
+            {footer?.social_media?.map(({ name, link }, index) => link && (
               <a key={index} href={link} target="_blank">
                 <i style={{ color: '#757575', opacity: 0.4 }} className={`text-12px md:text-default icon ${name}`} aria-hidden="true" />
               </a>
@@ -217,7 +205,7 @@ export default function Home({ data, works, awards, socialMedia, HamburgerMenu }
       <div className="flex md:hidden px-8 py-6 justify-between" style={{ backgroundColor: '#F2F2F2' }}>
         <span style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default mr-3">@ Hakuhodo H3 2020 all rights reserved</span>
         <div>
-          {socialMedia.map(({ name, link }, index) => link && (
+          {footer?.social_media?.map(({ name, link }, index) => link && (
             <a key={index} href={link} target="_blank">
               <i style={{ color: '#757575', opacity: 0.4 }} className={`text-12px md:text-default icon ${name}`} aria-hidden="true" />
             </a>

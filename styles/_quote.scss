@@ -1,0 +1,15 @@
+.quote {
+  & > p:not(:last-child) {
+    @apply text-20px;
+    @apply whitespace-pre-line;
+    @apply uppercase
+  }
+}
+
+@media (min-width: 768px) {
+  .quote {
+    & > p:not(:last-child) {
+      @apply text-32px;
+    }
+  }
+}
