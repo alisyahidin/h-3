@@ -41,8 +41,8 @@ const OurPeople = ({ id, data }) => {
               <div onClick={() => setProfile(index)} className="cursor-pointer p-5" key={index}>
                 <img className="w-full" style={{ objectFit: 'cover', height: window.innerWidth > 767 ? '250' : 'auto' }} src={process.env.NEXT_PUBLIC_API_URI + people?.Photo?.url} alt={people?.Name} />
                 <h3 className="text-22px md:text-32px">{people?.Name}</h3>
-                <p className="text-16px mb-2" style={{ lineHeight: 1 }}>{people?.Position}</p>
-                <p className="text-16px">{people?.Company}</p>
+                <p className="text-14px md:text-16px mb-2" style={{ lineHeight: 1 }}>{people?.Position}</p>
+                <p className="text-14px md:text-16px">{people?.Company}</p>
               </div>
             )}
           </Slider>
@@ -82,17 +82,17 @@ const OurPeople = ({ id, data }) => {
               type="button"
               onClick={() => setProfile(null)}
               className="self-center hamburger hamburger--squeeze is-active pb-5 mt-5 md:mt-0"
-              style={{ transform: isMobileDevice ? 'scale(0.5)' : 'scale(0.7)' }}
+              style={{ transform: isMobileDevice ? 'scale(0.5)' : 'scale(0.7)', marginRight: -20 }}
             >
               <span className="hamburger-box">
                 <span className={`hamburger-inner`} />
               </span>
             </button>
           </div>
-          <img className="md:mr-12 max-w-full md:w-4/12" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data[profile].Photo.url} alt={data[profile]?.Name} />
-          <p style={{ color: '#222222', opacity: 0.7 }} className="text-16px mt-4 mb-0">{data[profile]?.Position}</p>
-          <p style={{ color: '#222222', opacity: 0.7 }} className="text-16px">{data[profile]?.Company}</p>
-          <p style={{ color: '#222222', opacity: 0.7, whiteSpace: 'pre-line' }} className="text-default max-w-md">{data[profile]?.Description}</p>
+          <img className="md:mr-12 w-full md:w-4/12" height="auto" src={process.env.NEXT_PUBLIC_API_URI + data[profile].Photo.url} alt={data[profile]?.Name} />
+          <p style={{ color: '#222222', opacity: 0.7 }} className="text-14px md:text-16px mt-4 mb-0">{data[profile]?.Position}</p>
+          <p style={{ color: '#222222', opacity: 0.7 }} className="text-14px md:text-16px">{data[profile]?.Company}</p>
+          <p style={{ color: '#222222', opacity: 0.7, whiteSpace: 'pre-line' }} className="text-14px md:text-default max-w-md">{data[profile]?.Description}</p>
         </div>}
     </Modal>}
   </>)

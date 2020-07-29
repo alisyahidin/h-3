@@ -39,12 +39,12 @@ const Quotes = ({ data = [] }) => {
           </Slider>
         </div>
         <div className="flex items-center my-12">
-          <span className="text-18px">{('0' + 1).slice(-2)}</span>
+          <span className="text-default">{('0' + 1).slice(-2)}</span>
           <div className="relative md:w-64 w-full mx-6">
             <div className="absolute left-0 top-0 bg-white" style={{ zIndex: 1, height: 2, width: widthInidicator, backgroundColor: 'white', transition: 'width 300ms ease' }}></div>
             <div className="absolute left-0 top-0 opacity-50" style={{ height: 2, width: '100%', backgroundColor: '#D7D4D4' }}></div>
           </div>
-          <span className="text-18px">{('0' + data.length).slice(-2)}</span>
+          <span className="text-default">{('0' + data.length).slice(-2)}</span>
         </div>
       </div>
     </section>
