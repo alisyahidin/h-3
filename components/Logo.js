@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { forwardRef, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
-import axios from 'lib/axios'
 
 export const LogoSVG = forwardRef(({ className, color, ...props }, ref) => (
   <svg {...props} className={className} ref={ref} viewBox="0 0 114 142" fill="none" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
@@ -29,16 +28,7 @@ export const LogoSVG = forwardRef(({ className, color, ...props }, ref) => (
   </svg>
 ))
 
-const Logo = ({ color, hide }) => {
-  const [logo, setLogo] = useState({ light: null, dark: null })
-  useEffect(() => {
-    axios.get('/logo')
-      .then(data => {
-        setLogo({ light: data.light.url, dark: data.dark.url })
-      })
-      .catch(console.error)
-  }, [])
-
+const Logo = ({ logo, color, hide }) => {
   return createPortal(
     <div className="hidden md:block fixed md:fixed--center left-0 top-0 ml-8 sm:ml-12 lg:ml-16 z-10 md:z-0 mt-6 md:mt-0">
       <div className="relative cursor-pointer" style={{ visibility: hide ? 'hidden' : 'visible' }}>

@@ -55,7 +55,7 @@ export const getServerSideProps = async () => {
   }
 }
 
-export default function Home({ data, works, awards, footer, HamburgerMenu }) {
+export default function Home({ logo, data, works, awards, footer, HamburgerMenu }) {
   const menu = useRef(null)
   const scrollDown = useRef(null)
   const [menuColor, setMenuColor] = useState(getMenuColor(menu) ?? 'hide')
@@ -78,7 +78,7 @@ export default function Home({ data, works, awards, footer, HamburgerMenu }) {
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    <Logo hide={menuColor === 'hide'} color={menuColor} />
+    <Logo logo={logo} hide={menuColor === 'hide'} color={menuColor} />
     <HamburgerMenu
       ref={menu}
       color={menuColor === 'hide' ? 'dark' : menuColor}

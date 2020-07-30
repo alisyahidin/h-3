@@ -2,12 +2,12 @@ import React from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
 
-const NavbarMobile = ({ menuActive, setMenuActive }) => {
+const NavbarMobile = ({ logo, menuActive, setMenuActive }) => {
   return (
     <div className="md:hidden fixed left-0 top-0 w-full bg-white px-5 py-4 flex justify-between items-center z-10">
       <Link href="/">
         <a>
-          <img src="/H3.svg" alt="Logo" className="cursor-pointer logo logo--dark" style={{ width: 36 }} />
+          <img src={process.env.NEXT_PUBLIC_API_URI + logo.dark} alt="Logo" className="cursor-pointer logo logo--dark" style={{ width: 36 }} />
         </a>
       </Link>
       <button
