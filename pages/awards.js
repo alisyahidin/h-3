@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
+import Head from 'next/head'
 import clsx from 'clsx'
 import axios from 'lib/axios'
 import AwardCard from 'components/AwardCard'
@@ -42,6 +43,9 @@ const Awards = ({ logo, data, HamburgerMenu }) => {
   }, [])
 
   return (<>
+    <Head>
+      <title>Hakuhodo - Awards</title>
+    </Head>
     <Logo logo={logo} hide={false} color="light" />
     <HamburgerMenu color="light" />
     <section id="awards" className="min-h-screen pt-20 md:pt-0" style={{ backgroundColor: '#221F1F' }}>

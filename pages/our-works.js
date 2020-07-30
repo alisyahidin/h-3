@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import clsx from 'clsx'
 import WorkCard from 'components/WorkCard'
@@ -31,6 +32,9 @@ export const getServerSideProps = async () => {
 
 const OurWorks = ({ logo, data, HamburgerMenu }) => {
   return (<>
+    <Head>
+      <title>Hakuhodo - Our Works</title>
+    </Head>
     <Logo logo={logo} hide={false} color="dark" />
     <HamburgerMenu color="dark" />
     <section id="our-works" className="min-h-screen pt-20 md:pt-0" style={{ backgroundColor: '#FFFFFF' }}>
