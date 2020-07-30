@@ -31,7 +31,7 @@ export const getServerSideProps = async () => {
 
 const OurWorks = ({ data, HamburgerMenu }) => {
   return (<>
-    <Logo />
+    <Logo hide={false} color="dark" />
     <HamburgerMenu color="dark" />
     <section id="our-works" className="min-h-screen pt-20 md:pt-0" style={{ backgroundColor: '#FFFFFF' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 mx-auto">

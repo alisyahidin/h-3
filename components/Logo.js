@@ -1,6 +1,7 @@
 import Link from 'next/link'
-import { forwardRef } from 'react'
+import { forwardRef, useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
+import axios from 'lib/axios'
 
 export const LogoSVG = forwardRef(({ className, color, ...props }, ref) => (
   <svg {...props} className={className} ref={ref} viewBox="0 0 114 142" fill="none" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink">
@@ -28,15 +29,24 @@ export const LogoSVG = forwardRef(({ className, color, ...props }, ref) => (
   </svg>
 ))
 
-const Logo = ({ color }) => {
+const Logo = ({ color, hide }) => {
+  const [logo, setLogo] = useState({ light: null, dark: null })
+  useEffect(() => {
+    axios.get('/logo')
+      .then(data => {
+        setLogo({ light: data.light.url, dark: data.dark.url })
+      })
+      .catch(console.error)
+  }, [])
+
   return createPortal(
     <div className="hidden md:block fixed md:fixed--center left-0 top-0 ml-8 sm:ml-12 lg:ml-16 z-10 md:z-0 mt-6 md:mt-0">
-      <div className="relative cursor-pointer">
+      <div className="relative cursor-pointer" style={{ visibility: hide ? 'hidden' : 'visible' }}>
         <Link href="/">
-          <>
-            <img width="42px" src="/H3.svg" alt="Logo" className={`logo logo--${color} z-10`} style={{ opacity: color === 'light' ? 0 : 100 }} />
-            <img width="42px" src="/H3-white.svg" alt="Logo" className={`absolute left-0 top-0 logo logo--${color}`} style={{ opacity: color === 'dark' ? 0 : 100 }} />
-          </>
+          <a>
+            <img width="42px" src={process.env.NEXT_PUBLIC_API_URI + logo.dark} alt="Logo" className="z-10" style={{ opacity: color === 'light' ? 0 : 100 }} />
+            <img width="42px" src={process.env.NEXT_PUBLIC_API_URI + logo.light} alt="Logo" className="absolute left-0 top-0" style={{ opacity: color === 'dark' ? 0 : 100 }} />
+          </a>
         </Link>
       </div>
     </div>,

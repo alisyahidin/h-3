@@ -78,7 +78,7 @@ export default function Home({ data, works, awards, footer, HamburgerMenu }) {
       <link rel="icon" href="/favicon.ico" />
     </Head>
 
-    {menuColor !== 'hide' && <Logo color={menuColor} />}
+    <Logo hide={menuColor === 'hide'} color={menuColor} />
     <HamburgerMenu
       ref={menu}
       color={menuColor === 'hide' ? 'dark' : menuColor}
@@ -92,8 +92,7 @@ export default function Home({ data, works, awards, footer, HamburgerMenu }) {
     <section id="home" menu-color="hide" className="bg-white">
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col items-center">
         <div className="flex-1 flex flex-col justify-center items-center">
-          <LogoSVG className="mb-4 w-5/12 md:w-auto" width={194} />
-          <img className="w-8/12 md:w-auto" src="/Hakuhodo.svg" alt="Hakuhodo" />
+          {data?.logo?.url && <img className="w-32 md:w-64" src={process.env.NEXT_PUBLIC_API_URI + data?.logo?.url} alt="Hakuhodo" />}
         </div>
         <div className="flex flex-col items-center">
           <p onClick={scrollToDown} className="cursor-pointer text-14px mb-4">HERE WE ARE</p>
@@ -181,7 +180,9 @@ export default function Home({ data, works, awards, footer, HamburgerMenu }) {
             {footer.faximile && <p className="text-20px mb-0" style={{ color: '#4F4F4F' }}>
               Fax. {footer.faximile}
             </p>}
-            <p className="text-20px mb-4" style={{ color: '#4F4F4F' }}>Mail. <a style={{ color: '#4F4F4F' }} href="mailto:contactus@h-three.id">contactus@h-three.id</a></p>
+            {footer.email && <p className="text-20px mb-4" style={{ color: '#4F4F4F' }}>
+              Mail. <a style={{ color: '#4F4F4F' }} href={"mailto:" + footer.email}>{footer.email}</a>
+            </p>}
             <p className="text-20px mb-4 mt-8 md:mt-0" style={{ color: '#4F4F4F', whiteSpace: 'break-spaces' }}>
               {footer.address}
             </p>
