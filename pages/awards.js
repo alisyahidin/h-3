@@ -36,13 +36,13 @@ export const getServerSideProps = async () => {
   }
 }
 
-const Awards = ({ data, HamburgerMenu }) => {
+const Awards = ({ logo, data, HamburgerMenu }) => {
   useEffect(() => {
     process.browser && gsap.to(window, { duration: 0.5, scrollTo: { y: 0 } })
   }, [])
 
   return (<>
-    <Logo hide={false} color="light" />
+    <Logo logo={logo} hide={false} color="light" />
     <HamburgerMenu color="light" />
     <section id="awards" className="min-h-screen pt-20 md:pt-0" style={{ backgroundColor: '#221F1F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 mx-auto">
