@@ -36,7 +36,7 @@ function App({ Component, pageProps }) {
   }, [])
 
   return <>
-    <NavbarMobile logo menuActive={active} setMenuActive={setActive} />
+    <NavbarMobile logo={logo} menuActive={active} setMenuActive={setActive} />
     <Component
       {...pageProps}
       HamburgerMenu={forwardRef(({ color }, ref) => <FloatingMenu ref={ref} color={color} menuActive={active} setMenuActive={setActive} />)}

@@ -194,7 +194,7 @@ export default function Home({ logo, data, works, awards, footer, HamburgerMenu 
             <a style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default">Hakuhodo Global</a>
           </div>
           <div className="hidden md:block">
-            <span style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default mr-3">@ Hakuhodo H3 2020 all rights reserved</span>
+            <span style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default mr-3">{footer?.copy_right}</span>
             {footer?.social_media?.map(({ name, link }, index) => link && (
               <a key={index} href={link} target="_blank">
                 <i style={{ color: '#757575', opacity: 0.4 }} className={`text-12px md:text-default icon ${name}`} aria-hidden="true" />
@@ -204,7 +204,7 @@ export default function Home({ logo, data, works, awards, footer, HamburgerMenu 
         </div>
       </div>
       <div className="flex md:hidden px-8 py-6 justify-between" style={{ backgroundColor: '#F2F2F2' }}>
-        <span style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default mr-3">@ Hakuhodo H3 2020 all rights reserved</span>
+        <span style={{ color: '#757575', opacity: 0.4 }} className="text-12px md:text-default mr-3">{footer?.copy_right}</span>
         <div>
           {footer?.social_media?.map(({ name, link }, index) => link && (
             <a key={index} href={link} target="_blank">
