@@ -121,15 +121,8 @@ export default function Home({ logo, data, works, awards, footer, HamburgerMenu 
           <h2 className="text-32px md:text-52px text-white">PHILOSOPHY</h2>
         </div>
         <div style={{ flexGrow: 2 }} className="philosophy__content text-20px md:text-32px">
-          {/* <Content
-            text={data['philosophy']}
-          /> */}
           <Content
-            text={`# "CREATING UNIQUE CONVERSATION
-# WITH IDENTIFIABLE RESULT."
-
-## CONVERSATION = CONVERT STORY INTO ACTION"
-            `}
+            text={data['philosophy']}
           />
         </div>
       </div>
