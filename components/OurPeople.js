@@ -40,9 +40,9 @@ const OurPeople = ({ id, data }) => {
             {data.map((people, index) =>
               <div onClick={() => setProfile(index)} className="cursor-pointer p-5" key={index}>
                 <img className="w-full" style={{ objectFit: 'cover', height: window.innerWidth > 767 ? '250' : 'auto' }} src={process.env.NEXT_PUBLIC_API_URI + people?.Photo?.url} alt={people?.Name} />
-                <h3 className="text-16px md:text-32px">{people?.Name}</h3>
-                <p className="text-14px md:text-16px mb-2" style={{ lineHeight: 1 }}>{people?.Position}</p>
-                <p className="text-14px md:text-16px">{people?.Company}</p>
+                <h3 className="text-16px md:text-32px mb-2">{people?.Name}</h3>
+                <p className="text-14px mb-2" style={{ lineHeight: 1 }}>{people?.Position}</p>
+                <p className="text-14px">{people?.Company}</p>
               </div>
             )}
           </Slider>
