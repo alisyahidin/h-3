@@ -1,13 +1,13 @@
 @tailwind base;
 
 h1 {
-  @apply text-3xl;
+  @apply text-3xl #{!important};
 }
 h2 {
-  @apply text-2xl;
+  @apply text-2xl #{!important};
 }
 h3 {
-  @apply text-xl;
+  @apply text-xl #{!important};
 }
 
 @tailwind components;

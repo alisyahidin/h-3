@@ -115,13 +115,22 @@ export default function Home({ logo, data, works, awards, footer, HamburgerMenu 
         </div>
       </div>
     </section>
-    <section id="philosophy" menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
+    <section id="philosophy" className="philosophy" menu-color="light" style={{ backgroundColor: '#6F6F6F' }}>
       <div className="container xl:px-24 md:px-16 px-8 py-12 min-h-screen mx-auto flex flex-col">
         <div className="flex-1 flex items-end md:items-center">
           <h2 className="text-32px md:text-52px text-white">PHILOSOPHY</h2>
         </div>
-        <div style={{ flexGrow: 2 }} className="flex items-center text-20px md:text-32px">
-          <Content text={data['philosophy']} />
+        <div style={{ flexGrow: 2 }} className="philosophy__content text-20px md:text-32px">
+          {/* <Content
+            text={data['philosophy']}
+          /> */}
+          <Content
+            text={`# "CREATING UNIQUE CONVERSATION
+# WITH IDENTIFIABLE RESULT."
+
+## CONVERSATION = CONVERT STORY INTO ACTION"
+            `}
+          />
         </div>
       </div>
     </section>

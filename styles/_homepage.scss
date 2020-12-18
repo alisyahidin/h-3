@@ -13,10 +13,23 @@
   }
 }
 
-#philosophy {
-  p {
+.philosophy {
+  &__content {
     @apply text-white;
     @apply uppercase;
+    @apply flex;
+    @apply flex-col;
+    @apply justify-center;
     white-space: break-spaces;
+
+    h1 {
+      font-weight: 400 !important;
+      margin: 0;
+    }
+
+    h3, h2, h4 {
+      margin-top: 6rem;
+      font-weight: 400 !important;
+    }
   }
 }
